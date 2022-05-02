@@ -21,20 +21,9 @@ class Goto_stmt;
 class For_stmt;
 class Binary_expression;
 
-using Stmt_list = vector<Stmt *>;
 using Args_list = vector<Expression *>;
 
-
-class Stmt : public Node {
-private:
-    int label = -1;
-
-public:
-    virtual llvm::Value *codegen() = 0;
-};
-
 class Expression : public Node {};
-
 
 class Assign_stmt : public Stmt {
 private:

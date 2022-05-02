@@ -5,6 +5,13 @@
 
 using namespace std;
 
+class Node;
+class Identifier;
+class Stmt;
+
+using Stmt_list = vector<Stmt *>;
+using Name_list = vector<Identifier *>;
+
 class Node {
 public:
     virtual ~Node() {}
@@ -17,4 +24,12 @@ private:
 public:
     Identifier(string name) : name(name) {}
     llvm::Value *codegen();
+};
+
+class Stmt : public Node {
+private:
+    int label = -1;
+
+public:
+    virtual llvm::Value *codegen() = 0;
 };

@@ -11,11 +11,12 @@ int yylex();
 %union {
     int ival;
     double dval;
-    char *sval; //?why
+    string *sval; //?why
     char cval;
 
     Identifier *id;
     Program *program;
+    Program_head *program_head;
     Routine *routine;
     Routine_head *routine_head;
     Routine_body *routine_body;
@@ -28,18 +29,25 @@ int yylex();
     Type_decl_list *type_decl_list;
     Type_definition *type_definition;
     Type_decl *type_decl;
+    Simple_type_decl *simple_type_decl;
+    Array_type_decl *array_type_decl;
+    Record_type_decl *record_type_decl;
 }
-%token PROGRAM ID CONST ARRAY VAR FUNCTION PROCEDURE BEGIN END TYPE RECORD
-%token INTEGER REAL CHAR STRING
-%token SYS_CON SYS_FUNCT SYS_PROC SYS_TYPE
-%token IF THEN ELSE REPEAT UNTIL WHILE DO FOR TO DOWNTO CASE OF GOTO READ
+
 %token ASSIGN EQ NE LE LT GE GT
+%token PROGRAM CONST ARRAY VAR FUNCTION PROCEDURE BEGIN END TYPE RECORD
+%token IF THEN ELSE REPEAT UNTIL WHILE DO FOR TO DOWNTO CASE OF GOTO 
 %token PLUS MINUS MUL DIV MOD AND OR NOT
 %token DOT DOTDOT SEMI LP RP LS RS COMMA COLON
 
-%type
+%token<ival> INTEGER
+%token<dval> REAL 
+%token<sval> ID SYS_CON SYS_FUNCT SYS_PROC SYS_TYPE READ
+%token<cval> CHAR
+
+%type<id> name
 %type<program> program
-%type<sval> program_head
+%type<program_head> program_head
 %type<routine> routine sub_routine
 %type<routine_head> routine_head
 %type<routine_body> routine_body
@@ -52,56 +60,66 @@ int yylex();
 %type<type_decl_list> type_decl_list
 %type<type_definition> type_definition
 %type<type_decl> type_decl
-
+%type<simple_type_decl> simple_type_decl
+%type<array_type_decl> array_type_decl
+%type<record_type_decl> record_type_decl
 %%
-name: ID
-
-program         : program_head routine DOT
+name            : ID { $$ = new Identifier($1); }
                 ;
 
-program_head    : PROGRAM ID SEMI
+program         : program_head routine DOT { $$ = new Program($1, $2); }
                 ;
 
-routine         : routine_head routine_body
+program_head    : PROGRAM ID SEMI { $$ = new Program_head($2); }
                 ;
 
-sub_routine : routine_head routine_body
-            ;
-
-routine_head : const_part type_part var_part routine_part
-
-const_part : CONST const_expr_list  
-           |  
-           ;
-
-const_expr_list : const_expr_list name EQ const_value SEMI
-                | name EQ const_value SEMI
+routine         : routine_head routine_body { $$ = new Routine($1, $2); }
                 ;
 
-const_value : INTEGER 
-            | REAL 
-            | CHAR 
-            | STRING  
-            | SYS_CON
-            ;
+sub_routine     : routine_head routine_body { $$ = new Routine($1, $2); }
+                ;
 
-type_part : TYPE type_decl_list  
-          |
-          ;
+routine_head    : const_part type_part var_part routine_part { $$ = new Routine_head($1, $2, $3, $4); }
+                ;
+
+const_part      : CONST const_expr_list { $$ = new Const_part($2); }
+                |                       { $$ = new Const_part(); } //?
+                ;
+
+const_expr_list : const_expr_list name EQ const_value SEMI { $$ = $1; $$->push_back(new Const_expr($2, $4)); }
+                | name EQ const_value SEMI                 { $$ = new Const_expr_list(); $$->push_back(new Const_expr($1, $3)); }
+                ;
+
+const_value     : INTEGER { $$ = new Const_value(Const_value::Const_type::INT, $1); }
+                | REAL    { $$ = new Const_value(Const_value::Const_type::REAL, $1); }
+                | CHAR    { $$ = new Const_value(Const_value::Const_type::CHAR, $1); }
+                | SYS_CON { 
+                            if ($1 == "true" || $1 == "false") {
+                                $$ = new Const_value(Const_value::Const_type::BOOL, $1); 
+                            }
+                            else {
+                                $$ = new Const_value(Const_value::Const_type::STRING, $1);
+                            } //有问题
+                          }
+                ;
+
+type_part       : TYPE type_decl_list { $$ = new Type_part($2); }
+                |                     { $$ = new Type_part(); }
+                ;
         
-type_decl_list  : type_decl_list type_definition  
-                | type_definition
+type_decl_list  : type_decl_list type_definition { $$ = $1; $$->push_back($2); }
+                | type_definition                { $$ = new Type_decl_list(); $$->push_back($1); }
                 ;
 
-type_definition : name EQ type_decl SEMI
+type_definition : name EQ type_decl SEMI         { $$ = new Type_definition($1, $3); }
                 ;
                 
-type_decl   : simple_type_decl  
-            | array_type_decl  
-            | record_type_decl
-            ;
+type_decl       : simple_type_decl                  
+                | array_type_decl  
+                | record_type_decl
+                ;
 
-simple_type_decl    : SYS_TYPE  
+simple_type_decl    : SYS_TYPE  { $$ = new Simple_type_decl($1); }
                     | name  
                     | LP name_list RP  
                     | const_value DOTDOT const_value  
@@ -110,17 +128,18 @@ simple_type_decl    : SYS_TYPE
                     | name DOTDOT name
                     ;
 
-array_type_decl : ARRAY LS simple_type_decl RS OF type_decl
-                ;
+array_type_decl     : ARRAY LS simple_type_decl RS OF type_decl
+                    ;
 
 record_type_decl    : RECORD field_decl_list END
                     ;
 
-field_decl_list : field_decl_list field_decl  
-                | field_decl
-                ;
+field_decl_list     : field_decl_list field_decl  
+                    | field_decl
+                    ;
 
-field_decl : name_list COLON type_decl SEMI
+field_decl          : name_list COLON type_decl SEMI
+                    ;
 
 name_list   : name_list COMMA ID  
             | ID
