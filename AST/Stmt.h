@@ -30,6 +30,7 @@ enum Binary_op {
 };
 
 class Direction;
+class Compound_stmt;
 class Assign_stmt;
 class Proc_stmt;
 class If_stmt;

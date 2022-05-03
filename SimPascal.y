@@ -11,7 +11,7 @@ int yylex();
 %union {
     int ival;
     double dval;
-    string *sval;
+    string sval;
     char cval;
 
     Identifier *id;
@@ -72,7 +72,7 @@ int yylex();
 %type<program_head> program_head
 %type<routine> routine sub_routine
 %type<routine_head> routine_head
-%type<routine_body> routine_body
+%type<routine_body> routine_body compound_stmt
 %type<const_part> const_part
 %type<type_part> type_part
 %type<var_part> var_part
@@ -97,9 +97,9 @@ int yylex();
 %type<para_type_list> para_type_list
 %type<val_para_list> val_para_list
 %type<var_para_list> var_para_list
-%type<stmt_list> stmt_list, compound_stmt
-%type<stmt> stmt, non_label_stmt, assign_stmt, if_stmt, repeat_stmt, while_stmt, for_stmt, goto_stmt, case_stmt, proc_stmt, else_clause
-%type<expression> expression, expr, term, factor
+%type<stmt_list> stmt_list
+%type<stmt> stmt non_label_stmt assign_stmt if_stmt repeat_stmt while_stmt for_stmt goto_stmt case_stmt proc_stmt else_clause
+%type<expression> expression expr term factor
 %type<direction> direction
 %type<case_expr_list> case_expr_list
 %type<case_expr> case_expr
@@ -125,23 +125,23 @@ routine_head    : const_part type_part var_part routine_part { $$ = new Routine_
                 ;
 
 const_part      : CONST const_expr_list { $$ = new Const_part($2); }
-                |                       { $$ = new Const_part(); } //?
+                |                       { $$ = new Const_part(); } 
                 ;
 
 const_expr_list : const_expr_list name EQ const_value SEMI { $$ = $1; $$->push_back(new Const_expr($2, $4)); }
                 | name EQ const_value SEMI                 { $$ = new Const_expr_list(); $$->push_back(new Const_expr($1, $3)); }
                 ;
 
-const_value     : INTEGER { $$ = new Const_value(Const_value::Const_type::INT, $1); }
-                | REAL    { $$ = new Const_value(Const_value::Const_type::REAL, $1); }
-                | CHAR    { $$ = new Const_value(Const_value::Const_type::CHAR, $1); }
+const_value     : INTEGER { $$ = new Const_value(INT, $1); }
+                | REAL    { $$ = new Const_value(REAL, $1); }
+                | CHAR    { $$ = new Const_value(CHAR, $1); }
                 | SYS_CON { 
                             if ($1 == "true" || $1 == "false") {
-                                $$ = new Const_value(Const_value::Const_type::BOOL, $1); 
+                                $$ = new Const_value(BOOLEN, $1); 
                             }
                             else {
-                                $$ = new Const_value(Const_value::Const_type::STRING, $1);
-                            } //有问题
+                                $$ = new Const_value(INT, 0x7FFFFFFF);
+                            }
                           }
                 ;
 
@@ -163,16 +163,16 @@ type_decl       : simple_type_decl               { $$ = new Type_decl($1); }
 
 simple_type_decl    : SYS_TYPE                  { 
                                                     if ($1 == "integer") {
-                                                        $$ = new Simple_type_decl(Base_type::INT);
+                                                        $$ = new Simple_type_decl(INT);
                                                     } 
                                                     else if ($1 == "real") {
-                                                        $$ = new Simple_type_decl(Base_type::REAL);
+                                                        $$ = new Simple_type_decl(REAL);
                                                     }
                                                     else if ($1 == "char") {
-                                                        $$ = new Simple_type_decl(Base_type::CHAR);
+                                                        $$ = new Simple_type_decl(CHAR);
                                                     }
                                                     else if ($1 == "boolean") {
-                                                        $$ = new Simple_type_decl(Base_type::BOOLEN);
+                                                        $$ = new Simple_type_decl(BOOLEN);
                                                     }
                                                 }
                     | name                                          { $$ = new Simple_type_decl($1); }
@@ -201,7 +201,7 @@ name_list   : name_list COMMA ID                                    { $$ = $1; $
             ;
 
 var_part    : VAR var_decl_list                                     { $$ = new Var_part($2); }
-            | 
+            |                                                       { $$ = new Var_part(); }
             ;
 
 var_decl_list   : var_decl_list var_decl                            { $$ = $1; $$->push_back($2); }
@@ -234,7 +234,7 @@ parameters      : LP para_decl_list RP                              { $$ = $2; }
                 |                                                   { $$ = new Para_decl_list(); }
                 ;
 
-para_decl_list  : para_decl_list SEMI para_type_list                { $$ = $1; $$->push_back($3); }}  
+para_decl_list  : para_decl_list SEMI para_type_list                { $$ = $1; $$->push_back($3); }  
                 | para_type_list                                    { $$ = new Para_decl_list(); $$->push_back($1); }
                 ;
 
@@ -248,10 +248,10 @@ var_para_list   : VAR name_list                                     { $$ = new V
 val_para_list   : name_list                                         { $$ = new Va_para_list($1, false); }
                 ;
 
-routine_body    : compound_stmt                                     { $$ = new Routine_body($1); }
+routine_body    : compound_stmt                                     { $$ = $1; }
                 ;
 
-compound_stmt   : BEGIN stmt_list END                               { $$ = $2 } 
+compound_stmt   : BEGIN stmt_list END                               { $$ = new Routine_body($2); } 
                 ;
 
 stmt_list       : stmt_list stmt SEMI                               { $$ = $1; $$->push_back($2); }
@@ -280,9 +280,21 @@ assign_stmt     : ID ASSIGN expression                              { $$ = new A
 
 proc_stmt       : ID                                                { $$ = new Proc_stmt($1); }
                 | ID LP args_list RP                                { $$ = new Proc_stmt($1, $3); }
-                | SYS_PROC                                          { $$ = new Sysproc_stmt($1); }
-                | SYS_PROC LP expression_list RP                    { $$ = new Sysproc_stmt($1, $3); }
-                | READ LP factor RP                                 { $$ = new Sysproc_stmt($1, $3); }  //
+                | SYS_PROC                                          {
+                                                                        if ($1 == "write")
+                                                                            $$ = new Sysproc_stmt(WRITE); 
+                                                                        else if ($1 == "writeln") 
+                                                                            $$ = new Sysproc_stmt(WRITELN);
+                                                                    }
+                | SYS_PROC LP expression_list RP                    { 
+                                                                        if ($1 == "write")
+                                                                            $$ = new Sysproc_stmt(WRITE, $3); 
+                                                                        else if ($1 == "writeln")
+                                                                            $$ = new Sysproc_stmt(WRITELN, $3);
+                                                                    }
+                | READ LP factor RP                                 { 
+                                                                        $$ = new Sysproc_stmt(READ, $3); 
+                                                                    } 
                 ;
 
 if_stmt         : IF expression THEN stmt else_clause               { $$ = new If_stmt($2, $4, $5); }
@@ -323,36 +335,70 @@ expression_list : expression_list COMMA expression                      { $$ = $
                 | expression                                            { $$ = new Expression_list(); $$->push_back($1); }
                 ;
 
-expression      : expression GE expr                                    { $$ = new Expression(GE, $1, $3); }
-                | expression GT expr                                    { $$ = new Expression(GT, $1, $3); }
-                | expression LE expr                                    { $$ = new Expression(LE, $1, $3); }
-                | expression LT expr                                    { $$ = new Expression(LT, $1, $3); }
-                | expression EQ expr                                    { $$ = new Expression(EQ, $1, $3); }
-                | expression NE expr                                    { $$ = new Expression(NE, $1, $3); }
+expression      : expression GE expr                                    { $$ = new Binary_expression(GE, $1, $3); }
+                | expression GT expr                                    { $$ = new Binary_expression(GT, $1, $3); }
+                | expression LE expr                                    { $$ = new Binary_expression(LE, $1, $3); }
+                | expression LT expr                                    { $$ = new Binary_expression(LT, $1, $3); }
+                | expression EQ expr                                    { $$ = new Binary_expression(EQ, $1, $3); }
+                | expression NE expr                                    { $$ = new Binary_expression(NE, $1, $3); }
                 | expr                                                  { $$ = $1; }
                 ;
 
-expr            : expr PLUS term                                        { $$ = new Expression(PLUS, $1, $3); }
-                | expr MINUS term                                       { $$ = new Expression(MINUS, $1, $3); }
-                | expr OR term                                          { $$ = new Expression(OR, $1, $3); }
+expr            : expr PLUS term                                        { $$ = new Binary_expression(PLUS, $1, $3); }
+                | expr MINUS term                                       { $$ = new Binary_expression(MINUS, $1, $3); }
+                | expr OR term                                          { $$ = new Binary_expression(OR, $1, $3); }
                 | term                                                  { $$ = $1; }
                 ;
 
-term            : term MUL factor                                       { $$ = new Expression(MUL, $1, $3); }
-                | term DIV factor                                       { $$ = new Expression(DIV, $1, $3); }
-                | term MOD factor                                       { $$ = new Expression(MOD, $1, $3); }
-                | term AND factor                                       { $$ = new Expression(AND, $1, $3); }
+term            : term MUL factor                                       { $$ = new Binary_expression(MUL, $1, $3); }
+                | term DIV factor                                       { $$ = new Binary_expression(DIV, $1, $3); }
+                | term MOD factor                                       { $$ = new Binary_expression(MOD, $1, $3); }
+                | term AND factor                                       { $$ = new Binary_expression(AND, $1, $3); }
                 | factor                                                { $$ = $1; }
                 ;
 
 factor          : name                                                  { $$ = $1; }
                 | name LP args_list RP                                  { $$ = new Func_stmt($1, $3); }
-                | SYS_FUNCT                                             { $$ = new Sysfunc_stmt($1); }
-                | SYS_FUNCT LP args_list RP                             { $$ = new Sysfunc_stmt($1, $3); }
+                | SYS_FUNCT                                             {
+                                                                            if ($1 == "ads")  
+                                                                                $$ = new Sysfunc_stmt(ADS);
+                                                                            else if ($1 == "chr")
+                                                                                $$ = new Sysfunc_stmt(CHR);
+                                                                            else if ($1 == "odd")
+                                                                                $$ = new Sysfunc_stmt(ODD);
+                                                                            else if ($1 == "ord")
+                                                                                $$ = new Sysfunc_stmt(ORD); 
+                                                                            else if ($1 == "pred")
+                                                                                $$ = new Sysfunc_stmt(PRED);
+                                                                            else if ($1 == "sqr")
+                                                                                $$ = new Sysfunc_stmt(SQR);
+                                                                            else if ($1 == "sqrt")
+                                                                                $$ = new Sysfunc_stmt(SQRT);
+                                                                            else if ($1 == "succ")
+                                                                                $$ = new Sysfunc_stmt(SUCC);
+                                                                        }
+                | SYS_FUNCT LP args_list RP                             {
+                                                                            if ($1 == "ads")  
+                                                                                $$ = new Sysfunc_stmt(ADS, $3);
+                                                                            else if ($1 == "chr")
+                                                                                $$ = new Sysfunc_stmt(CHR, $3);
+                                                                            else if ($1 == "odd")
+                                                                                $$ = new Sysfunc_stmt(ODD, $3);
+                                                                            else if ($1 == "ord")
+                                                                                $$ = new Sysfunc_stmt(ORD, $3); 
+                                                                            else if ($1 == "pred")
+                                                                                $$ = new Sysfunc_stmt(PRED, $3);
+                                                                            else if ($1 == "sqr")
+                                                                                $$ = new Sysfunc_stmt(SQR, $3);
+                                                                            else if ($1 == "sqrt")
+                                                                                $$ = new Sysfunc_stmt(SQRT, $3);
+                                                                            else if ($1 == "succ")
+                                                                                $$ = new Sysfunc_stmt(SUCC, $3);
+                                                                        }
                 | const_value                                           { $$ = $1; }
                 | LP expression RP                                      { $$ = $2; }
-                | NOT factor                                            { $$ = new Expression(NOT, new Const_value(BOOLEN, true), $2); }
-                | MINUS factor                                          { $$ = new Expression(MINUS, new Const_value(INT, 0), $2); }
+                | NOT factor                                            { $$ = new Binary_expression(NOT, new Const_value(BOOLEN, true), $2); }
+                | MINUS factor                                          { $$ = new Binary_expression(MINUS, new Const_value(INT, 0), $2); }
                 | ID LS expression RS                                   { $$ = new Array_access($1, $3); }
                 | ID DOT ID                                             { $$ = new Record_access($1, $3); }
                 ;

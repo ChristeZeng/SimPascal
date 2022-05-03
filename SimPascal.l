@@ -2,6 +2,9 @@
 #include <iostream>
 #include <string>
 #include "SimPascal.h"
+#include "AST/AST.h"
+
+using namespace std;
 %}
 
 %%
@@ -10,7 +13,7 @@
 [a-zA-Z][a-zA-Z0-9]*        {
                                 std::cout << "Identifier: " << yytext << std::endl;
                                 yylval.sVal = yytext;
-                                return IDENTIFIER;
+                                return ID;
                             }
 
 [+-]?[0-9]+                 {
@@ -22,7 +25,7 @@
 [+-]?[0-9]+\.[0-9]+         {
                                 std::cout << "Real: " << yytext << std::endl;
                                 yylval.fVal = atof(yytext);
-                                return FLOAT;
+                                return REAL;
                             }
 
 "("    { return LP; }
