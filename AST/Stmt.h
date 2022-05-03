@@ -7,8 +7,28 @@
 #include "Const.h"
 using namespace std;
 
-class Stmt;
-class Expression;
+enum Direction_type {
+    TO,
+    DOWNTO
+};
+
+enum Binary_op {
+    PLUS,
+    MINIUS,
+    MUL,
+    DIV,
+    MOD,
+    AND,
+    OR,
+    GE,
+    GT,
+    LE,
+    LT,
+    EQ,
+    NE,
+    NOT,
+};
+
 class Direction;
 class Assign_stmt;
 class Proc_stmt;
@@ -22,8 +42,7 @@ class For_stmt;
 class Binary_expression;
 
 using Args_list = vector<Expression *>;
-
-class Expression : public Node {};
+using Expression_list = vector<Expression *>;
 
 class Assign_stmt : public Stmt {
 private:
@@ -38,7 +57,6 @@ public:
     llvm::Value *codegen();
 };
 
-/*系统调用还未考虑*/
 class Proc_stmt : public Stmt {
 private:
     Identifier *id;
@@ -48,6 +66,38 @@ public:
     Proc_stmt(Identifier *id, Args_list *args_list) : id(id), args_list(args_list) {}
     llvm::Value *codegen();
 };
+
+class Sysproc_stmt : public Stmt {
+private:
+    SysFunc func;
+    Args_list *args_list;
+public:
+    Sysproc_stmt(SysFunc func) : func(func) {}
+    Sysproc_stmt(SysFunc func, Args_list *args_list) : func(func), args_list(args_list) {}
+    llvm::Value *codegen();
+};
+
+class Func_stmt : public Expression {
+private:
+    Identifier *id;
+    Args_list *args_list;
+public:
+    Func_stmt(Identifier *id) : id(id) {}
+    Func_stmt(Identifier *id, Args_list *args_list) : id(id), args_list(args_list) {}
+    llvm::Value *codegen();
+};
+
+class Sysfunc_stmt : public Expression {
+private:
+    SysFunc func;
+    Args_list *args_list;
+public:
+    Sysfunc_stmt(SysFunc func) : func(func) {}
+    Sysfunc_stmt(SysFunc func, Args_list *args_list) : func(func), args_list(args_list) {}
+    llvm::Value *codegen();
+};
+
+
 
 class If_stmt : public Stmt {
 private:
@@ -80,21 +130,18 @@ public:
 
 class Direction : public Node {
 private:
-    enum Direction_type {
-        TO,
-        DOWNTO
-    } type;
+    Direction_type direction_type;
 public:
-    Direction(Direction_type type) : type(type) {}
+    Direction(Direction_type direction_type) : direction_type(direction_type) {}
 };
 
 class Case_expr : public Node {
 private:
-    Const_expr *const_expr;
+    Const_value *const_value;
     Identifier *id;
     Stmt *stmt;
 public:
-    Case_expr(Const_expr *const_expr, Stmt *stmt) : const_expr(const_expr), stmt(stmt) {}
+    Case_expr(Const_value *const_value, Stmt *stmt) : const_value(const_value), stmt(stmt) {}
     Case_expr(Identifier *id, Stmt *stmt) : id(id), stmt(stmt) {}
     llvm::Value *codegen();
 };
@@ -133,25 +180,28 @@ public:
 
 class Binary_expression : public Expression {
 private:
-    enum Binary_op {
-        PLUS,
-        MINIUS,
-        MUL,
-        DIV,
-        MOD,
-        AND,
-        OR,
-        GE,
-        GT,
-        LE,
-        LT,
-        EQ,
-        NE,
-        NOT,
-    } op;
+    Binary_op op;
     Expression *lexpression;
     Expression *rexpression;
 public:
     Binary_expression(Binary_op op, Expression *lexpression, Expression *rexpression) : op(op), lexpression(lexpression), rexpression(rexpression) {}
+    llvm::Value *codegen();
+};
+
+class Array_access : public Expression {
+private:
+    Identifier *id;
+    Expression *index;
+public:
+    Array_access(Identifier *id, Expression *index) : id(id), index(index) {}
+    llvm::Value *codegen();
+};
+
+class Record_access : public Expression {
+private:
+    Identifier *id;
+    Identifier *field_id;
+public:
+    Record_access(Identifier *id, Identifier *field_id) : id(id), field_id(field_id) {}
     llvm::Value *codegen();
 };

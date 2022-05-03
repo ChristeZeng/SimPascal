@@ -11,7 +11,7 @@ int yylex();
 %union {
     int ival;
     double dval;
-    string *sval; //?why
+    string *sval;
     char cval;
 
     Identifier *id;
@@ -41,9 +41,18 @@ int yylex();
     Function_decl *procedure_decl;
     Function_head *function_head;
     Function_head *procedure_head;
-    Para_decl *para_decl;
+    Para_decl *para_type_list;
     Para_decl_list *para_decl_list;
-    Para_type_list *para_type_list;
+    Va_para_list *val_para_list;
+    Va_para_list *var_para_list;
+    Stmt_list *stmt_list;
+    Stmt *stmt;
+    Expression *expression;
+    Expression_list *expression_list;
+    Direction *direction;
+    Case_expr_list *case_expr_list;
+    Case_expr *case_expr;
+    Args_list *args_list;
 }
 
 %token ASSIGN EQ NE LE LT GE GT
@@ -86,6 +95,16 @@ int yylex();
 %type<procedure_head> procedure_head
 %type<para_decl_list> parameters para_decl_list
 %type<para_type_list> para_type_list
+%type<val_para_list> val_para_list
+%type<var_para_list> var_para_list
+%type<stmt_list> stmt_list, compound_stmt
+%type<stmt> stmt, non_label_stmt, assign_stmt, if_stmt, repeat_stmt, while_stmt, for_stmt, goto_stmt, case_stmt, proc_stmt, else_clause
+%type<expression> expression, expr, term, factor
+%type<direction> direction
+%type<case_expr_list> case_expr_list
+%type<case_expr> case_expr
+%type<expression_list> expression_list
+%type<args_list> args_list
 %%
 name            : ID { $$ = new Identifier($1); }
                 ;
@@ -215,128 +234,129 @@ parameters      : LP para_decl_list RP                              { $$ = $2; }
                 |                                                   { $$ = new Para_decl_list(); }
                 ;
 
-para_decl_list  : para_decl_list SEMI para_type_list   
-                | para_type_list
+para_decl_list  : para_decl_list SEMI para_type_list                { $$ = $1; $$->push_back($3); }}  
+                | para_type_list                                    { $$ = new Para_decl_list(); $$->push_back($1); }
                 ;
 
-para_type_list  : var_para_list COLON simple_type_decl
-                | val_para_list COLON simple_type_decl
+para_type_list  : var_para_list COLON simple_type_decl              { $$ = new Para_decl($1, $3) }
+                | val_para_list COLON simple_type_decl              { $$ = new Para_decl($1, $3) }
                 ;
 
-var_para_list   : VAR name_list
+var_para_list   : VAR name_list                                     { $$ = new Va_para_list($2, true); }
                 ;
 
-val_para_list   : name_list
+val_para_list   : name_list                                         { $$ = new Va_para_list($1, false); }
                 ;
 
-routine_body    : compound_stmt
-
-compound_stmt   : BEGIN stmt_list END
+routine_body    : compound_stmt                                     { $$ = new Routine_body($1); }
                 ;
 
-stmt_list       : stmt_list stmt SEMI  
-                |  
+compound_stmt   : BEGIN stmt_list END                               { $$ = $2 } 
                 ;
 
-stmt            : INTEGER COLON non_label_stmt  
-                | non_label_stmt
+stmt_list       : stmt_list stmt SEMI                               { $$ = $1; $$->push_back($2); }
+                |                                                   { $$ = new Stmt_list(); }
                 ;
 
-non_label_stmt  : assign_stmt 
-                | proc_stmt 
-                | compound_stmt 
-                | if_stmt 
-                | repeat_stmt 
-                | while_stmt
-                | for_stmt 
-                | case_stmt 
-                | goto_stmt
+stmt            : INTEGER COLON non_label_stmt                      { $$ = $3; $3->Setlabel($1); }
+                | non_label_stmt                                    { $$ = $1; }
                 ;
 
-assign_stmt     : ID ASSIGN expression
-                | ID LS expression RS ASSIGN expression
-                | ID DOT ID ASSIGN expression
+non_label_stmt  : assign_stmt                                       { $$ = $1; }                                         
+                | proc_stmt                                         { $$ = $1; }
+                | compound_stmt                                     { $$ = $1; }
+                | if_stmt                                           { $$ = $1; }
+                | repeat_stmt                                       { $$ = $1; }
+                | while_stmt                                        { $$ = $1; }
+                | for_stmt                                          { $$ = $1; }
+                | case_stmt                                         { $$ = $1; }
+                | goto_stmt                                         { $$ = $1; }
                 ;
 
-proc_stmt       : ID
-                | ID LP args_list RP
-                /* | SYS_PROC
-                | SYS_PROC LP expression_list RP
-                | READ LP factor RP */
+assign_stmt     : ID ASSIGN expression                              { $$ = new Assign_stmt($1, $3); }
+                | ID LS expression RS ASSIGN expression             { $$ = new Assign_stmt($1, $3, $6); }
+                | ID DOT ID ASSIGN expression                       { $$ = new Assign_stmt($1, $5, $2); }
                 ;
 
-if_stmt         : IF expression THEN stmt else_clause
+proc_stmt       : ID                                                { $$ = new Proc_stmt($1); }
+                | ID LP args_list RP                                { $$ = new Proc_stmt($1, $3); }
+                | SYS_PROC                                          { $$ = new Sysproc_stmt($1); }
+                | SYS_PROC LP expression_list RP                    { $$ = new Sysproc_stmt($1, $3); }
+                | READ LP factor RP                                 { $$ = new Sysproc_stmt($1, $3); }  //
                 ;
 
-else_clause     : ELSE stmt 
-                | 
+if_stmt         : IF expression THEN stmt else_clause               { $$ = new If_stmt($2, $4, $5); }
                 ;
 
-repeat_stmt     : REPEAT stmt_list UNTIL expression
+else_clause     : ELSE stmt                                         { $$ = $2; }       
+                |                                                   { $$ = nullptr; }
                 ;
 
-while_stmt      : WHILE expression DO stmt
+repeat_stmt     : REPEAT stmt_list UNTIL expression                 { $$ = new Repeat_stmt($2, $4); }
                 ;
 
-for_stmt        : FOR ID ASSIGN expression direction expression DO stmt
+while_stmt      : WHILE expression DO stmt                          { $$ = new While_stmt($2, $4); }
                 ;
 
-direction       : TO 
-                | DOWNTO
+for_stmt        : FOR ID ASSIGN expression direction expression DO stmt     { $$ = new For_stmt($2, $4, $5, $6, $8); }
                 ;
 
-case_stmt       : CASE expression OF case_expr_list  END
+direction       : TO                            { $$ = new Direction(TO); }
+                | DOWNTO                        { $$ = new Direction(DOWNTO); }
                 ;
 
-case_expr_list  : case_expr_list case_expr  
-                | case_expr
+case_stmt       : CASE expression OF case_expr_list END                 { $$ = new Case_stmt($2, $4); }
                 ;
 
-case_expr       : const_value COLON stmt SEMI
-                | ID COLON stmt SEMI
+case_expr_list  : case_expr_list case_expr                              { $$ = $1; $$->push_back($2); } 
+                | case_expr                                             { $$ = new Case_expr_list(); $$->push_back($1); }
                 ;
 
-goto_stmt       : GOTO INTEGER
+case_expr       : const_value COLON stmt SEMI                           { $$ = new Case_expr($1, $3); }
+                | ID COLON stmt SEMI                                    { $$ = new Case_expr($1, $3); }
                 ;
 
-expression_list : expression_list COMMA expression  
-                | expression
+goto_stmt       : GOTO INTEGER                                          { $$ = new Goto_stmt($2); }
                 ;
 
-expression      : expression GE expr  
-                | expression GT expr  
-                | expression LE expr
-                | expression LT expr  
-                | expression EQ expr  
-                | expression NE expr  
-                | expr
+expression_list : expression_list COMMA expression                      { $$ = $1; $$->push_back($3); }
+                | expression                                            { $$ = new Expression_list(); $$->push_back($1); }
                 ;
 
-expr            : expr PLUS term  
-                | expr MINUS term  
-                | expr OR term  
-                | term
+expression      : expression GE expr                                    { $$ = new Expression(GE, $1, $3); }
+                | expression GT expr                                    { $$ = new Expression(GT, $1, $3); }
+                | expression LE expr                                    { $$ = new Expression(LE, $1, $3); }
+                | expression LT expr                                    { $$ = new Expression(LT, $1, $3); }
+                | expression EQ expr                                    { $$ = new Expression(EQ, $1, $3); }
+                | expression NE expr                                    { $$ = new Expression(NE, $1, $3); }
+                | expr                                                  { $$ = $1; }
                 ;
 
-term            : term MUL factor  
-                | term DIV factor  
-                | term MOD factor 
-                | term AND factor  
-                | factor
+expr            : expr PLUS term                                        { $$ = new Expression(PLUS, $1, $3); }
+                | expr MINUS term                                       { $$ = new Expression(MINUS, $1, $3); }
+                | expr OR term                                          { $$ = new Expression(OR, $1, $3); }
+                | term                                                  { $$ = $1; }
                 ;
 
-factor          : name  
-                | name LP args_list RP  
-                | SYS_FUNCT 
-                | SYS_FUNCT LP args_list RP  
-                | const_value  
-                | LP expression RP
-                | NOT factor  
-                | MINUS factor  
-                | ID LS expression RS
-                | ID DOT ID
+term            : term MUL factor                                       { $$ = new Expression(MUL, $1, $3); }
+                | term DIV factor                                       { $$ = new Expression(DIV, $1, $3); }
+                | term MOD factor                                       { $$ = new Expression(MOD, $1, $3); }
+                | term AND factor                                       { $$ = new Expression(AND, $1, $3); }
+                | factor                                                { $$ = $1; }
                 ;
 
-args_list       : args_list COMMA expression  
-                | expression
+factor          : name                                                  { $$ = $1; }
+                | name LP args_list RP                                  { $$ = new Func_stmt($1, $3); }
+                | SYS_FUNCT                                             { $$ = new Sysfunc_stmt($1); }
+                | SYS_FUNCT LP args_list RP                             { $$ = new Sysfunc_stmt($1, $3); }
+                | const_value                                           { $$ = $1; }
+                | LP expression RP                                      { $$ = $2; }
+                | NOT factor                                            { $$ = new Expression(NOT, new Const_value(BOOLEN, true), $2); }
+                | MINUS factor                                          { $$ = new Expression(MINUS, new Const_value(INT, 0), $2); }
+                | ID LS expression RS                                   { $$ = new Array_access($1, $3); }
+                | ID DOT ID                                             { $$ = new Record_access($1, $3); }
+                ;
+
+args_list       : args_list COMMA expression                            { $$ = $1; $$->push_back($3); }
+                | expression                                            { $$ = new Args_list(); $$->push_back($1); }
                 ;

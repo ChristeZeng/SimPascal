@@ -66,7 +66,6 @@ public:
 };
 
 /*Routine Part*/
-// let Function_decl == Procedure_decl
 class Va_para_list : public Node {
 private:
     Name_list *name_list;
@@ -76,12 +75,13 @@ public:
     llvm::Value *codegen();
 };
 
+// This is para_type_list
 class Para_decl : public Node {
 private:
-    Simple_type_decl *simple_type_decl;
     Va_para_list *va_para_list;
+    Simple_type_decl *simple_type_decl;
 public:
-    Para_decl(Simple_type_decl *simple_type_decl, Va_para_list *va_para_list) : simple_type_decl(simple_type_decl), va_para_list(va_para_list) {}
+    Para_decl(Va_para_list *va_para_list, Simple_type_decl *simple_type_decl) : va_para_list(va_para_list), simple_type_decl(simple_type_decl) {}
     llvm::Value *codegen();
 };
 

@@ -12,8 +12,23 @@ enum Base_type {
     BOOLEN,
 };
 
+enum SysFunc {
+    READ,
+    WRITE,
+    WRITELN,
+    ADS,
+    CHR,
+    ODD,
+    ORD,
+    PRED,
+    SQR,
+    SQRT,
+    SUCC,
+};
+
 class Node;
 class Identifier;
+class Expression;
 class Stmt;
 
 using Stmt_list = vector<Stmt *>;
@@ -25,18 +40,23 @@ public:
     virtual llvm::Value *codegen() = 0;
 };
 
-class Identifier : public Node {
-private:
-    string name;
-public:
-    Identifier(string name) : name(name) {}
-    llvm::Value *codegen();
-};
+class Expression : public Node {};
 
 class Stmt : public Node {
 private:
     int label = -1;
 
 public:
+    void Setlabel(int label) {
+        this->label = label;
+    }
     virtual llvm::Value *codegen() = 0;
+};
+
+class Identifier : public Expression {
+private:
+    string name;
+public:
+    Identifier(string name) : name(name) {}
+    llvm::Value *codegen();
 };
