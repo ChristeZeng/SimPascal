@@ -15,6 +15,7 @@ int yylex();
     char cval;
 
     Identifier *id;
+    Name_list *name_list;
     Program *program;
     Program_head *program_head;
     Routine *routine;
@@ -23,6 +24,8 @@ int yylex();
     Const_part *const_part;
     Type_part *type_part;
     Var_part *var_part;
+    Var_decl *var_decl;
+    Var_decl_list *var_decl_list;
     Routine_part *routine_part;
     Const_expr_list *const_expr_list;
     Const_value *const_value;
@@ -32,6 +35,15 @@ int yylex();
     Simple_type_decl *simple_type_decl;
     Array_type_decl *array_type_decl;
     Record_type_decl *record_type_decl;
+    Field_decl_list *field_decl_list;
+    Field_decl *field_decl;
+    Function_decl *function_decl;
+    Function_decl *procedure_decl;
+    Function_head *function_head;
+    Function_head *procedure_head;
+    Para_decl *para_decl;
+    Para_decl_list *para_decl_list;
+    Para_type_list *para_type_list;
 }
 
 %token ASSIGN EQ NE LE LT GE GT
@@ -46,6 +58,7 @@ int yylex();
 %token<cval> CHAR
 
 %type<id> name
+%type<name_list> name_list
 %type<program> program
 %type<program_head> program_head
 %type<routine> routine sub_routine
@@ -54,6 +67,8 @@ int yylex();
 %type<const_part> const_part
 %type<type_part> type_part
 %type<var_part> var_part
+%type<var_decl> var_decl
+%type<var_decl_list> var_decl_list
 %type<routine_part> routine_part
 %type<const_expr_list> const_expr_list
 %type<const_value> const_value
@@ -63,6 +78,14 @@ int yylex();
 %type<simple_type_decl> simple_type_decl
 %type<array_type_decl> array_type_decl
 %type<record_type_decl> record_type_decl
+%type<field_decl_list> field_decl_list
+%type<field_decl> field_decl
+%type<function_decl> function_decl
+%type<procedure_decl> procedure_decl
+%type<function_head> function_head
+%type<procedure_head> procedure_head
+%type<para_decl_list> parameters para_decl_list
+%type<para_type_list> para_type_list
 %%
 name            : ID { $$ = new Identifier($1); }
                 ;
@@ -114,68 +137,82 @@ type_decl_list  : type_decl_list type_definition { $$ = $1; $$->push_back($2); }
 type_definition : name EQ type_decl SEMI         { $$ = new Type_definition($1, $3); }
                 ;
                 
-type_decl       : simple_type_decl                  
-                | array_type_decl  
-                | record_type_decl
+type_decl       : simple_type_decl               { $$ = new Type_decl($1); }
+                | array_type_decl                { $$ = new Type_decl($1); }
+                | record_type_decl               { $$ = new Type_decl($1); }
                 ;
 
-simple_type_decl    : SYS_TYPE  { $$ = new Simple_type_decl($1); }
-                    | name  
-                    | LP name_list RP  
-                    | const_value DOTDOT const_value  
-                    | MINUS const_value DOTDOT const_value
-                    | MINUS const_value DOTDOT MINUS const_value
-                    | name DOTDOT name
+simple_type_decl    : SYS_TYPE                  { 
+                                                    if ($1 == "integer") {
+                                                        $$ = new Simple_type_decl(Base_type::INT);
+                                                    } 
+                                                    else if ($1 == "real") {
+                                                        $$ = new Simple_type_decl(Base_type::REAL);
+                                                    }
+                                                    else if ($1 == "char") {
+                                                        $$ = new Simple_type_decl(Base_type::CHAR);
+                                                    }
+                                                    else if ($1 == "boolean") {
+                                                        $$ = new Simple_type_decl(Base_type::BOOLEN);
+                                                    }
+                                                }
+                    | name                                          { $$ = new Simple_type_decl($1); }
+                    | LP name_list RP                               { $$ = new Simple_type_decl(new Enum_Type($2)); }
+                    | const_value DOTDOT const_value                { $$ = new Simple_type_decl(new Const_range(*$1, $3)); }
+                    | MINUS const_value DOTDOT const_value          { $$ = new Simple_type_decl(new Const_range(-*$1, *$3)); }
+                    | MINUS const_value DOTDOT MINUS const_value    { $$ = new Simple_type_decl(new Const_range(-*$1, -*$3)); }
+                    | name DOTDOT name                              { $$ = new Simple_type_decl(new Enum_range($1, $3)); }
                     ;
 
-array_type_decl     : ARRAY LS simple_type_decl RS OF type_decl
+array_type_decl     : ARRAY LS simple_type_decl RS OF type_decl     { $$ = new Array_type_decl($3, $6); }
                     ;
 
-record_type_decl    : RECORD field_decl_list END
+record_type_decl    : RECORD field_decl_list END                    { $$ = new Record_type_decl($2); }
                     ;
 
-field_decl_list     : field_decl_list field_decl  
-                    | field_decl
+field_decl_list     : field_decl_list field_decl                    { $$ = $1; $$->push_back($2); }
+                    | field_decl                                    { $$ = new Field_decl_list(); $$->push_back($1); } 
                     ;
 
-field_decl          : name_list COLON type_decl SEMI
+field_decl          : name_list COLON type_decl SEMI                { $$ = new Field_decl($1, $3); }
                     ;
 
-name_list   : name_list COMMA ID  
-            | ID
+name_list   : name_list COMMA ID                                    { $$ = $1; $$->push_back($3); }
+            | ID                                                    { $$ = new Name_list(); $$->push_back($1); }
             ;
 
-var_part    : VAR var_decl_list  
+var_part    : VAR var_decl_list                                     { $$ = new Var_part($2); }
             | 
             ;
 
-var_decl_list   : var_decl_list var_decl  
-                | var_decl
+var_decl_list   : var_decl_list var_decl                            { $$ = $1; $$->push_back($2); }
+                | var_decl                                          { $$ = new Var_decl_list(); $$->push_back($1); }
                 ;
 
-var_decl    : name_list COLON type_decl SEMI
+var_decl    : name_list COLON type_decl SEMI                        { $$ = new Var_decl($1, $3); }
             ;
 
-routine_part    : routine_part function_decl  
-                | routine_part  procedure_decl
-                | function_decl  
-                | procedure_decl  
-                | 
+routine_part    : routine_part function_decl                        { $$ = $1; $$->push_back($2); }                
+                | routine_part procedure_decl                       { $$ = $1; $$->push_back($2); }
+                | function_decl                                     { $$ = new Routine_part(); $$->push_back($1); }
+                | procedure_decl                                    { $$ = new Routine_part(); $$->push_back($1); }
+                |                                                   { $$ = new Routine_part(); }
                 ;
 
-function_decl   : function_head SEMI sub_routine SEMI
+function_decl   : function_head SEMI sub_routine SEMI               { $$ = new Function_decl($1, $3); }
                 ;
 
-function_head   : FUNCTION name parameters COLON simple_type_decl
-                ;
-procedure_decl  : procedure_head SEMI sub_routine SEMI
+function_head   : FUNCTION name parameters COLON simple_type_decl   { $$ = new Function_head($2, $3, $5); }
                 ;
 
-procedure_head  : PROCEDURE name parameters
+procedure_decl  : procedure_head SEMI sub_routine SEMI              { $$ = new Function_decl($1, $3); }
+                ;
+
+procedure_head  : PROCEDURE name parameters                         { $$ = new Function_head($2, $3); }
                 ;           
 
-parameters      : LP para_decl_list RP  
-                |  
+parameters      : LP para_decl_list RP                              { $$ = $2; }
+                |                                                   { $$ = new Para_decl_list(); }
                 ;
 
 para_decl_list  : para_decl_list SEMI para_type_list   

@@ -31,13 +31,7 @@ public:
 
 class Const_value : public Node {
 private:
-    enum class Const_type {
-        INT,
-        FLOAT,
-        CHAR,
-        STRING,
-        BOOL
-    } type;
+    Base_type base_type;
 
     union value {
         int int_value;
@@ -50,23 +44,35 @@ private:
         ~value() { string_value.~string(); }
     } Value;
 public:
-    Const_value(Const_type type, int value) : type(type) {
+    Const_value(Base_type base_type, int value) : base_type(base_type) {
         this->Value.int_value = value;
     }
-    Const_value(Const_type type, double value) : type(type) {
+    Const_value(Base_type base_type, double value) : base_type(base_type) {
         this->Value.double_value = value;
     }
-    Const_value(Const_type type, char value) : type(type) {
+    Const_value(Base_type base_type, char value) : base_type(base_type) {
         this->Value.char_value = value;
     }
-    Const_value(Const_type type, string value) : type(type) {
-        new(&this->Value.string_value) string(value);
+    Const_value(Base_type base_type, string value) : base_type(base_type) {
+        this->Value.string_value = value;
     }
-    Const_value(Const_type type, bool value) : type(type) {
+    Const_value(Base_type base_type, bool value) : base_type(base_type) {
         this->Value.bool_value = value;
     }
-    Const_type get_type() {
-        return type;
+
+    Const_value *operator-() {
+        switch (base_type) {
+        case INT:
+            return new Const_value(INT, -Value.int_value);
+        case REAL:
+            return new Const_value(REAL, -Value.double_value);
+        case CHAR:
+            return new Const_value(CHAR, -Value.char_value);
+        case BOOLEN:
+            return new Const_value(BOOLEN, !Value.bool_value);
+        default:
+            return nullptr;
+        }
     }
     llvm::Value *codegen();
 };

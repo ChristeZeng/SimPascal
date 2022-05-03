@@ -5,6 +5,13 @@
 
 using namespace std;
 
+enum Base_type {
+    INT,
+    REAL,
+    CHAR,
+    BOOLEN,
+};
+
 class Node;
 class Identifier;
 class Stmt;

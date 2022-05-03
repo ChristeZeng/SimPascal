@@ -8,6 +8,17 @@
 #include "Type.h"
 using namespace std;
 
+class Program;
+class Program_head;
+class Program_body;
+class Routine;
+class Routine_head;
+class Routine_body;
+
+using Routine_part = vector<Function_decl *>;
+using Para_decl_list = vector<Para_decl *>;
+using Para_type_list = vector<Simple_type_decl *>;
+
 class Program : public Node {
 private:
     Program_head *head;
@@ -53,3 +64,43 @@ public:
     Routine_body(Stmt_list *stmt_list) : stmt_list(stmt_list) {}
     llvm::Value *codegen();
 };
+
+/*Routine Part*/
+// let Function_decl == Procedure_decl
+class Va_para_list : public Node {
+private:
+    Name_list *name_list;
+    bool is_var_para;
+public:
+    Va_para_list(Name_list *name_list, bool is_var_para) : name_list(name_list), is_var_para(is_var_para) {}
+    llvm::Value *codegen();
+};
+
+class Para_decl : public Node {
+private:
+    Simple_type_decl *simple_type_decl;
+    Va_para_list *va_para_list;
+public:
+    Para_decl(Simple_type_decl *simple_type_decl, Va_para_list *va_para_list) : simple_type_decl(simple_type_decl), va_para_list(va_para_list) {}
+    llvm::Value *codegen();
+};
+
+class Function_head : public Node {
+private:
+    Identifier *id;
+    Para_decl_list *parameters;
+    Simple_type_decl *return_type;
+public:
+    Function_head(Identifier *id, Para_decl_list *parameters, Simple_type_decl *return_type) : id(id), parameters(parameters), return_type(return_type) {}
+    llvm::Value *codegen();
+};
+
+class Function_decl : public Node {
+private:
+    Function_head *function_head;
+    Routine *subroutine;
+public:
+    Function_decl(Function_head *function_head, Routine *subroutine) : function_head(function_head), subroutine(subroutine) {}
+    llvm::Value *codegen();
+};
+
