@@ -2,32 +2,10 @@
 #include <iostream>
 #include <string>
 #include "parser.hpp"
-#include "AST/AST.h"
-
 using namespace std;
 %}
 
 %%
-[ \t\n]                     { /* ignore */ }
-
-[a-zA-Z][a-zA-Z0-9]*        {
-                                std::cout << "Identifier: " << yytext << std::endl;
-                                yylval.sVal = new string(yytext);
-                                return ID;
-                            }
-
-[+-]?[0-9]+                 {
-                                std::cout << "Integer: " << yytext << std::endl;
-                                yylval.iVal = atoi(yytext);
-                                return INTEGER;
-                            }
-
-[+-]?[0-9]+\.[0-9]+         {
-                                std::cout << "Real: " << yytext << std::endl;
-                                yylval.fVal = atof(yytext);
-                                return REAL;
-                            }
-
 "("    { return LP; }
 ")"    { return RP; }
 "["    { return LS; }
@@ -50,10 +28,9 @@ using namespace std;
 "mod"  { return MOD; }
 ".."   { return DOTDOT; }
 ";"    { return SEMI; }
-
 "and"       { return AND; }
 "array"     { return ARRAY; }
-"begin"     { return BEGIN; }
+"begin"     { return PBEGIN; }
 "case"      { return CASE; }
 "const"     { return CONST; }
 "div"       { return DIV; }
@@ -78,31 +55,45 @@ using namespace std;
 "until"     { return UNTIL; }
 "var"       { return VAR; }
 "while"     { return WHILE; }
- 
-"boolen" | "char" | "integer" | "real"      { 
-                                                yylval.sVal = new string(yytext);
+"boolen"|"char"|"integer"|"real"            { 
+                                                yylval.sval = new string(yytext);
                                                 return SYS_TYPE; 
                                             }
-
-"true" | "false" | "maxint"                 { 
-                                                yylval.sVal = new string(yytext);
+"true"|"false"|"maxint"                     { 
+                                                yylval.sval = new string(yytext);
                                                 return SYS_CON;
                                             }   
-
-"ads" | "chr" | "odd" | "ord" | "pred" | "sqr" | "sqrt" | "succ"
-                                            {
-                                                yylval.sVal = new string(yytext);
-                                                return SYS_FUNC;
+"ads"|"chr"|"odd"|"ord"|"pred"|"sqr"|"sqrt"|"succ" {
+                                                yylval.sval = new string(yytext);
+                                                return SYS_FUNCT;
                                             }
-
-"write" | "writeln"                         {
-                                                yylval.sVal = new string(yytext);
+"write"|"writeln"                           {
+                                                yylval.sval = new string(yytext);
                                                 return SYS_PROC;
                                             }
-
 "read"                                      {
-                                                yylval.sVal = new string(yytext);
+                                                yylval.sval = new string(yytext);
                                                 return READ;
                                             }                                            
 
+[ \t\n]                     { /* ignore */ }
+
+[a-zA-Z][a-zA-Z0-9]*        {
+                                std::cout << "Identifier: " << yytext << std::endl;
+                                yylval.sval = new string(yytext);
+                                return ID;
+                            }
+
+[+-]?[0-9]+                 {
+                                std::cout << "Integer: " << yytext << std::endl;
+                                yylval.ival = atoi(yytext);
+                                return INTEGER;
+                            }
+
+[+-]?[0-9]+\.[0-9]+         {
+                                std::cout << "Real: " << yytext << std::endl;
+                                yylval.dval = atof(yytext);
+                                return REAL;
+                            }
+                            
 %%

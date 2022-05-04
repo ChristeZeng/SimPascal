@@ -2,6 +2,7 @@
 #include <llvm/IR/Value.h>
 #include <string>
 #include <vector>
+#include "Const.h"
 #include "Node.h"
 
 using namespace std;

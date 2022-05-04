@@ -1,11 +1,15 @@
-%{
+%code requires {
+#include "AST/AST.h"
 #include <iostream>
 #include <string>
-#include "AST/AST.h"
+}
+
+%{
 using namespace std;
 
-void yyerror(const char *s);
-int yylex();
+int yyerror(const char *s);
+int yywrap(void);
+extern int yylex(void);
 %}
 
 %union {
@@ -54,10 +58,10 @@ int yylex();
 }
 
 %token ASSIGN EQ NE LE LT GE GT
-%token PROGRAM CONST ARRAY VAR FUNCTION PROCEDURE BEGIN END TYPE RECORD
+%token PROGRAM CONST ARRAY VAR FUNCTION PROCEDURE PBEGIN END TYPE RECORD
 %token IF THEN ELSE REPEAT UNTIL WHILE DO FOR TO DOWNTO CASE OF GOTO 
 %token PLUS MINUS MUL DIV MOD AND OR NOT
-%token DOT DOTDOT SEMI LP RP LS RS COMMA COLON
+%token DOT DOTDOT SEMI LP RP LS RS COMMA COLON PACKED
 
 %token<ival> INTEGER
 %token<dval> REAL 
@@ -252,7 +256,7 @@ val_para_list   : name_list                                         { $$ = new V
 routine_body    : compound_stmt                                     { $$ = $1; }
                 ;
 
-compound_stmt   : BEGIN stmt_list END                               { $$ = new Routine_body($2); } 
+compound_stmt   : PBEGIN stmt_list END                               { $$ = new Routine_body($2); } 
                 ;
 
 stmt_list       : stmt_list stmt SEMI                               { $$ = $1; $$->push_back($2); }
@@ -409,3 +413,12 @@ args_list       : args_list COMMA expression                            { $$ = $
                 ;
 
 %%
+
+int yyerror(const char *s) {
+    printf("%s\n", s);
+    return 0;
+}
+
+int yywrap() { 
+   return 1;
+}
