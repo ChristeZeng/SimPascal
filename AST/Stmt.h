@@ -8,29 +8,28 @@
 using namespace std;
 
 enum Direction_type {
-    TO,
-    DOWNTO
+    S_TO,
+    S_DOWNTO
 };
 
 enum Binary_op {
-    PLUS,
-    MINIUS,
-    MUL,
-    DIV,
-    MOD,
-    AND,
-    OR,
-    GE,
-    GT,
-    LE,
-    LT,
-    EQ,
-    NE,
-    NOT,
+    S_PLUS,
+    S_MINUS,
+    S_MUL,
+    S_DIV,
+    S_MOD,
+    S_AND,
+    S_OR,
+    S_GE,
+    S_GT,
+    S_LE,
+    S_LT,
+    S_EQ,
+    S_NE,
+    S_NOT,
 };
 
 class Direction;
-class Compound_stmt;
 class Assign_stmt;
 class Proc_stmt;
 class If_stmt;
@@ -75,6 +74,10 @@ private:
 public:
     Sysproc_stmt(SysFunc func) : func(func) {}
     Sysproc_stmt(SysFunc func, Args_list *args_list) : func(func), args_list(args_list) {}
+    Sysproc_stmt(SysFunc func, Expression *expression) : func(func) {
+        this->args_list = new Args_list();
+        this->args_list->push_back(expression);
+    }
     llvm::Value *codegen();
 };
 
@@ -134,6 +137,7 @@ private:
     Direction_type direction_type;
 public:
     Direction(Direction_type direction_type) : direction_type(direction_type) {}
+    llvm::Value *codegen();
 };
 
 class Case_expr : public Node {

@@ -1,15 +1,30 @@
-all: SimPascal
- 
+NAME = SimPascal
+
+LLVM_CONFIG = /usr/bin/llvm-config
+
+CXXFLAGS = `$(LLVM_CONFIG) --cppflags` -std=c++14
+LDFLAGS = `$(LLVM_CONFIG) --ldflags`
+LIBS = `$(LLVM_CONFIG) --libs --system-libs`
+
+OBJS = parser.o tokenizer.o AST.o  main.o
+
+all : $(NAME)
+
+parser.cpp: ${NAME}.y
+	bison -d -o parser.cpp ${NAME}.y
+
+parser.hpp: parser.cpp
+
+tokenizer.cpp: ${NAME}.l
+	flex -o tokenizer.cpp ${NAME}.l
+
+%.o: %.cpp AST/AST.h
+	g++ -c $(CXXFLAGS) -g -o $@ $< 
+
+$(NAME): $(OBJS)
+	g++ -o $@ $(OBJS) $(LIBS) $(LDFLAGS)
+
+.PHONY: clean
 clean:
-		rm parser.cpp parser.hpp parser tokens.cpp
- 
-SimPascal.cpp: SimPascal.y
-		bison -d -o $@ $^
- 
-SimPascal.h: SimPascal.cpp
- 
-tokens.cpp: SimPascal.l SimPascal.h
-		lex -o $@ $^
- 
-parser: SimPascal.cpp main.cpp tokens.cpp
-		g++ -o $@ `llvm-config --libs core jit native --cxxflags --ldflags` *.cpp
+	-rm -f *.o
+	-rm -f parser.hpp parser.cpp tokenizer.cpp SimPascal

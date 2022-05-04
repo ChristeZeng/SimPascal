@@ -1,7 +1,7 @@
 %{
 #include <iostream>
 #include <string>
-#include "SimPascal.h"
+#include "parser.hpp"
 #include "AST/AST.h"
 
 using namespace std;
@@ -12,7 +12,7 @@ using namespace std;
 
 [a-zA-Z][a-zA-Z0-9]*        {
                                 std::cout << "Identifier: " << yytext << std::endl;
-                                yylval.sVal = yytext;
+                                yylval.sVal = new string(yytext);
                                 return ID;
                             }
 
@@ -78,30 +78,30 @@ using namespace std;
 "until"     { return UNTIL; }
 "var"       { return VAR; }
 "while"     { return WHILE; }
-
+ 
 "boolen" | "char" | "integer" | "real"      { 
-                                                yylval.sVal = yytext;
+                                                yylval.sVal = new string(yytext);
                                                 return SYS_TYPE; 
                                             }
 
 "true" | "false" | "maxint"                 { 
-                                                yylval.sVal = yytext;
+                                                yylval.sVal = new string(yytext);
                                                 return SYS_CON;
                                             }   
 
 "ads" | "chr" | "odd" | "ord" | "pred" | "sqr" | "sqrt" | "succ"
                                             {
-                                                yylval.sVal = yytext;
+                                                yylval.sVal = new string(yytext);
                                                 return SYS_FUNC;
                                             }
 
 "write" | "writeln"                         {
-                                                yylval.sVal = yytext;
+                                                yylval.sVal = new string(yytext);
                                                 return SYS_PROC;
                                             }
 
 "read"                                      {
-                                                yylval.sVal = yytext;
+                                                yylval.sVal = new string(yytext);
                                                 return READ;
                                             }                                            
 

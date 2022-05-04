@@ -3,17 +3,21 @@
 #include <string>
 #include <vector>
 #include "Node.h"
-
 #include "Const.h"
 #include "Type.h"
 using namespace std;
 
+// 类型申明
 class Program;
 class Program_head;
 class Program_body;
 class Routine;
 class Routine_head;
 class Routine_body;
+class Function_head;
+class Function_decl;
+class Para_decl;
+class Va_para_list;
 
 using Routine_part = vector<Function_decl *>;
 using Para_decl_list = vector<Para_decl *>;
@@ -57,7 +61,7 @@ public:
     llvm::Value *codegen();
 };
 
-class Routine_body : public Node {
+class Routine_body : public Stmt {
 private:
     Stmt_list *stmt_list;
 public:
@@ -92,6 +96,7 @@ private:
     Simple_type_decl *return_type;
 public:
     Function_head(Identifier *id, Para_decl_list *parameters, Simple_type_decl *return_type) : id(id), parameters(parameters), return_type(return_type) {}
+    Function_head(Identifier *id, Para_decl_list *parameters) : id(id), parameters(parameters) {}
     llvm::Value *codegen();
 };
 
@@ -103,4 +108,3 @@ public:
     Function_decl(Function_head *function_head, Routine *subroutine) : function_head(function_head), subroutine(subroutine) {}
     llvm::Value *codegen();
 };
-

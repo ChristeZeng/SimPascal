@@ -6,24 +6,24 @@
 using namespace std;
 
 enum Base_type {
-    INT,
-    REAL,
-    CHAR,
-    BOOLEN,
+    S_INT,
+    S_REAL,
+    S_CHAR,
+    S_BOOLEN,
 };
 
 enum SysFunc {
-    READ,
-    WRITE,
-    WRITELN,
-    ADS,
-    CHR,
-    ODD,
-    ORD,
-    PRED,
-    SQR,
-    SQRT,
-    SUCC,
+    S_READ,
+    S_WRITE,
+    S_WRITELN,
+    S_ADS,
+    S_CHR,
+    S_ODD,
+    S_ORD,
+    S_PRED,
+    S_SQR,
+    S_SQRT,
+    S_SUCC,
 };
 
 class Node;

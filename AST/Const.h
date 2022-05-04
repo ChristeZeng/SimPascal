@@ -29,7 +29,7 @@ public:
     llvm::Value *codegen();
 };
 
-class Const_value : public Node {
+class Const_value : public Expression {
 private:
     Base_type base_type;
 
@@ -62,14 +62,14 @@ public:
 
     Const_value *operator-() {
         switch (base_type) {
-        case INT:
-            return new Const_value(INT, -Value.int_value);
-        case REAL:
-            return new Const_value(REAL, -Value.double_value);
-        case CHAR:
-            return new Const_value(CHAR, -Value.char_value);
-        case BOOLEN:
-            return new Const_value(BOOLEN, !Value.bool_value);
+        case S_INT:
+            return new Const_value(S_INT, -Value.int_value);
+        case S_REAL:
+            return new Const_value(S_REAL, -Value.double_value);
+        case S_CHAR:
+            return new Const_value(S_CHAR, -Value.char_value);
+        case S_BOOLEN:
+            return new Const_value(S_BOOLEN, !Value.bool_value);
         default:
             return nullptr;
         }
