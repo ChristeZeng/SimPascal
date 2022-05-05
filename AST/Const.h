@@ -6,6 +6,8 @@
 
 using namespace std;
 
+class CodeGenerator;
+
 class Const_part;
 class Const_expr;
 class Const_value;
@@ -17,7 +19,7 @@ private:
     Const_expr_list *const_expr_list;
 public:
     Const_part(Const_expr_list *const_expr_list) : const_expr_list(const_expr_list) {}
-    llvm::Value *codegen();
+    llvm::Value *codegen(CodeGenerator &generator);
 };
 
 class Const_expr : public Node {
@@ -26,7 +28,7 @@ private:
     Const_value *const_value;
 public:
     Const_expr(Identifier *id, Const_value *const_value) : id(id), const_value(const_value) {}
-    llvm::Value *codegen();
+    llvm::Value *codegen(CodeGenerator &generator);
 };
 
 class Const_value : public Expression {
@@ -74,5 +76,5 @@ public:
             return nullptr;
         }
     }
-    llvm::Value *codegen();
+    llvm::Value *codegen(CodeGenerator &generator);
 };

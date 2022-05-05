@@ -10,6 +10,8 @@ using namespace std;
 int yyerror(const char *s);
 int yywrap(void);
 extern int yylex(void);
+
+Program *program;
 %}
 
 %union {
@@ -111,7 +113,7 @@ extern int yylex(void);
 name            : ID { $$ = new Identifier(*$1); }
                 ;
 
-program         : program_head routine DOT { $$ = new Program($1, $2); }
+program         : program_head routine DOT { $$ = new Program($1, $2); program = $$; }
                 ;
 
 program_head    : PROGRAM ID SEMI { $$ = new Program_head(*$2); }

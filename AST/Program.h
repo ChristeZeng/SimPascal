@@ -29,7 +29,7 @@ private:
     Routine *routine;
 public:
     Program(Program_head *head, Routine *routine) : head(head), routine(routine) {}
-    llvm::Value *codegen();
+    llvm::Value *codegen(CodeGenerator &generator);
 };
 
 class Program_head : public Node {
@@ -37,7 +37,7 @@ private:
     string name;
 public:
     Program_head(string name) : name(name) {}
-    llvm::Value *codegen();
+    llvm::Value *codegen(CodeGenerator &generator);
 };
 
 class Routine : public Node {
@@ -46,7 +46,7 @@ private:
     Routine_body *body;
 public:
     Routine(Routine_head *head, Routine_body *body) : head(head), body(body) {}
-    llvm::Value *codegen();
+    llvm::Value *codegen(CodeGenerator &generator);
 };
 
 class Routine_head : public Node {
@@ -58,7 +58,7 @@ private:
 public:
     Routine_head(Const_part *const_part, Type_part *type_part, Var_part *var_part, Routine_part *routine_part)
         : const_part(const_part), type_part(type_part), var_part(var_part), routine_part(routine_part) {}
-    llvm::Value *codegen();
+    llvm::Value *codegen(CodeGenerator &generator);
 };
 
 class Routine_body : public Stmt {
@@ -66,7 +66,7 @@ private:
     Stmt_list *stmt_list;
 public:
     Routine_body(Stmt_list *stmt_list) : stmt_list(stmt_list) {}
-    llvm::Value *codegen();
+    llvm::Value *codegen(CodeGenerator &generator);
 };
 
 /*Routine Part*/
@@ -76,7 +76,7 @@ private:
     bool is_var_para;
 public:
     Va_para_list(Name_list *name_list, bool is_var_para) : name_list(name_list), is_var_para(is_var_para) {}
-    llvm::Value *codegen();
+    llvm::Value *codegen(CodeGenerator &generator);
 };
 
 // This is para_type_list
@@ -86,7 +86,7 @@ private:
     Simple_type_decl *simple_type_decl;
 public:
     Para_decl(Va_para_list *va_para_list, Simple_type_decl *simple_type_decl) : va_para_list(va_para_list), simple_type_decl(simple_type_decl) {}
-    llvm::Value *codegen();
+    llvm::Value *codegen(CodeGenerator &generator);
 };
 
 class Function_head : public Node {
@@ -97,7 +97,7 @@ private:
 public:
     Function_head(Identifier *id, Para_decl_list *parameters, Simple_type_decl *return_type) : id(id), parameters(parameters), return_type(return_type) {}
     Function_head(Identifier *id, Para_decl_list *parameters) : id(id), parameters(parameters) {}
-    llvm::Value *codegen();
+    llvm::Value *codegen(CodeGenerator &generator);
 };
 
 class Function_decl : public Node {
@@ -106,5 +106,5 @@ private:
     Routine *subroutine;
 public:
     Function_decl(Function_head *function_head, Routine *subroutine) : function_head(function_head), subroutine(subroutine) {}
-    llvm::Value *codegen();
+    llvm::Value *codegen(CodeGenerator &generator);
 };

@@ -1,0 +1,6 @@
+// Value *Var_part::codegen(CodeGenerator &generator) {
+//     for (auto var_decl : *var_decl_list) {
+//         var_decl->codegen(generator);
+//     }
+//     return nullptr;
+// }
