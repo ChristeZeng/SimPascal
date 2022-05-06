@@ -71,20 +71,18 @@ public:
 
 /*Routine Part*/
 class Va_para_list : public Node {
-private:
+public:
     Name_list *name_list;
     bool is_var_para;
-public:
     Va_para_list(Name_list *name_list, bool is_var_para) : name_list(name_list), is_var_para(is_var_para) {}
     llvm::Value *codegen(CodeGenerator &generator);
 };
 
 // This is para_type_list
 class Para_decl : public Node {
-private:
+public:
     Va_para_list *va_para_list;
     Simple_type_decl *simple_type_decl;
-public:
     Para_decl(Va_para_list *va_para_list, Simple_type_decl *simple_type_decl) : va_para_list(va_para_list), simple_type_decl(simple_type_decl) {}
     llvm::Value *codegen(CodeGenerator &generator);
 };

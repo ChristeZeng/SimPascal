@@ -26,6 +26,7 @@ class Const_expr : public Node {
 private:
     Identifier *id;
     Const_value *const_value;
+    bool is_global = false;
 public:
     Const_expr(Identifier *id, Const_value *const_value) : id(id), const_value(const_value) {}
     llvm::Value *codegen(CodeGenerator &generator);
@@ -76,5 +77,5 @@ public:
             return nullptr;
         }
     }
-    llvm::Value *codegen(CodeGenerator &generator);
+    llvm::Constant *codegen(CodeGenerator &generator);
 };

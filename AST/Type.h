@@ -139,6 +139,7 @@ class Var_decl : public Node {
 private:
     Name_list *name_list;
     Type_decl *type_decl;
+    bool is_global = false;
 public:
     Var_decl(Name_list *name_list, Type_decl *type_decl) : name_list(name_list), type_decl(type_decl) {}
     llvm::Value *codegen(CodeGenerator &generator);

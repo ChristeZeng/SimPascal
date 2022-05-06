@@ -17,6 +17,8 @@
 #include <llvm/ExecutionEngine/GenericValue.h>
 #include "../AST/AST.h"
 #include <map>
+#include <vector>
+#include <iostream>
 
 using namespace llvm;
 using namespace std;
@@ -24,20 +26,23 @@ using namespace std;
 static llvm::LLVMContext context;
 static llvm::IRBuilder<> builder(context);
 
+static void print(string s) {
+    cout << s << endl;
+}
+
 class CodeGenerator{
 public:
     Module *module;
-    Function *function;
+    Function *mainFunction;
     BasicBlock *block;
-    map<string, Value *> constants;
-    map<string, Value*> types;
     unsigned int addrSpace;
+    vector<Function*> funcStack;
     CodeGenerator(){
         module = new llvm::Module("main", context);
         addrSpace = module->getDataLayout().getAllocaAddrSpace();
     }
     void generateCode(Program& root);
-    void addConstant(string name, Value *value) {constants[name] = value;}
-    Value *getConstant(string name) {return constants[name];}
-    void addType(string name, Value *type) {types[name] = type;}
+    Function* getCurFunction(){return funcStack.back();}
+    void pushFunction(Function* func){funcStack.push_back(func);}
+    void popFunction(){funcStack.pop_back();}
 };
