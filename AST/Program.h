@@ -5,6 +5,24 @@
 #include "Type.h"
 #include "Stmt.h"
 
+using namespace std;
+
+class CodeGenerator;
+class Program;
+class Program_head;
+class Program_body;
+class Routine;
+class Routine_head;
+class Routine_body;
+class Function_head;
+class Function_decl;
+class Para_decl;
+class Va_para_list;
+
+using Routine_part = vector<Function_decl *>;
+using Para_decl_list = vector<Para_decl *>;
+using Para_type_list = vector<Simple_type_decl *>;
+
 class Program : public Node {
 private:
     Program_head *head;

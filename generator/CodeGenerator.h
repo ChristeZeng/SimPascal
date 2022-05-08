@@ -28,17 +28,12 @@
 #include <llvm/Support/DynamicLibrary.h>
 #include <llvm/Target/TargetMachine.h>
 
-#include "../AST/AST.h"
-#include "../AST/Node.h"
-#include "../AST/Const.h"
-#include "../AST/Type.h"
-#include "../AST/Stmt.h"
-#include "../AST/Program.h"
-
 #include <map>
 #include <vector>
 #include <string>
 #include <iostream>
+
+#include "../AST/AST.h"
 
 using namespace llvm;
 using namespace std;

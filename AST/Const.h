@@ -2,6 +2,15 @@
 #include "AST.h"
 #include "Node.h"
 
+using namespace std;
+
+class CodeGenerator;
+class Const_part;
+class Const_expr;
+class Const_value;
+
+using Const_expr_list = vector<Const_expr *>;
+
 class Const_part : public Node {
 private:
     Const_expr_list *const_expr_list;

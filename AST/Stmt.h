@@ -4,6 +4,46 @@
 #include "Const.h"
 #include "Type.h"
 
+using namespace std;
+
+enum Direction_type {
+    S_TO,
+    S_DOWNTO
+};
+
+enum Binary_op {
+    S_PLUS,
+    S_MINUS,
+    S_MUL,
+    S_DIV,
+    S_MOD,
+    S_AND,
+    S_OR,
+    S_GE,
+    S_GT,
+    S_LE,
+    S_LT,
+    S_EQ,
+    S_NE,
+    S_NOT,
+};
+
+class Direction;
+class Assign_stmt;
+class Proc_stmt;
+class If_stmt;
+class Repeat_stmt;
+class While_stmt;
+class Case_stmt;
+class Case_expr;
+class Goto_stmt;
+class For_stmt;
+class Binary_expression;
+
+using Args_list = vector<Expression *>;
+using Expression_list = vector<Expression *>;
+using Case_expr_list = vector<Case_expr *>;
+
 class Assign_stmt : public Stmt {
 private:
     Identifier *lid;
@@ -109,8 +149,6 @@ public:
     Case_expr(Identifier *id, Stmt *stmt) : id(id), stmt(stmt) {}
     llvm::Value *codegen(CodeGenerator &generator);
 };
-
-using Case_expr_list = vector<Case_expr *>;
 
 class Case_stmt : public Stmt {
 private:

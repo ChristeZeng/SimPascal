@@ -1,5 +1,4 @@
 #include "CodeGenerator.h"
-#include "../AST/AST.h"
 
 using namespace std;
 using namespace llvm;

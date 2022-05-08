@@ -1,5 +1,4 @@
 #include "CodeGenerator.h"
-#include "../AST/AST.h"
 
 using namespace std;
 using namespace llvm;
@@ -22,6 +21,10 @@ Value *Program::codegen(CodeGenerator &generator) {
     builder.CreateRetVoid();
     generator.popFunction();
     
+    return nullptr;
+}
+Value *Program_head::codegen(CodeGenerator &generator) {
+    print("Program_head::codegen");
     return nullptr;
 }
 

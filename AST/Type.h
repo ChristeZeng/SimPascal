@@ -3,6 +3,23 @@
 #include "Node.h"
 #include "Const.h"
 
+using namespace std;
+
+class Type_part;
+class Type_definition;
+class Type_decl;
+class Simple_type_decl;
+class Array_type_decl;
+class Record_type_decl;
+class Const_range;
+class Enum_range;
+class Enum_Type;
+class Var_part;
+class Var_decl;
+
+using Type_decl_list = vector<Type_definition *>;
+using Var_decl_list = vector<Var_decl *>;
+
 class Simple_type_decl : public Node {
 public:
     enum {

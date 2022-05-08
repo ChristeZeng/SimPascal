@@ -3,12 +3,12 @@
 #include "generator/CodeGenerator.h"
 #include <iostream>
 #include <string>
+extern Program *root;
+using namespace std;
+
 }
 
 %{
-using namespace std;
-
-Program *root;
 int yyerror(const char *s);
 int yywrap(void);
 extern int yylex(void);

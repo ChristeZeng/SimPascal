@@ -6,9 +6,10 @@
 using namespace std;
 using namespace llvm;
 
+Program *root;
 extern int yyparse();
-extern Program *root;
 int main() {
+	
     yyparse();
 	// InitializeNativeTarget();
 	// InitializeNativeTargetAsmPrinter();
