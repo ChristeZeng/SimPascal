@@ -40,7 +40,10 @@ public:
     virtual llvm::Value *codegen(CodeGenerator &generator) = 0;
 };
 
-class Expression : public Node {};
+class Expression : public Node {
+public:
+    virtual llvm::Value *codegen(CodeGenerator &generator) = 0;
+};
 
 class Stmt : public Node {
 private:

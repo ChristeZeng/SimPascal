@@ -46,10 +46,10 @@ using Expression_list = vector<Expression *>;
 
 class Assign_stmt : public Stmt {
 private:
-    Identifier *lid;
-    Expression *lexpression;
-    Expression *rexpression;
-    Identifier *fid;
+    Identifier *lid=nullptr;
+    Expression *lexpression=nullptr;
+    Expression *rexpression=nullptr;
+    Identifier *fid=nullptr;
 public:
     Assign_stmt(Identifier *lid, Expression *rexpression) : lid(lid), rexpression(rexpression) {}
     Assign_stmt(Identifier *lid, Expression *lexpression, Expression *rexpression) : lid(lid), lexpression(lexpression), rexpression(rexpression) {}

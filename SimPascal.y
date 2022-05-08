@@ -2,6 +2,8 @@
 #include "AST/AST.h"
 #include <iostream>
 #include <string>
+
+Program *root;
 }
 
 %{
@@ -10,8 +12,6 @@ using namespace std;
 int yyerror(const char *s);
 int yywrap(void);
 extern int yylex(void);
-
-Program *program;
 %}
 
 %union {
@@ -113,7 +113,7 @@ Program *program;
 name            : ID { $$ = new Identifier(*$1); }
                 ;
 
-program         : program_head routine DOT { $$ = new Program($1, $2); program = $$; }
+program         : program_head routine DOT { $$ = new Program($1, $2); root = $$; }
                 ;
 
 program_head    : PROGRAM ID SEMI { $$ = new Program_head(*$2); }

@@ -88,7 +88,7 @@ public:
 };
 
 class Function_head : public Node {
-private:
+public:
     Identifier *id;
     Para_decl_list *parameters;
     Simple_type_decl *return_type;

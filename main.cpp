@@ -7,14 +7,14 @@ using namespace std;
 using namespace llvm;
 
 extern int yyparse();
-extern Program *program;
+extern Program *root;
 int main() {
     yyparse();
 	InitializeNativeTarget();
 	InitializeNativeTargetAsmPrinter();
 	InitializeNativeTargetAsmParser();
 	CodeGenerator context;
-	context.generateCode(*program);
+	context.generateCode(*root);
 
     return 0;
 }

@@ -18,7 +18,7 @@ parser.hpp: parser.cpp
 tokenizer.cpp: ${NAME}.l
 	flex -o tokenizer.cpp ${NAME}.l
 
-%.o: %.cpp AST.h Node.h Program.h Stmt.h Type.h Const.h
+%.o: %.cpp AST/AST.h AST/Node.h AST/Program.h AST/Stmt.h AST/Type.h AST/Const.h generator/CodeGenerator.h generator/CodeGenerator.cpp generator/genConstType.cpp generator/genExp.cpp generator/genFunc.cpp generator/genProgram.cpp generator/genStmt.cpp
 	g++ -c $(CXXFLAGS) -g -o $@ $< 
 
 $(NAME): $(OBJS)

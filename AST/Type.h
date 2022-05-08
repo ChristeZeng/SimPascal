@@ -68,7 +68,7 @@ public:
 };
 
 class Simple_type_decl : public Node {
-private:
+public:
     enum {
         BASE,
         ARRARY,
