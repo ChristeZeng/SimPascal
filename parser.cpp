@@ -70,11 +70,12 @@
 
 using namespace std;
 
+Program *root;
 int yyerror(const char *s);
 int yywrap(void);
 extern int yylex(void);
 
-#line 78 "parser.cpp"
+#line 79 "parser.cpp"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -120,12 +121,12 @@ extern int yydebug;
 #line 1 "SimPascal.y"
 
 #include "AST/AST.h"
+#include "AST/Program.h"
+#include "generator/CodeGenerator.h"
 #include <iostream>
 #include <string>
 
-Program *root;
-
-#line 129 "parser.cpp"
+#line 130 "parser.cpp"
 
 /* Token type.  */
 #ifndef YYTOKENTYPE
@@ -196,7 +197,7 @@ Program *root;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 17 "SimPascal.y"
+#line 18 "SimPascal.y"
 
     int ival;
     double dval;
@@ -241,7 +242,7 @@ union YYSTYPE
     Case_expr *case_expr;
     Args_list *args_list;
 
-#line 245 "parser.cpp"
+#line 246 "parser.cpp"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -622,19 +623,19 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int16 yyrline[] =
 {
-       0,   113,   113,   116,   119,   122,   125,   128,   131,   132,
-     135,   136,   139,   140,   141,   142,   155,   156,   159,   160,
-     163,   166,   167,   168,   171,   185,   186,   187,   188,   189,
-     190,   193,   196,   199,   200,   203,   206,   207,   210,   211,
-     214,   215,   218,   221,   222,   223,   224,   225,   228,   231,
-     234,   237,   240,   241,   244,   245,   248,   249,   252,   255,
-     258,   261,   264,   265,   268,   269,   272,   273,   274,   275,
-     276,   277,   278,   279,   280,   283,   284,   285,   288,   289,
-     290,   296,   302,   307,   310,   311,   314,   317,   320,   323,
-     324,   327,   330,   331,   334,   335,   338,   341,   342,   345,
-     346,   347,   348,   349,   350,   351,   354,   355,   356,   357,
-     360,   361,   362,   363,   364,   367,   368,   369,   387,   405,
-     406,   407,   408,   409,   410,   413,   414
+       0,   114,   114,   117,   120,   123,   126,   129,   132,   133,
+     136,   137,   140,   141,   142,   143,   156,   157,   160,   161,
+     164,   167,   168,   169,   172,   186,   187,   188,   189,   190,
+     191,   194,   197,   200,   201,   204,   207,   208,   211,   212,
+     215,   216,   219,   222,   223,   224,   225,   226,   229,   232,
+     235,   238,   241,   242,   245,   246,   249,   250,   253,   256,
+     259,   262,   265,   266,   269,   270,   273,   274,   275,   276,
+     277,   278,   279,   280,   281,   284,   285,   286,   289,   290,
+     291,   297,   303,   308,   311,   312,   315,   318,   321,   324,
+     325,   328,   331,   332,   335,   336,   339,   342,   343,   346,
+     347,   348,   349,   350,   351,   352,   355,   356,   357,   358,
+     361,   362,   363,   364,   365,   368,   369,   370,   388,   406,
+     407,   408,   409,   410,   411,   414,   415
 };
 #endif
 
@@ -1629,85 +1630,85 @@ yyreduce:
   switch (yyn)
     {
   case 2:
-#line 113 "SimPascal.y"
+#line 114 "SimPascal.y"
                      { (yyval.id) = new Identifier(*(yyvsp[0].sval)); }
-#line 1635 "parser.cpp"
+#line 1636 "parser.cpp"
     break;
 
   case 3:
-#line 116 "SimPascal.y"
-                                           { (yyval.program) = new Program((yyvsp[-2].program_head), (yyvsp[-1].routine)); root = (yyval.program); }
-#line 1641 "parser.cpp"
+#line 117 "SimPascal.y"
+                                           { (yyval.program) = new Program((yyvsp[-2].program_head), (yyvsp[-1].routine)); root = (yyval.program);}
+#line 1642 "parser.cpp"
     break;
 
   case 4:
-#line 119 "SimPascal.y"
+#line 120 "SimPascal.y"
                                   { (yyval.program_head) = new Program_head(*(yyvsp[-1].sval)); }
-#line 1647 "parser.cpp"
+#line 1648 "parser.cpp"
     break;
 
   case 5:
-#line 122 "SimPascal.y"
+#line 123 "SimPascal.y"
                                             { (yyval.routine) = new Routine((yyvsp[-1].routine_head), (yyvsp[0].routine_body)); }
-#line 1653 "parser.cpp"
+#line 1654 "parser.cpp"
     break;
 
   case 6:
-#line 125 "SimPascal.y"
+#line 126 "SimPascal.y"
                                             { (yyval.routine) = new Routine((yyvsp[-1].routine_head), (yyvsp[0].routine_body)); }
-#line 1659 "parser.cpp"
+#line 1660 "parser.cpp"
     break;
 
   case 7:
-#line 128 "SimPascal.y"
+#line 129 "SimPascal.y"
                                                              { (yyval.routine_head) = new Routine_head((yyvsp[-3].const_part), (yyvsp[-2].type_part), (yyvsp[-1].var_part), (yyvsp[0].routine_part)); }
-#line 1665 "parser.cpp"
+#line 1666 "parser.cpp"
     break;
 
   case 8:
-#line 131 "SimPascal.y"
+#line 132 "SimPascal.y"
                                         { (yyval.const_part) = new Const_part((yyvsp[0].const_expr_list)); }
-#line 1671 "parser.cpp"
+#line 1672 "parser.cpp"
     break;
 
   case 9:
-#line 132 "SimPascal.y"
+#line 133 "SimPascal.y"
                                         { (yyval.const_part) = nullptr; }
-#line 1677 "parser.cpp"
+#line 1678 "parser.cpp"
     break;
 
   case 10:
-#line 135 "SimPascal.y"
+#line 136 "SimPascal.y"
                                                            { (yyval.const_expr_list) = (yyvsp[-4].const_expr_list); (yyval.const_expr_list)->push_back(new Const_expr((yyvsp[-3].id), (yyvsp[-1].const_value))); }
-#line 1683 "parser.cpp"
+#line 1684 "parser.cpp"
     break;
 
   case 11:
-#line 136 "SimPascal.y"
+#line 137 "SimPascal.y"
                                                            { (yyval.const_expr_list) = new Const_expr_list(); (yyval.const_expr_list)->push_back(new Const_expr((yyvsp[-3].id), (yyvsp[-1].const_value))); }
-#line 1689 "parser.cpp"
+#line 1690 "parser.cpp"
     break;
 
   case 12:
-#line 139 "SimPascal.y"
+#line 140 "SimPascal.y"
                           { (yyval.const_value) = new Const_value(S_INT, (yyvsp[0].ival)); }
-#line 1695 "parser.cpp"
+#line 1696 "parser.cpp"
     break;
 
   case 13:
-#line 140 "SimPascal.y"
+#line 141 "SimPascal.y"
                           { (yyval.const_value) = new Const_value(S_REAL, (yyvsp[0].dval)); }
-#line 1701 "parser.cpp"
+#line 1702 "parser.cpp"
     break;
 
   case 14:
-#line 141 "SimPascal.y"
+#line 142 "SimPascal.y"
                           { (yyval.const_value) = new Const_value(S_CHAR, (yyvsp[0].cval)); }
-#line 1707 "parser.cpp"
+#line 1708 "parser.cpp"
     break;
 
   case 15:
-#line 142 "SimPascal.y"
+#line 143 "SimPascal.y"
                           { 
                             if (*(yyvsp[0].sval) == "true") {
                                 (yyval.const_value) = new Const_value(S_BOOLEN, true); 
@@ -1719,59 +1720,59 @@ yyreduce:
                                 (yyval.const_value) = new Const_value(S_INT, 0x7FFFFFFF);
                             }
                           }
-#line 1723 "parser.cpp"
+#line 1724 "parser.cpp"
     break;
 
   case 16:
-#line 155 "SimPascal.y"
+#line 156 "SimPascal.y"
                                       { (yyval.type_part) = new Type_part((yyvsp[0].type_decl_list)); }
-#line 1729 "parser.cpp"
+#line 1730 "parser.cpp"
     break;
 
   case 17:
-#line 156 "SimPascal.y"
+#line 157 "SimPascal.y"
                                       { (yyval.type_part) = nullptr; }
-#line 1735 "parser.cpp"
+#line 1736 "parser.cpp"
     break;
 
   case 18:
-#line 159 "SimPascal.y"
+#line 160 "SimPascal.y"
                                                  { (yyval.type_decl_list) = (yyvsp[-1].type_decl_list); (yyval.type_decl_list)->push_back((yyvsp[0].type_definition)); }
-#line 1741 "parser.cpp"
+#line 1742 "parser.cpp"
     break;
 
   case 19:
-#line 160 "SimPascal.y"
+#line 161 "SimPascal.y"
                                                  { (yyval.type_decl_list) = new Type_decl_list(); (yyval.type_decl_list)->push_back((yyvsp[0].type_definition)); }
-#line 1747 "parser.cpp"
+#line 1748 "parser.cpp"
     break;
 
   case 20:
-#line 163 "SimPascal.y"
+#line 164 "SimPascal.y"
                                                  { (yyval.type_definition) = new Type_definition((yyvsp[-3].id), (yyvsp[-1].type_decl)); }
-#line 1753 "parser.cpp"
+#line 1754 "parser.cpp"
     break;
 
   case 21:
-#line 166 "SimPascal.y"
+#line 167 "SimPascal.y"
                                                  { (yyval.type_decl) = new Type_decl((yyvsp[0].simple_type_decl)); }
-#line 1759 "parser.cpp"
+#line 1760 "parser.cpp"
     break;
 
   case 22:
-#line 167 "SimPascal.y"
+#line 168 "SimPascal.y"
                                                  { (yyval.type_decl) = new Type_decl((yyvsp[0].array_type_decl)); }
-#line 1765 "parser.cpp"
+#line 1766 "parser.cpp"
     break;
 
   case 23:
-#line 168 "SimPascal.y"
+#line 169 "SimPascal.y"
                                                  { (yyval.type_decl) = new Type_decl((yyvsp[0].record_type_decl)); }
-#line 1771 "parser.cpp"
+#line 1772 "parser.cpp"
     break;
 
   case 24:
-#line 171 "SimPascal.y"
+#line 172 "SimPascal.y"
                                                 { 
                                                     if (*(yyvsp[0].sval) == "integer") {
                                                         (yyval.simple_type_decl) = new Simple_type_decl(S_INT);
@@ -1786,575 +1787,575 @@ yyreduce:
                                                         (yyval.simple_type_decl) = new Simple_type_decl(S_BOOLEN);
                                                     }
                                                 }
-#line 1790 "parser.cpp"
+#line 1791 "parser.cpp"
     break;
 
   case 25:
-#line 185 "SimPascal.y"
+#line 186 "SimPascal.y"
                                                                     { (yyval.simple_type_decl) = new Simple_type_decl((yyvsp[0].id)); }
-#line 1796 "parser.cpp"
+#line 1797 "parser.cpp"
     break;
 
   case 26:
-#line 186 "SimPascal.y"
+#line 187 "SimPascal.y"
                                                                     { (yyval.simple_type_decl) = new Simple_type_decl(new Enum_Type((yyvsp[-1].name_list))); }
-#line 1802 "parser.cpp"
+#line 1803 "parser.cpp"
     break;
 
   case 27:
-#line 187 "SimPascal.y"
+#line 188 "SimPascal.y"
                                                                     { (yyval.simple_type_decl) = new Simple_type_decl(new Const_range((yyvsp[-2].const_value), (yyvsp[0].const_value))); }
-#line 1808 "parser.cpp"
+#line 1809 "parser.cpp"
     break;
 
   case 28:
-#line 188 "SimPascal.y"
+#line 189 "SimPascal.y"
                                                                     { (yyval.simple_type_decl) = new Simple_type_decl(new Const_range(-*(yyvsp[-2].const_value), (yyvsp[0].const_value))); }
-#line 1814 "parser.cpp"
+#line 1815 "parser.cpp"
     break;
 
   case 29:
-#line 189 "SimPascal.y"
+#line 190 "SimPascal.y"
                                                                     { (yyval.simple_type_decl) = new Simple_type_decl(new Const_range(-*(yyvsp[-3].const_value), -*(yyvsp[0].const_value))); }
-#line 1820 "parser.cpp"
+#line 1821 "parser.cpp"
     break;
 
   case 30:
-#line 190 "SimPascal.y"
+#line 191 "SimPascal.y"
                                                                     { (yyval.simple_type_decl) = new Simple_type_decl(new Enum_range((yyvsp[-2].id), (yyvsp[0].id))); }
-#line 1826 "parser.cpp"
+#line 1827 "parser.cpp"
     break;
 
   case 31:
-#line 193 "SimPascal.y"
+#line 194 "SimPascal.y"
                                                                     { (yyval.array_type_decl) = new Array_type_decl((yyvsp[-3].simple_type_decl), (yyvsp[0].type_decl)); }
-#line 1832 "parser.cpp"
+#line 1833 "parser.cpp"
     break;
 
   case 32:
-#line 196 "SimPascal.y"
+#line 197 "SimPascal.y"
                                                                     { (yyval.record_type_decl) = new Record_type_decl((yyvsp[-1].field_decl_list)); }
-#line 1838 "parser.cpp"
+#line 1839 "parser.cpp"
     break;
 
   case 33:
-#line 199 "SimPascal.y"
+#line 200 "SimPascal.y"
                                                                     { (yyval.field_decl_list) = (yyvsp[-1].field_decl_list); (yyval.field_decl_list)->push_back((yyvsp[0].field_decl)); }
-#line 1844 "parser.cpp"
+#line 1845 "parser.cpp"
     break;
 
   case 34:
-#line 200 "SimPascal.y"
+#line 201 "SimPascal.y"
                                                                     { (yyval.field_decl_list) = new Field_decl_list(); (yyval.field_decl_list)->push_back((yyvsp[0].field_decl)); }
-#line 1850 "parser.cpp"
+#line 1851 "parser.cpp"
     break;
 
   case 35:
-#line 203 "SimPascal.y"
+#line 204 "SimPascal.y"
                                                                     { (yyval.field_decl) = new Field_decl((yyvsp[-3].name_list), (yyvsp[-1].type_decl)); }
-#line 1856 "parser.cpp"
+#line 1857 "parser.cpp"
     break;
 
   case 36:
-#line 206 "SimPascal.y"
+#line 207 "SimPascal.y"
                                                                       { (yyval.name_list) = (yyvsp[-2].name_list); (yyval.name_list)->push_back((yyvsp[0].id)); }
-#line 1862 "parser.cpp"
+#line 1863 "parser.cpp"
     break;
 
   case 37:
-#line 207 "SimPascal.y"
+#line 208 "SimPascal.y"
                                                                       { (yyval.name_list) = new Name_list(); (yyval.name_list)->push_back((yyvsp[0].id)); }
-#line 1868 "parser.cpp"
+#line 1869 "parser.cpp"
     break;
 
   case 38:
-#line 210 "SimPascal.y"
+#line 211 "SimPascal.y"
                                                                     { (yyval.var_part) = new Var_part((yyvsp[0].var_decl_list)); }
-#line 1874 "parser.cpp"
+#line 1875 "parser.cpp"
     break;
 
   case 39:
-#line 211 "SimPascal.y"
+#line 212 "SimPascal.y"
                                                                     { (yyval.var_part) = nullptr; }
-#line 1880 "parser.cpp"
+#line 1881 "parser.cpp"
     break;
 
   case 40:
-#line 214 "SimPascal.y"
+#line 215 "SimPascal.y"
                                                                     { (yyval.var_decl_list) = (yyvsp[-1].var_decl_list); (yyval.var_decl_list)->push_back((yyvsp[0].var_decl)); }
-#line 1886 "parser.cpp"
+#line 1887 "parser.cpp"
     break;
 
   case 41:
-#line 215 "SimPascal.y"
+#line 216 "SimPascal.y"
                                                                     { (yyval.var_decl_list) = new Var_decl_list(); (yyval.var_decl_list)->push_back((yyvsp[0].var_decl)); }
-#line 1892 "parser.cpp"
+#line 1893 "parser.cpp"
     break;
 
   case 42:
-#line 218 "SimPascal.y"
+#line 219 "SimPascal.y"
                                                                     { (yyval.var_decl) = new Var_decl((yyvsp[-3].name_list), (yyvsp[-1].type_decl)); }
-#line 1898 "parser.cpp"
+#line 1899 "parser.cpp"
     break;
 
   case 43:
-#line 221 "SimPascal.y"
+#line 222 "SimPascal.y"
                                                                     { (yyval.routine_part) = (yyvsp[-1].routine_part); (yyval.routine_part)->push_back((yyvsp[0].function_decl)); }
-#line 1904 "parser.cpp"
+#line 1905 "parser.cpp"
     break;
 
   case 44:
-#line 222 "SimPascal.y"
+#line 223 "SimPascal.y"
                                                                     { (yyval.routine_part) = (yyvsp[-1].routine_part); (yyval.routine_part)->push_back((yyvsp[0].function_decl)); }
-#line 1910 "parser.cpp"
+#line 1911 "parser.cpp"
     break;
 
   case 45:
-#line 223 "SimPascal.y"
+#line 224 "SimPascal.y"
                                                                     { (yyval.routine_part) = new Routine_part(); (yyval.routine_part)->push_back((yyvsp[0].function_decl)); }
-#line 1916 "parser.cpp"
+#line 1917 "parser.cpp"
     break;
 
   case 46:
-#line 224 "SimPascal.y"
+#line 225 "SimPascal.y"
                                                                     { (yyval.routine_part) = new Routine_part(); (yyval.routine_part)->push_back((yyvsp[0].function_decl)); }
-#line 1922 "parser.cpp"
+#line 1923 "parser.cpp"
     break;
 
   case 47:
-#line 225 "SimPascal.y"
+#line 226 "SimPascal.y"
                                                                     { (yyval.routine_part) = new Routine_part(); }
-#line 1928 "parser.cpp"
+#line 1929 "parser.cpp"
     break;
 
   case 48:
-#line 228 "SimPascal.y"
+#line 229 "SimPascal.y"
                                                                     { (yyval.function_decl) = new Function_decl((yyvsp[-3].function_head), (yyvsp[-1].routine)); }
-#line 1934 "parser.cpp"
+#line 1935 "parser.cpp"
     break;
 
   case 49:
-#line 231 "SimPascal.y"
+#line 232 "SimPascal.y"
                                                                     { (yyval.function_head) = new Function_head((yyvsp[-3].id), (yyvsp[-2].para_decl_list), (yyvsp[0].simple_type_decl)); }
-#line 1940 "parser.cpp"
+#line 1941 "parser.cpp"
     break;
 
   case 50:
-#line 234 "SimPascal.y"
+#line 235 "SimPascal.y"
                                                                     { (yyval.function_decl) = new Function_decl((yyvsp[-3].function_head), (yyvsp[-1].routine)); }
-#line 1946 "parser.cpp"
+#line 1947 "parser.cpp"
     break;
 
   case 51:
-#line 237 "SimPascal.y"
+#line 238 "SimPascal.y"
                                                                     { (yyval.function_head) = new Function_head((yyvsp[-1].id), (yyvsp[0].para_decl_list)); }
-#line 1952 "parser.cpp"
+#line 1953 "parser.cpp"
     break;
 
   case 52:
-#line 240 "SimPascal.y"
+#line 241 "SimPascal.y"
                                                                     { (yyval.para_decl_list) = (yyvsp[-1].para_decl_list); }
-#line 1958 "parser.cpp"
+#line 1959 "parser.cpp"
     break;
 
   case 53:
-#line 241 "SimPascal.y"
+#line 242 "SimPascal.y"
                                                                     { (yyval.para_decl_list) = new Para_decl_list(); }
-#line 1964 "parser.cpp"
+#line 1965 "parser.cpp"
     break;
 
   case 54:
-#line 244 "SimPascal.y"
+#line 245 "SimPascal.y"
                                                                     { (yyval.para_decl_list) = (yyvsp[-2].para_decl_list); (yyval.para_decl_list)->push_back((yyvsp[0].para_type_list)); }
-#line 1970 "parser.cpp"
+#line 1971 "parser.cpp"
     break;
 
   case 55:
-#line 245 "SimPascal.y"
+#line 246 "SimPascal.y"
                                                                     { (yyval.para_decl_list) = new Para_decl_list(); (yyval.para_decl_list)->push_back((yyvsp[0].para_type_list)); }
-#line 1976 "parser.cpp"
+#line 1977 "parser.cpp"
     break;
 
   case 56:
-#line 248 "SimPascal.y"
+#line 249 "SimPascal.y"
                                                                     { (yyval.para_type_list) = new Para_decl((yyvsp[-2].var_para_list), (yyvsp[0].simple_type_decl)); }
-#line 1982 "parser.cpp"
+#line 1983 "parser.cpp"
     break;
 
   case 57:
-#line 249 "SimPascal.y"
+#line 250 "SimPascal.y"
                                                                     { (yyval.para_type_list) = new Para_decl((yyvsp[-2].val_para_list), (yyvsp[0].simple_type_decl)); }
-#line 1988 "parser.cpp"
+#line 1989 "parser.cpp"
     break;
 
   case 58:
-#line 252 "SimPascal.y"
+#line 253 "SimPascal.y"
                                                                     { (yyval.var_para_list) = new Va_para_list((yyvsp[0].name_list), true); }
-#line 1994 "parser.cpp"
+#line 1995 "parser.cpp"
     break;
 
   case 59:
-#line 255 "SimPascal.y"
+#line 256 "SimPascal.y"
                                                                     { (yyval.val_para_list) = new Va_para_list((yyvsp[0].name_list), false); }
-#line 2000 "parser.cpp"
+#line 2001 "parser.cpp"
     break;
 
   case 60:
-#line 258 "SimPascal.y"
+#line 259 "SimPascal.y"
                                                                     { (yyval.routine_body) = (yyvsp[0].routine_body); }
-#line 2006 "parser.cpp"
+#line 2007 "parser.cpp"
     break;
 
   case 61:
-#line 261 "SimPascal.y"
+#line 262 "SimPascal.y"
                                                                      { (yyval.routine_body) = new Routine_body((yyvsp[-1].stmt_list)); }
-#line 2012 "parser.cpp"
+#line 2013 "parser.cpp"
     break;
 
   case 62:
-#line 264 "SimPascal.y"
+#line 265 "SimPascal.y"
                                                                     { (yyval.stmt_list) = (yyvsp[-2].stmt_list); (yyval.stmt_list)->push_back((yyvsp[-1].stmt)); }
-#line 2018 "parser.cpp"
+#line 2019 "parser.cpp"
     break;
 
   case 63:
-#line 265 "SimPascal.y"
+#line 266 "SimPascal.y"
                                                                     { (yyval.stmt_list) = new Stmt_list(); }
-#line 2024 "parser.cpp"
+#line 2025 "parser.cpp"
     break;
 
   case 64:
-#line 268 "SimPascal.y"
+#line 269 "SimPascal.y"
                                                                     { (yyval.stmt) = (yyvsp[0].stmt); (yyvsp[0].stmt)->Setlabel((yyvsp[-2].ival)); }
-#line 2030 "parser.cpp"
+#line 2031 "parser.cpp"
     break;
 
   case 65:
-#line 269 "SimPascal.y"
+#line 270 "SimPascal.y"
                                                                     { (yyval.stmt) = (yyvsp[0].stmt); }
-#line 2036 "parser.cpp"
+#line 2037 "parser.cpp"
     break;
 
   case 66:
-#line 272 "SimPascal.y"
+#line 273 "SimPascal.y"
                                                                     { (yyval.stmt) = (yyvsp[0].stmt); }
-#line 2042 "parser.cpp"
+#line 2043 "parser.cpp"
     break;
 
   case 67:
-#line 273 "SimPascal.y"
+#line 274 "SimPascal.y"
                                                                     { (yyval.stmt) = (yyvsp[0].stmt); }
-#line 2048 "parser.cpp"
+#line 2049 "parser.cpp"
     break;
 
   case 68:
-#line 274 "SimPascal.y"
+#line 275 "SimPascal.y"
                                                                     { (yyval.stmt) = (yyvsp[0].routine_body); }
-#line 2054 "parser.cpp"
+#line 2055 "parser.cpp"
     break;
 
   case 69:
-#line 275 "SimPascal.y"
+#line 276 "SimPascal.y"
                                                                     { (yyval.stmt) = (yyvsp[0].stmt); }
-#line 2060 "parser.cpp"
+#line 2061 "parser.cpp"
     break;
 
   case 70:
-#line 276 "SimPascal.y"
+#line 277 "SimPascal.y"
                                                                     { (yyval.stmt) = (yyvsp[0].stmt); }
-#line 2066 "parser.cpp"
+#line 2067 "parser.cpp"
     break;
 
   case 71:
-#line 277 "SimPascal.y"
+#line 278 "SimPascal.y"
                                                                     { (yyval.stmt) = (yyvsp[0].stmt); }
-#line 2072 "parser.cpp"
+#line 2073 "parser.cpp"
     break;
 
   case 72:
-#line 278 "SimPascal.y"
+#line 279 "SimPascal.y"
                                                                     { (yyval.stmt) = (yyvsp[0].stmt); }
-#line 2078 "parser.cpp"
+#line 2079 "parser.cpp"
     break;
 
   case 73:
-#line 279 "SimPascal.y"
+#line 280 "SimPascal.y"
                                                                     { (yyval.stmt) = (yyvsp[0].stmt); }
-#line 2084 "parser.cpp"
+#line 2085 "parser.cpp"
     break;
 
   case 74:
-#line 280 "SimPascal.y"
+#line 281 "SimPascal.y"
                                                                     { (yyval.stmt) = (yyvsp[0].stmt); }
-#line 2090 "parser.cpp"
+#line 2091 "parser.cpp"
     break;
 
   case 75:
-#line 283 "SimPascal.y"
+#line 284 "SimPascal.y"
                                                                       { (yyval.stmt) = new Assign_stmt((yyvsp[-2].id), (yyvsp[0].expression)); }
-#line 2096 "parser.cpp"
+#line 2097 "parser.cpp"
     break;
 
   case 76:
-#line 284 "SimPascal.y"
+#line 285 "SimPascal.y"
                                                                       { (yyval.stmt) = new Assign_stmt((yyvsp[-5].id), (yyvsp[-3].expression), (yyvsp[0].expression)); }
-#line 2102 "parser.cpp"
+#line 2103 "parser.cpp"
     break;
 
   case 77:
-#line 285 "SimPascal.y"
+#line 286 "SimPascal.y"
                                                                         { (yyval.stmt) = new Assign_stmt((yyvsp[-4].id), (yyvsp[0].expression), (yyvsp[-2].id)); }
-#line 2108 "parser.cpp"
+#line 2109 "parser.cpp"
     break;
 
   case 78:
-#line 288 "SimPascal.y"
+#line 289 "SimPascal.y"
                                                                       { (yyval.stmt) = new Proc_stmt((yyvsp[0].id)); }
-#line 2114 "parser.cpp"
+#line 2115 "parser.cpp"
     break;
 
   case 79:
-#line 289 "SimPascal.y"
+#line 290 "SimPascal.y"
                                                                       { (yyval.stmt) = new Proc_stmt((yyvsp[-3].id), (yyvsp[-1].args_list)); }
-#line 2120 "parser.cpp"
+#line 2121 "parser.cpp"
     break;
 
   case 80:
-#line 290 "SimPascal.y"
+#line 291 "SimPascal.y"
                                                                     {
                                                                         if (*(yyvsp[0].sval) == "write")
                                                                             (yyval.stmt) = new Sysproc_stmt(S_WRITE); 
                                                                         else if (*(yyvsp[0].sval) == "writeln") 
                                                                             (yyval.stmt) = new Sysproc_stmt(S_WRITELN);
                                                                     }
-#line 2131 "parser.cpp"
+#line 2132 "parser.cpp"
     break;
 
   case 81:
-#line 296 "SimPascal.y"
+#line 297 "SimPascal.y"
                                                                     { 
                                                                         if (*(yyvsp[-3].sval) == "write")
                                                                             (yyval.stmt) = new Sysproc_stmt(S_WRITE, (yyvsp[-1].expression_list)); 
                                                                         else if (*(yyvsp[-3].sval) == "writeln")
                                                                             (yyval.stmt) = new Sysproc_stmt(S_WRITELN, (yyvsp[-1].expression_list));
                                                                     }
-#line 2142 "parser.cpp"
+#line 2143 "parser.cpp"
     break;
 
   case 82:
-#line 302 "SimPascal.y"
+#line 303 "SimPascal.y"
                                                                     { 
                                                                         (yyval.stmt) = new Sysproc_stmt(S_READ, (yyvsp[-1].expression)); 
                                                                     }
-#line 2150 "parser.cpp"
+#line 2151 "parser.cpp"
     break;
 
   case 83:
-#line 307 "SimPascal.y"
+#line 308 "SimPascal.y"
                                                                     { (yyval.stmt) = new If_stmt((yyvsp[-3].expression), (yyvsp[-1].stmt), (yyvsp[0].stmt)); }
-#line 2156 "parser.cpp"
+#line 2157 "parser.cpp"
     break;
 
   case 84:
-#line 310 "SimPascal.y"
+#line 311 "SimPascal.y"
                                                                     { (yyval.stmt) = (yyvsp[0].stmt); }
-#line 2162 "parser.cpp"
+#line 2163 "parser.cpp"
     break;
 
   case 85:
-#line 311 "SimPascal.y"
+#line 312 "SimPascal.y"
                                                                     { (yyval.stmt) = nullptr; }
-#line 2168 "parser.cpp"
+#line 2169 "parser.cpp"
     break;
 
   case 86:
-#line 314 "SimPascal.y"
+#line 315 "SimPascal.y"
                                                                     { (yyval.stmt) = new Repeat_stmt((yyvsp[-2].stmt_list), (yyvsp[0].expression)); }
-#line 2174 "parser.cpp"
+#line 2175 "parser.cpp"
     break;
 
   case 87:
-#line 317 "SimPascal.y"
+#line 318 "SimPascal.y"
                                                                     { (yyval.stmt) = new While_stmt((yyvsp[-2].expression), (yyvsp[0].stmt)); }
-#line 2180 "parser.cpp"
+#line 2181 "parser.cpp"
     break;
 
   case 88:
-#line 320 "SimPascal.y"
+#line 321 "SimPascal.y"
                                                                               { (yyval.stmt) = new For_stmt((yyvsp[-6].id), (yyvsp[-4].expression), (yyvsp[-3].direction), (yyvsp[-2].expression), (yyvsp[0].stmt)); }
-#line 2186 "parser.cpp"
+#line 2187 "parser.cpp"
     break;
 
   case 89:
-#line 323 "SimPascal.y"
+#line 324 "SimPascal.y"
                                                 { (yyval.direction) = new Direction(S_TO); }
-#line 2192 "parser.cpp"
+#line 2193 "parser.cpp"
     break;
 
   case 90:
-#line 324 "SimPascal.y"
+#line 325 "SimPascal.y"
                                                 { (yyval.direction) = new Direction(S_DOWNTO); }
-#line 2198 "parser.cpp"
+#line 2199 "parser.cpp"
     break;
 
   case 91:
-#line 327 "SimPascal.y"
+#line 328 "SimPascal.y"
                                                                         { (yyval.stmt) = new Case_stmt((yyvsp[-3].expression), (yyvsp[-1].case_expr_list)); }
-#line 2204 "parser.cpp"
+#line 2205 "parser.cpp"
     break;
 
   case 92:
-#line 330 "SimPascal.y"
+#line 331 "SimPascal.y"
                                                                         { (yyval.case_expr_list) = (yyvsp[-1].case_expr_list); (yyval.case_expr_list)->push_back((yyvsp[0].case_expr)); }
-#line 2210 "parser.cpp"
+#line 2211 "parser.cpp"
     break;
 
   case 93:
-#line 331 "SimPascal.y"
+#line 332 "SimPascal.y"
                                                                         { (yyval.case_expr_list) = new Case_expr_list(); (yyval.case_expr_list)->push_back((yyvsp[0].case_expr)); }
-#line 2216 "parser.cpp"
+#line 2217 "parser.cpp"
     break;
 
   case 94:
-#line 334 "SimPascal.y"
+#line 335 "SimPascal.y"
                                                                         { (yyval.case_expr) = new Case_expr((yyvsp[-3].const_value), (yyvsp[-1].stmt)); }
-#line 2222 "parser.cpp"
+#line 2223 "parser.cpp"
     break;
 
   case 95:
-#line 335 "SimPascal.y"
+#line 336 "SimPascal.y"
                                                                           { (yyval.case_expr) = new Case_expr((yyvsp[-3].id), (yyvsp[-1].stmt)); }
-#line 2228 "parser.cpp"
+#line 2229 "parser.cpp"
     break;
 
   case 96:
-#line 338 "SimPascal.y"
+#line 339 "SimPascal.y"
                                                                         { (yyval.stmt) = new Goto_stmt((yyvsp[0].ival)); }
-#line 2234 "parser.cpp"
+#line 2235 "parser.cpp"
     break;
 
   case 97:
-#line 341 "SimPascal.y"
+#line 342 "SimPascal.y"
                                                                         { (yyval.expression_list) = (yyvsp[-2].expression_list); (yyval.expression_list)->push_back((yyvsp[0].expression)); }
-#line 2240 "parser.cpp"
+#line 2241 "parser.cpp"
     break;
 
   case 98:
-#line 342 "SimPascal.y"
+#line 343 "SimPascal.y"
                                                                         { (yyval.expression_list) = new Expression_list(); (yyval.expression_list)->push_back((yyvsp[0].expression)); }
-#line 2246 "parser.cpp"
+#line 2247 "parser.cpp"
     break;
 
   case 99:
-#line 345 "SimPascal.y"
+#line 346 "SimPascal.y"
                                                                         { (yyval.expression) = new Binary_expression(S_GE, (yyvsp[-2].expression), (yyvsp[0].expression)); }
-#line 2252 "parser.cpp"
+#line 2253 "parser.cpp"
     break;
 
   case 100:
-#line 346 "SimPascal.y"
+#line 347 "SimPascal.y"
                                                                         { (yyval.expression) = new Binary_expression(S_GT, (yyvsp[-2].expression), (yyvsp[0].expression)); }
-#line 2258 "parser.cpp"
+#line 2259 "parser.cpp"
     break;
 
   case 101:
-#line 347 "SimPascal.y"
+#line 348 "SimPascal.y"
                                                                         { (yyval.expression) = new Binary_expression(S_LE, (yyvsp[-2].expression), (yyvsp[0].expression)); }
-#line 2264 "parser.cpp"
+#line 2265 "parser.cpp"
     break;
 
   case 102:
-#line 348 "SimPascal.y"
+#line 349 "SimPascal.y"
                                                                         { (yyval.expression) = new Binary_expression(S_LT, (yyvsp[-2].expression), (yyvsp[0].expression)); }
-#line 2270 "parser.cpp"
+#line 2271 "parser.cpp"
     break;
 
   case 103:
-#line 349 "SimPascal.y"
+#line 350 "SimPascal.y"
                                                                         { (yyval.expression) = new Binary_expression(S_EQ, (yyvsp[-2].expression), (yyvsp[0].expression)); }
-#line 2276 "parser.cpp"
+#line 2277 "parser.cpp"
     break;
 
   case 104:
-#line 350 "SimPascal.y"
+#line 351 "SimPascal.y"
                                                                         { (yyval.expression) = new Binary_expression(S_NE, (yyvsp[-2].expression), (yyvsp[0].expression)); }
-#line 2282 "parser.cpp"
+#line 2283 "parser.cpp"
     break;
 
   case 105:
-#line 351 "SimPascal.y"
+#line 352 "SimPascal.y"
                                                                         { (yyval.expression) = (yyvsp[0].expression); }
-#line 2288 "parser.cpp"
+#line 2289 "parser.cpp"
     break;
 
   case 106:
-#line 354 "SimPascal.y"
+#line 355 "SimPascal.y"
                                                                         { (yyval.expression) = new Binary_expression(S_PLUS, (yyvsp[-2].expression), (yyvsp[0].expression)); }
-#line 2294 "parser.cpp"
+#line 2295 "parser.cpp"
     break;
 
   case 107:
-#line 355 "SimPascal.y"
+#line 356 "SimPascal.y"
                                                                         { (yyval.expression) = new Binary_expression(S_MINUS, (yyvsp[-2].expression), (yyvsp[0].expression)); }
-#line 2300 "parser.cpp"
+#line 2301 "parser.cpp"
     break;
 
   case 108:
-#line 356 "SimPascal.y"
+#line 357 "SimPascal.y"
                                                                         { (yyval.expression) = new Binary_expression(S_OR, (yyvsp[-2].expression), (yyvsp[0].expression)); }
-#line 2306 "parser.cpp"
+#line 2307 "parser.cpp"
     break;
 
   case 109:
-#line 357 "SimPascal.y"
+#line 358 "SimPascal.y"
                                                                         { (yyval.expression) = (yyvsp[0].expression); }
-#line 2312 "parser.cpp"
+#line 2313 "parser.cpp"
     break;
 
   case 110:
-#line 360 "SimPascal.y"
+#line 361 "SimPascal.y"
                                                                         { (yyval.expression) = new Binary_expression(S_MUL, (yyvsp[-2].expression), (yyvsp[0].expression)); }
-#line 2318 "parser.cpp"
+#line 2319 "parser.cpp"
     break;
 
   case 111:
-#line 361 "SimPascal.y"
+#line 362 "SimPascal.y"
                                                                         { (yyval.expression) = new Binary_expression(S_DIV, (yyvsp[-2].expression), (yyvsp[0].expression)); }
-#line 2324 "parser.cpp"
+#line 2325 "parser.cpp"
     break;
 
   case 112:
-#line 362 "SimPascal.y"
+#line 363 "SimPascal.y"
                                                                         { (yyval.expression) = new Binary_expression(S_MOD, (yyvsp[-2].expression), (yyvsp[0].expression)); }
-#line 2330 "parser.cpp"
+#line 2331 "parser.cpp"
     break;
 
   case 113:
-#line 363 "SimPascal.y"
+#line 364 "SimPascal.y"
                                                                         { (yyval.expression) = new Binary_expression(S_AND, (yyvsp[-2].expression), (yyvsp[0].expression)); }
-#line 2336 "parser.cpp"
+#line 2337 "parser.cpp"
     break;
 
   case 114:
-#line 364 "SimPascal.y"
+#line 365 "SimPascal.y"
                                                                         { (yyval.expression) = (yyvsp[0].expression); }
-#line 2342 "parser.cpp"
+#line 2343 "parser.cpp"
     break;
 
   case 115:
-#line 367 "SimPascal.y"
+#line 368 "SimPascal.y"
                                                                         { (yyval.expression) = (yyvsp[0].id); }
-#line 2348 "parser.cpp"
+#line 2349 "parser.cpp"
     break;
 
   case 116:
-#line 368 "SimPascal.y"
+#line 369 "SimPascal.y"
                                                                         { (yyval.expression) = new Func_stmt((yyvsp[-3].id), (yyvsp[-1].args_list)); }
-#line 2354 "parser.cpp"
+#line 2355 "parser.cpp"
     break;
 
   case 117:
-#line 369 "SimPascal.y"
+#line 370 "SimPascal.y"
                                                                         {
                                                                             if (*(yyvsp[0].sval) == "ads")  
                                                                                 (yyval.expression) = new Sysfunc_stmt(S_ADS);
@@ -2373,11 +2374,11 @@ yyreduce:
                                                                             else if (*(yyvsp[0].sval) == "succ")
                                                                                 (yyval.expression) = new Sysfunc_stmt(S_SUCC);
                                                                         }
-#line 2377 "parser.cpp"
+#line 2378 "parser.cpp"
     break;
 
   case 118:
-#line 387 "SimPascal.y"
+#line 388 "SimPascal.y"
                                                                         {
                                                                             if (*(yyvsp[-3].sval) == "ads")  
                                                                                 (yyval.expression) = new Sysfunc_stmt(S_ADS, (yyvsp[-1].args_list));
@@ -2396,59 +2397,59 @@ yyreduce:
                                                                             else if (*(yyvsp[-3].sval) == "succ")
                                                                                 (yyval.expression) = new Sysfunc_stmt(S_SUCC, (yyvsp[-1].args_list));
                                                                         }
-#line 2400 "parser.cpp"
+#line 2401 "parser.cpp"
     break;
 
   case 119:
-#line 405 "SimPascal.y"
+#line 406 "SimPascal.y"
                                                                         { (yyval.expression) = (yyvsp[0].const_value); }
-#line 2406 "parser.cpp"
+#line 2407 "parser.cpp"
     break;
 
   case 120:
-#line 406 "SimPascal.y"
+#line 407 "SimPascal.y"
                                                                         { (yyval.expression) = (yyvsp[-1].expression); }
-#line 2412 "parser.cpp"
+#line 2413 "parser.cpp"
     break;
 
   case 121:
-#line 407 "SimPascal.y"
+#line 408 "SimPascal.y"
                                                                         { (yyval.expression) = new Binary_expression(S_NOT, new Const_value(S_BOOLEN, true), (yyvsp[0].expression)); }
-#line 2418 "parser.cpp"
+#line 2419 "parser.cpp"
     break;
 
   case 122:
-#line 408 "SimPascal.y"
+#line 409 "SimPascal.y"
                                                                         { (yyval.expression) = new Binary_expression(S_MINUS, new Const_value(S_INT, 0), (yyvsp[0].expression)); }
-#line 2424 "parser.cpp"
+#line 2425 "parser.cpp"
     break;
 
   case 123:
-#line 409 "SimPascal.y"
+#line 410 "SimPascal.y"
                                                                           { (yyval.expression) = new Array_access((yyvsp[-3].id), (yyvsp[-1].expression)); }
-#line 2430 "parser.cpp"
+#line 2431 "parser.cpp"
     break;
 
   case 124:
-#line 410 "SimPascal.y"
+#line 411 "SimPascal.y"
                                                                             { (yyval.expression) = new Record_access((yyvsp[-2].id), (yyvsp[0].id)); }
-#line 2436 "parser.cpp"
+#line 2437 "parser.cpp"
     break;
 
   case 125:
-#line 413 "SimPascal.y"
+#line 414 "SimPascal.y"
                                                                         { (yyval.args_list) = (yyvsp[-2].args_list); (yyval.args_list)->push_back((yyvsp[0].expression)); }
-#line 2442 "parser.cpp"
+#line 2443 "parser.cpp"
     break;
 
   case 126:
-#line 414 "SimPascal.y"
+#line 415 "SimPascal.y"
                                                                         { (yyval.args_list) = new Args_list(); (yyval.args_list)->push_back((yyvsp[0].expression)); }
-#line 2448 "parser.cpp"
+#line 2449 "parser.cpp"
     break;
 
 
-#line 2452 "parser.cpp"
+#line 2453 "parser.cpp"
 
       default: break;
     }
@@ -2680,7 +2681,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 417 "SimPascal.y"
+#line 418 "SimPascal.y"
 
 
 int yyerror(const char *s) {

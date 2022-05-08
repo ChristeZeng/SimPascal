@@ -1,14 +1,14 @@
 %code requires {
 #include "AST/AST.h"
+#include "generator/CodeGenerator.h"
 #include <iostream>
 #include <string>
-
-Program *root;
 }
 
 %{
 using namespace std;
 
+Program *root;
 int yyerror(const char *s);
 int yywrap(void);
 extern int yylex(void);
@@ -113,7 +113,7 @@ extern int yylex(void);
 name            : ID { $$ = new Identifier(*$1); }
                 ;
 
-program         : program_head routine DOT { $$ = new Program($1, $2); root = $$; }
+program         : program_head routine DOT { $$ = new Program($1, $2); root = $$;}
                 ;
 
 program_head    : PROGRAM ID SEMI { $$ = new Program_head(*$2); }

@@ -1,3 +1,4 @@
+#pragma once
 #include <llvm/IR/Module.h>
 #include <llvm/IR/Function.h>
 #include <llvm/IR/Type.h>
@@ -28,6 +29,12 @@
 #include <llvm/Target/TargetMachine.h>
 
 #include "../AST/AST.h"
+#include "../AST/Node.h"
+#include "../AST/Const.h"
+#include "../AST/Type.h"
+#include "../AST/Stmt.h"
+#include "../AST/Program.h"
+
 #include <map>
 #include <vector>
 #include <string>
@@ -35,6 +42,8 @@
 
 using namespace llvm;
 using namespace std;
+
+class Program;
 
 static LLVMContext context;
 static IRBuilder<> builder(context);

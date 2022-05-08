@@ -47,10 +47,10 @@ extern int yydebug;
 #line 1 "SimPascal.y"
 
 #include "AST/AST.h"
+#include "AST/Program.h"
+#include "generator/CodeGenerator.h"
 #include <iostream>
 #include <string>
-
-Program *root;
 
 #line 56 "parser.hpp"
 
@@ -123,7 +123,7 @@ Program *root;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 17 "SimPascal.y"
+#line 18 "SimPascal.y"
 
     int ival;
     double dval;

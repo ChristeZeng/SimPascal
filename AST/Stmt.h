@@ -1,55 +1,15 @@
 #pragma once
-#include <llvm/IR/Value.h>
-#include <string>
-#include <vector>
-
+#include "AST.h"
 #include "Node.h"
 #include "Const.h"
-using namespace std;
-
-enum Direction_type {
-    S_TO,
-    S_DOWNTO
-};
-
-enum Binary_op {
-    S_PLUS,
-    S_MINUS,
-    S_MUL,
-    S_DIV,
-    S_MOD,
-    S_AND,
-    S_OR,
-    S_GE,
-    S_GT,
-    S_LE,
-    S_LT,
-    S_EQ,
-    S_NE,
-    S_NOT,
-};
-
-class Direction;
-class Assign_stmt;
-class Proc_stmt;
-class If_stmt;
-class Repeat_stmt;
-class While_stmt;
-class Case_stmt;
-class Case_expr;
-class Goto_stmt;
-class For_stmt;
-class Binary_expression;
-
-using Args_list = vector<Expression *>;
-using Expression_list = vector<Expression *>;
+#include "Type.h"
 
 class Assign_stmt : public Stmt {
 private:
-    Identifier *lid=nullptr;
-    Expression *lexpression=nullptr;
-    Expression *rexpression=nullptr;
-    Identifier *fid=nullptr;
+    Identifier *lid;
+    Expression *lexpression;
+    Expression *rexpression;
+    Identifier *fid;
 public:
     Assign_stmt(Identifier *lid, Expression *rexpression) : lid(lid), rexpression(rexpression) {}
     Assign_stmt(Identifier *lid, Expression *lexpression, Expression *rexpression) : lid(lid), lexpression(lexpression), rexpression(rexpression) {}
@@ -75,8 +35,9 @@ public:
     Sysproc_stmt(SysFunc func) : func(func) {}
     Sysproc_stmt(SysFunc func, Args_list *args_list) : func(func), args_list(args_list) {}
     Sysproc_stmt(SysFunc func, Expression *expression) : func(func) {
-        this->args_list = new Args_list();
-        this->args_list->push_back(expression);
+        //???
+        // this->args_list = new Args_list();
+        // this->args_list->push_back(expression);
     }
     llvm::Value *codegen(CodeGenerator &generator);
 };
@@ -100,8 +61,6 @@ public:
     Sysfunc_stmt(SysFunc func, Args_list *args_list) : func(func), args_list(args_list) {}
     llvm::Value *codegen(CodeGenerator &generator);
 };
-
-
 
 class If_stmt : public Stmt {
 private:

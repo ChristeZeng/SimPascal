@@ -1,27 +1,9 @@
 #pragma once
-#include <llvm/IR/Value.h>
-#include <string>
-#include <vector>
+#include "AST.h"
 #include "Node.h"
 #include "Const.h"
 #include "Type.h"
-using namespace std;
-
-// 类型申明
-class Program;
-class Program_head;
-class Program_body;
-class Routine;
-class Routine_head;
-class Routine_body;
-class Function_head;
-class Function_decl;
-class Para_decl;
-class Va_para_list;
-
-using Routine_part = vector<Function_decl *>;
-using Para_decl_list = vector<Para_decl *>;
-using Para_type_list = vector<Simple_type_decl *>;
+#include "Stmt.h"
 
 class Program : public Node {
 private:
@@ -74,6 +56,7 @@ class Va_para_list : public Node {
 public:
     Name_list *name_list;
     bool is_var_para;
+public:
     Va_para_list(Name_list *name_list, bool is_var_para) : name_list(name_list), is_var_para(is_var_para) {}
     llvm::Value *codegen(CodeGenerator &generator);
 };
@@ -83,6 +66,7 @@ class Para_decl : public Node {
 public:
     Va_para_list *va_para_list;
     Simple_type_decl *simple_type_decl;
+public:
     Para_decl(Va_para_list *va_para_list, Simple_type_decl *simple_type_decl) : va_para_list(va_para_list), simple_type_decl(simple_type_decl) {}
     llvm::Value *codegen(CodeGenerator &generator);
 };
@@ -99,7 +83,7 @@ public:
 };
 
 class Function_decl : public Node {
-private:
+public:
     Function_head *function_head;
     Routine *subroutine;
 public:

@@ -1,26 +1,35 @@
 #pragma once
-#include <llvm/IR/Value.h>
-#include <string>
-#include <vector>
-#include "Const.h"
+#include "AST.h"
 #include "Node.h"
+#include "Const.h"
 
-using namespace std;
+class Simple_type_decl : public Node {
+public:
+    enum {
+        BASE,
+        ARRARY,
+        RECORD,
+        ENUM,
+        CONSTRANGE,
+        ENUMRANGE,
+        USERDEFINED,
+        VOID,
+    } Type_name;
 
-class Type_part;
-class Type_definition;
-class Type_decl;
-class Simple_type_decl;
-class Array_type_decl;
-class Record_type_decl;
-class Const_range;
-class Enum_range;
-class Enum_Type;
-class Var_part;
-class Var_decl;
-
-using Type_decl_list = vector<Type_definition *>;
-using Var_decl_list = vector<Var_decl *>;
+    Identifier *id;
+    Const_range *const_range;
+    Enum_range *enum_range;
+    Enum_Type *enum_type;
+    Base_type base_type;
+public:
+    Simple_type_decl(Identifier *id) : id(id), Type_name(USERDEFINED) {}
+    Simple_type_decl(Const_range *const_range) : const_range(const_range), Type_name(CONSTRANGE) {}
+    Simple_type_decl(Enum_range *enum_range) : enum_range(enum_range), Type_name(ENUMRANGE) {}
+    Simple_type_decl(Enum_Type *enum_type) : enum_type(enum_type), Type_name(ENUM) {}
+    Simple_type_decl(Base_type base_type) : base_type(base_type), Type_name(BASE) {}
+    Simple_type_decl() : Type_name(VOID) {}
+    llvm::Value *codegen(CodeGenerator &generator);
+};
 
 class Type_part : public Node {
 private:
@@ -64,34 +73,6 @@ private:
     Identifier *upper_id;
 public:
     Enum_range(Identifier *lower_id, Identifier *upper_id) : lower_id(lower_id), upper_id(upper_id) {}
-    llvm::Value *codegen(CodeGenerator &generator);
-};
-
-class Simple_type_decl : public Node {
-public:
-    enum {
-        BASE,
-        ARRARY,
-        RECORD,
-        ENUM,
-        CONSTRANGE,
-        ENUMRANGE,
-        USERDEFINED,
-        VOID,
-    } Type_name;
-
-    Identifier *id;
-    Const_range *const_range;
-    Enum_range *enum_range;
-    Enum_Type *enum_type;
-    Base_type base_type;
-public:
-    Simple_type_decl(Identifier *id) : id(id), Type_name(USERDEFINED) {}
-    Simple_type_decl(Const_range *const_range) : const_range(const_range), Type_name(CONSTRANGE) {}
-    Simple_type_decl(Enum_range *enum_range) : enum_range(enum_range), Type_name(ENUMRANGE) {}
-    Simple_type_decl(Enum_Type *enum_type) : enum_type(enum_type), Type_name(ENUM) {}
-    Simple_type_decl(Base_type base_type) : base_type(base_type), Type_name(BASE) {}
-    Simple_type_decl() : Type_name(VOID) {}
     llvm::Value *codegen(CodeGenerator &generator);
 };
 
@@ -139,7 +120,7 @@ class Var_decl : public Node {
 private:
     Name_list *name_list;
     Type_decl *type_decl;
-    bool is_global = false;
+    bool is_global;
 public:
     Var_decl(Name_list *name_list, Type_decl *type_decl) : name_list(name_list), type_decl(type_decl) {}
     llvm::Value *codegen(CodeGenerator &generator);

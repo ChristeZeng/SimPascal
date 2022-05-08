@@ -1,18 +1,6 @@
 #pragma once
-#include <llvm/IR/Value.h>
-#include <string>
-#include <vector>
+#include "AST.h"
 #include "Node.h"
-
-using namespace std;
-
-class CodeGenerator;
-
-class Const_part;
-class Const_expr;
-class Const_value;
-
-using Const_expr_list = vector<Const_expr *>;
 
 class Const_part : public Node {
 private:
@@ -26,7 +14,7 @@ class Const_expr : public Node {
 private:
     Identifier *id;
     Const_value *const_value;
-    bool is_global = false;
+    bool is_global;
 public:
     Const_expr(Identifier *id, Const_value *const_value) : id(id), const_value(const_value) {}
     llvm::Value *codegen(CodeGenerator &generator);
@@ -77,5 +65,5 @@ public:
             return nullptr;
         }
     }
-    llvm::Constant *codegen(CodeGenerator &generator);
+    llvm::Value *codegen(CodeGenerator &generator);
 };

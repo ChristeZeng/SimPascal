@@ -1,4 +1,5 @@
 #include "CodeGenerator.h"
+#include "../AST/AST.h"
 
 using namespace std;
 using namespace llvm;
@@ -13,17 +14,18 @@ Value *Const_part::codegen(CodeGenerator &generator) {
 
 Value *Const_expr::codegen(CodeGenerator &generator) {
     print("Const_expr");
-    Constant *value = const_value->codegen(generator);
+    Value *value = const_value->codegen(generator);
     // Constant *constant;
     if(is_global){
-        return new GlobalVariable(*generator.module, value->getType(), true, GlobalValue::ExternalLinkage, value, id->name);
+        return nullptr;
+        // return new GlobalVariable(*generator.module, value->getType(), true, GlobalValue::ExternalLinkage, value, id->name);
     } else {
         auto alloc = generator.CreateEntryBlockAlloca(generator.getCurFunction(), id->name, value->getType());
         return builder.CreateStore(value, alloc);
     }
 }
 
-Constant *Const_value::codegen(CodeGenerator &generator) {
+Value *Const_value::codegen(CodeGenerator &generator) {
     switch (base_type) {
         case Base_type::S_INT:
             return builder.getInt32(Value.int_value);
