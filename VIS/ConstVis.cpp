@@ -1,11 +1,13 @@
-#pragma once
 #include "VIS.h"
 
 using namespace std;
 
 string Const_part::Vis() {
-    string res = "";
-    return res;
+    vector<string> const_expr_list_out;
+    for (auto const_expr : *const_expr_list) {
+        const_expr_list_out.push_back(const_expr->Vis());
+    }
+    return Out("Const_part", Out("Const_expr_list", const_expr_list_out));
 }
 
 string Const_expr::Vis() {

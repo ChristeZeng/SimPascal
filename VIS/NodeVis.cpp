@@ -3,9 +3,5 @@
 using namespace std;
 
 string Identifier::Vis() {
-    return Out("Identifier", name);
-}
-
-string Stmt::Vis() {
-    return Out("Stmt");
+    return Out("Identifier", Out(name));
 }

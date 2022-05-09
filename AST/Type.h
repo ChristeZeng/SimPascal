@@ -46,6 +46,7 @@ public:
     Simple_type_decl(Base_type base_type) : base_type(base_type), Type_name(BASE) {}
     Simple_type_decl() : Type_name(VOID) {}
     llvm::Value *codegen(CodeGenerator &generator);
+    string Vis();
 };
 
 class Type_part : public Node {
@@ -54,6 +55,7 @@ private:
 public:
     Type_part(Type_decl_list *type_decl_list) : type_decl_list(type_decl_list) {}
     llvm::Value *codegen(CodeGenerator &generator);
+    string Vis();
 };
 
 class Type_definition : public Node {
@@ -65,6 +67,7 @@ private:
 public:
     Type_definition(Identifier *id, Type_decl *type_decl) : id(id), type_decl(type_decl) {}
     llvm::Value *codegen(CodeGenerator &generator);
+    string Vis();
 };
 
 class Const_range : public Node {
@@ -74,6 +77,7 @@ private:
 public:
     Const_range(Const_value *lower, Const_value *upper) : lower(lower), upper(upper) {}
     llvm::Value *codegen(CodeGenerator &generator);
+    string Vis();
 };
 
 class Enum_Type : public Node {
@@ -82,6 +86,7 @@ private:
 public:
     Enum_Type(Name_list *name_list) : name_list(name_list) {}
     llvm::Value *codegen(CodeGenerator &generator);
+    string Vis();
 };
 
 class Enum_range : public Node {
@@ -91,6 +96,7 @@ private:
 public:
     Enum_range(Identifier *lower_id, Identifier *upper_id) : lower_id(lower_id), upper_id(upper_id) {}
     llvm::Value *codegen(CodeGenerator &generator);
+    string Vis();
 };
 
 class Array_type_decl : public Node {
@@ -100,6 +106,7 @@ private:
 public:
     Array_type_decl(Simple_type_decl *simple_type_decl, Type_decl *type_decl) : simple_type_decl(simple_type_decl), type_decl(type_decl) {}
     llvm::Value *codegen(CodeGenerator &generator);
+    string Vis();
 };
 
 class Field_decl : public Node {
@@ -109,6 +116,7 @@ private:
 public:
     Field_decl(Name_list *name_list, Type_decl *type_decl) : name_list(name_list), type_decl(type_decl) {}
     llvm::Value *codegen(CodeGenerator &generator);
+    string Vis();
 };
 
 using Field_decl_list = vector<Field_decl *>;
@@ -119,6 +127,7 @@ private:
 public:
     Record_type_decl(Field_decl_list *field_decl_list) : field_decl_list(field_decl_list) {}
     llvm::Value *codegen(CodeGenerator &generator);
+    string Vis();
 };
 
 class Type_decl : public Node {
@@ -131,6 +140,7 @@ public:
     Type_decl(Array_type_decl *array_type_decl) : array_type_decl(array_type_decl) {}
     Type_decl(Record_type_decl *record_type_decl) : record_type_decl(record_type_decl) {}
     llvm::Value *codegen(CodeGenerator &generator);
+    string Vis();
 };
 
 class Var_decl : public Node {
@@ -141,6 +151,7 @@ private:
 public:
     Var_decl(Name_list *name_list, Type_decl *type_decl) : name_list(name_list), type_decl(type_decl) {}
     llvm::Value *codegen(CodeGenerator &generator);
+    string Vis();
 };
 
 class Var_part : public Node {
@@ -149,4 +160,5 @@ private:
 public:
     Var_part(Var_decl_list *var_decl_list) : var_decl_list(var_decl_list) {}
     llvm::Value *codegen(CodeGenerator &generator);
+    string Vis();
 };

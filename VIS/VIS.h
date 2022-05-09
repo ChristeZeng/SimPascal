@@ -6,11 +6,11 @@
 
 using namespace std;
 
-string Out(string name) {
+inline string Out(string name) {
     return "{ \"name\" : \"" + name + "\" }";
 }
 
-string Out(string name, vector<string> vec) {
+inline string Out(string name, vector<string> vec) {
     string res = "";
     res += "{";
     res += "\"name\" : \"" + name + "\",";
@@ -26,23 +26,6 @@ string Out(string name, vector<string> vec) {
     return res;
 }
 
-string Out(string name, string value) {
-    return "{\"name\" : \"" + name + "\", \"children\" : \"" + value + "\"}";
-}
-
-string Out(string name, string value, vector<string> children) {
-    string res = "";
-    res += "{";
-    res += "\"name\" : \"" + name + "\",";
-    res += "\"value\" : \"" + value + "\",";
-    res += "\"children\" : [";
-    for (int i = 0; i < children.size(); i++) {
-        res += children[i];
-        if (i != children.size() - 1) {
-            res += ",";
-        }
-    }
-    res += "]";
-    res += "}";
-    return res;
+inline string Out(string name, string value) {
+    return Out(name, vector<string>{value});
 }

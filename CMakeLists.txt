@@ -15,6 +15,7 @@ set(CMAKE_CXX_STANDARD 14)
 
 aux_source_directory(AST AST_SOURCE)
 aux_source_directory(generator GEN_SOURCE)
+aux_source_directory(VIS VIS_SOURCE)
 
 add_custom_command(
     OUTPUT token.cpp
@@ -30,7 +31,7 @@ add_custom_command(
 
 add_executable(
     SimPascal
-    main.cpp ${AST_SOURCE} ${GEN_SOURCE} token.cpp
+    main.cpp ${AST_SOURCE} ${GEN_SOURCE} ${VIS_SOURCE} token.cpp
     parser.cpp parser.hpp
     )
 

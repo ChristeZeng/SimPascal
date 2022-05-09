@@ -1,4 +1,3 @@
-#pragma once
 #include "VIS.h"
 
 using namespace std;

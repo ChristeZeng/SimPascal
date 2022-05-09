@@ -44,7 +44,7 @@
 extern int yydebug;
 #endif
 /* "%code requires" blocks.  */
-#line 1 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 1 "/home/bcct/code/SimPascal/SimPascal.y"
 
 #include "AST/AST.h"
 #include "generator/CodeGenerator.h"
@@ -183,7 +183,7 @@ using namespace std;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 17 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 17 "/home/bcct/code/SimPascal/SimPascal.y"
 
     int ival;
     double dval;

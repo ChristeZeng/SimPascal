@@ -550,8 +550,8 @@ int yy_flex_debug = 0;
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
-#line 1 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
-#line 4 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 1 "/home/bcct/code/SimPascal/SimPascal.l"
+#line 4 "/home/bcct/code/SimPascal/SimPascal.l"
 #include <iostream>
 #include <string>
 #include "parser.hpp"
@@ -774,7 +774,7 @@ YY_DECL
 		}
 
 	{
-#line 10 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 10 "/home/bcct/code/SimPascal/SimPascal.l"
 
 #line 780 "token.cpp"
 
@@ -835,252 +835,252 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 11 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 11 "/home/bcct/code/SimPascal/SimPascal.l"
 { return LP; }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 12 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 12 "/home/bcct/code/SimPascal/SimPascal.l"
 { return RP; }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 13 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 13 "/home/bcct/code/SimPascal/SimPascal.l"
 { return LS; }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 14 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 14 "/home/bcct/code/SimPascal/SimPascal.l"
 { return RS; }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 15 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 15 "/home/bcct/code/SimPascal/SimPascal.l"
 { return DOT; }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 16 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 16 "/home/bcct/code/SimPascal/SimPascal.l"
 { return COMMA; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 17 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 17 "/home/bcct/code/SimPascal/SimPascal.l"
 { return COLON; }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 18 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 18 "/home/bcct/code/SimPascal/SimPascal.l"
 { return MUL; }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 19 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 19 "/home/bcct/code/SimPascal/SimPascal.l"
 { return DIV; }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 20 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 20 "/home/bcct/code/SimPascal/SimPascal.l"
 { return NE; }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 21 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 21 "/home/bcct/code/SimPascal/SimPascal.l"
 { return NOT; }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 22 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 22 "/home/bcct/code/SimPascal/SimPascal.l"
 { return PLUS; }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 23 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 23 "/home/bcct/code/SimPascal/SimPascal.l"
 { return MINUS; }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 24 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 24 "/home/bcct/code/SimPascal/SimPascal.l"
 { return GE; }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 25 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 25 "/home/bcct/code/SimPascal/SimPascal.l"
 { return LE; }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 26 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 26 "/home/bcct/code/SimPascal/SimPascal.l"
 { return GT; }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 27 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 27 "/home/bcct/code/SimPascal/SimPascal.l"
 { return LT; }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 28 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 28 "/home/bcct/code/SimPascal/SimPascal.l"
 { return EQ; }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 29 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 29 "/home/bcct/code/SimPascal/SimPascal.l"
 { return ASSIGN; }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 30 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 30 "/home/bcct/code/SimPascal/SimPascal.l"
 { return MOD; }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 31 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 31 "/home/bcct/code/SimPascal/SimPascal.l"
 { return DOTDOT; }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 32 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 32 "/home/bcct/code/SimPascal/SimPascal.l"
 { return SEMI; }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 33 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 33 "/home/bcct/code/SimPascal/SimPascal.l"
 { return AND; }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 34 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 34 "/home/bcct/code/SimPascal/SimPascal.l"
 { return ARRAY; }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 35 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 35 "/home/bcct/code/SimPascal/SimPascal.l"
 { return PBEGIN; }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 36 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 36 "/home/bcct/code/SimPascal/SimPascal.l"
 { return CASE; }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 37 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 37 "/home/bcct/code/SimPascal/SimPascal.l"
 { return CONST; }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 38 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 38 "/home/bcct/code/SimPascal/SimPascal.l"
 { return DIV; }
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 39 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 39 "/home/bcct/code/SimPascal/SimPascal.l"
 { return DO; }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 40 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 40 "/home/bcct/code/SimPascal/SimPascal.l"
 { return DOWNTO; }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 41 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 41 "/home/bcct/code/SimPascal/SimPascal.l"
 { return ELSE; }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 42 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 42 "/home/bcct/code/SimPascal/SimPascal.l"
 { return END; }
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 43 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 43 "/home/bcct/code/SimPascal/SimPascal.l"
 { return FOR; }
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 44 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 44 "/home/bcct/code/SimPascal/SimPascal.l"
 { return FUNCTION; }
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 45 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 45 "/home/bcct/code/SimPascal/SimPascal.l"
 { return GOTO; }
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 46 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 46 "/home/bcct/code/SimPascal/SimPascal.l"
 { return IF; }
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 47 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 47 "/home/bcct/code/SimPascal/SimPascal.l"
 { return OF; }
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 48 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 48 "/home/bcct/code/SimPascal/SimPascal.l"
 { return OR; }
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 49 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 49 "/home/bcct/code/SimPascal/SimPascal.l"
 { return PACKED; }
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 50 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 50 "/home/bcct/code/SimPascal/SimPascal.l"
 { return PROCEDURE; }
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 51 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 51 "/home/bcct/code/SimPascal/SimPascal.l"
 { return PROGRAM; }
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 52 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 52 "/home/bcct/code/SimPascal/SimPascal.l"
 { return RECORD; }
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 53 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 53 "/home/bcct/code/SimPascal/SimPascal.l"
 { return REPEAT; }
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 54 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 54 "/home/bcct/code/SimPascal/SimPascal.l"
 { return THEN; }
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 55 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 55 "/home/bcct/code/SimPascal/SimPascal.l"
 { return TO; }
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 56 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 56 "/home/bcct/code/SimPascal/SimPascal.l"
 { return TYPE; }
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 57 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 57 "/home/bcct/code/SimPascal/SimPascal.l"
 { return UNTIL; }
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 58 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 58 "/home/bcct/code/SimPascal/SimPascal.l"
 { return VAR; }
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 59 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 59 "/home/bcct/code/SimPascal/SimPascal.l"
 { return WHILE; }
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
-#line 60 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 60 "/home/bcct/code/SimPascal/SimPascal.l"
 { 
                                                 yylval.sval = new string(yytext);
                                                 return SYS_TYPE; 
@@ -1088,7 +1088,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
-#line 64 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 64 "/home/bcct/code/SimPascal/SimPascal.l"
 { 
                                                 yylval.sval = new string(yytext);
                                                 return SYS_CON;
@@ -1096,7 +1096,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
-#line 68 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 68 "/home/bcct/code/SimPascal/SimPascal.l"
 {
                                                 yylval.sval = new string(yytext);
                                                 return SYS_FUNCT;
@@ -1104,7 +1104,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
-#line 72 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 72 "/home/bcct/code/SimPascal/SimPascal.l"
 {
                                                 yylval.sval = new string(yytext);
                                                 return SYS_PROC;
@@ -1112,7 +1112,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 54:
 YY_RULE_SETUP
-#line 76 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 76 "/home/bcct/code/SimPascal/SimPascal.l"
 {
                                                 yylval.sval = new string(yytext);
                                                 return READ;
@@ -1121,12 +1121,12 @@ YY_RULE_SETUP
 case 55:
 /* rule 55 can match eol */
 YY_RULE_SETUP
-#line 81 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 81 "/home/bcct/code/SimPascal/SimPascal.l"
 { /* ignore */ }
 	YY_BREAK
 case 56:
 YY_RULE_SETUP
-#line 83 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 83 "/home/bcct/code/SimPascal/SimPascal.l"
 {
                                 std::cout << "Identifier: " << yytext << std::endl;
                                 yylval.sval = new string(yytext);
@@ -1135,7 +1135,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 57:
 YY_RULE_SETUP
-#line 89 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 89 "/home/bcct/code/SimPascal/SimPascal.l"
 {
                                 std::cout << "Integer: " << yytext << std::endl;
                                 yylval.ival = atoi(yytext);
@@ -1144,7 +1144,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 58:
 YY_RULE_SETUP
-#line 95 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 95 "/home/bcct/code/SimPascal/SimPascal.l"
 {
                                 std::cout << "Real: " << yytext << std::endl;
                                 yylval.dval = atof(yytext);
@@ -1153,7 +1153,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 59:
 YY_RULE_SETUP
-#line 101 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 101 "/home/bcct/code/SimPascal/SimPascal.l"
 ECHO;
 	YY_BREAK
 #line 1160 "token.cpp"
@@ -2161,5 +2161,5 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 101 "/home/phoenix/CS/compiler/SimPascal/SimPascal.l"
+#line 101 "/home/bcct/code/SimPascal/SimPascal.l"
 

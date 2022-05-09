@@ -37,6 +37,7 @@ class Node {
 public:
     virtual ~Node() {}
     virtual llvm::Value *codegen(CodeGenerator &generator) = 0;
+    virtual string Vis() { return ""; };
 };
 
 class Expression : public Node {};
@@ -47,6 +48,7 @@ public:
 public:
     Identifier(string name) : name(name) {}
     llvm::Value *codegen(CodeGenerator &generator);
+    string Vis();
 };
 
 class Stmt : public Node {

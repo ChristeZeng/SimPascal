@@ -1,14 +1,13 @@
-#pragma once
 #include "VIS.h"
 
 using namespace std;
 
 string Program::Vis() {
-    return Out("Program", head->Vis(), vector<string>{routine->Vis()});
+    return Out("Program", vector<string>{head->Vis(), routine->Vis()});
 }
 
 string Program_head::Vis() {
-    return name;
+    return Out("Program_head", Out(name));
 }
 
 string Routine::Vis() {
@@ -20,7 +19,18 @@ string Routine_head::Vis() {
     for (auto routinedecl : *routine_part) {
         routine_part_out.push_back(routinedecl->Vis());
     }
-    return Out("Routine_head", vector<string>{const_part->Vis(), type_part->Vis(), var_part->Vis(), Out("Routine_part", routine_part_out)});
+    vector<string> children;
+    if (const_part) {
+        children.push_back(const_part->Vis());
+    }
+    if (type_part) {
+        children.push_back(type_part->Vis());
+    }
+    if (var_part) {
+        children.push_back(var_part->Vis());
+    }
+    children.push_back(Out("Routine_part", routine_part_out));
+    return Out("Routine_head", children);
 }
 
 string Routine_body::Vis() {
@@ -62,5 +72,10 @@ string Function_head::Vis() {
 }
 
 string Function_decl::Vis() {
-    return Out("Function_decl", vector<string>{function_head->Vis(), subroutine->Vis()});
+    if(!subroutine) {
+        return Out("Function_decl", vector<string>{function_head->Vis()});
+    }
+    else {
+        return Out("Function_decl", vector<string>{function_head->Vis(), subroutine->Vis()});
+    }
 }
