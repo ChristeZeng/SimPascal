@@ -1,0 +1,48 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/home/bcct/code/SimPascal'
+/usr/bin/cmake -S/home/bcct/code/SimPascal -B/home/bcct/code/SimPascal --check-build-system CMakeFiles/Makefile.cmake 0
+/usr/bin/cmake -E cmake_progress_start /home/bcct/code/SimPascal/CMakeFiles /home/bcct/code/SimPascal/CMakeFiles/progress.marks
+make -f CMakeFiles/Makefile2 all
+make[1]: Entering directory '/home/bcct/code/SimPascal'
+make -f CMakeFiles/SimPascal.dir/build.make CMakeFiles/SimPascal.dir/depend
+make[2]: Entering directory '/home/bcct/code/SimPascal'
+/usr/bin/cmake -E cmake_echo_color --switch= --blue --bold --progress-dir=/home/bcct/code/SimPascal/CMakeFiles --progress-num=2 "Generating parser.hpp, parser.cpp"
+yacc -d -o parser.cpp /home/bcct/code/SimPascal/SimPascal.y
+/usr/bin/cmake -E touch_nocreate parser.cpp
+/usr/bin/cmake -E cmake_echo_color --switch= --blue --bold --progress-dir=/home/bcct/code/SimPascal/CMakeFiles --progress-num=1 "Generating token.cpp"
+lex -o token.cpp /home/bcct/code/SimPascal/SimPascal.l
+cd /home/bcct/code/SimPascal && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/bcct/code/SimPascal /home/bcct/code/SimPascal /home/bcct/code/SimPascal /home/bcct/code/SimPascal /home/bcct/code/SimPascal/CMakeFiles/SimPascal.dir/DependInfo.cmake --color=
+make[2]: Leaving directory '/home/bcct/code/SimPascal'
+make -f CMakeFiles/SimPascal.dir/build.make CMakeFiles/SimPascal.dir/build
+make[2]: Entering directory '/home/bcct/code/SimPascal'
+/usr/bin/cmake -E cmake_echo_color --switch= --blue --bold --progress-dir=/home/bcct/code/SimPascal/CMakeFiles --progress-num=2 "Generating parser.hpp, parser.cpp"
+yacc -d -o parser.cpp /home/bcct/code/SimPascal/SimPascal.y
+/usr/bin/cmake -E cmake_echo_color --switch= --green --progress-dir=/home/bcct/code/SimPascal/CMakeFiles --progress-num=3 "Building CXX object CMakeFiles/SimPascal.dir/main.cpp.o"
+/usr/bin/c++   -I/home/bcct/code/SimPascal/. -I/home/bcct/code/SimPascal -I/usr/include/llvm-10 -I/usr/include/llvm-c-10  -std=gnu++14 -o CMakeFiles/SimPascal.dir/main.cpp.o -c /home/bcct/code/SimPascal/main.cpp
+/usr/bin/cmake -E cmake_echo_color --switch= --green --progress-dir=/home/bcct/code/SimPascal/CMakeFiles --progress-num=4 "Building CXX object CMakeFiles/SimPascal.dir/generator/CodeGenerator.cpp.o"
+/usr/bin/c++   -I/home/bcct/code/SimPascal/. -I/home/bcct/code/SimPascal -I/usr/include/llvm-10 -I/usr/include/llvm-c-10  -std=gnu++14 -o CMakeFiles/SimPascal.dir/generator/CodeGenerator.cpp.o -c /home/bcct/code/SimPascal/generator/CodeGenerator.cpp
+/usr/bin/cmake -E cmake_echo_color --switch= --green --progress-dir=/home/bcct/code/SimPascal/CMakeFiles --progress-num=5 "Building CXX object CMakeFiles/SimPascal.dir/generator/genConstType.cpp.o"
+/usr/bin/c++   -I/home/bcct/code/SimPascal/. -I/home/bcct/code/SimPascal -I/usr/include/llvm-10 -I/usr/include/llvm-c-10  -std=gnu++14 -o CMakeFiles/SimPascal.dir/generator/genConstType.cpp.o -c /home/bcct/code/SimPascal/generator/genConstType.cpp
+/usr/bin/cmake -E cmake_echo_color --switch= --green --progress-dir=/home/bcct/code/SimPascal/CMakeFiles --progress-num=6 "Building CXX object CMakeFiles/SimPascal.dir/generator/genExp.cpp.o"
+/usr/bin/c++   -I/home/bcct/code/SimPascal/. -I/home/bcct/code/SimPascal -I/usr/include/llvm-10 -I/usr/include/llvm-c-10  -std=gnu++14 -o CMakeFiles/SimPascal.dir/generator/genExp.cpp.o -c /home/bcct/code/SimPascal/generator/genExp.cpp
+/usr/bin/cmake -E cmake_echo_color --switch= --green --progress-dir=/home/bcct/code/SimPascal/CMakeFiles --progress-num=7 "Building CXX object CMakeFiles/SimPascal.dir/generator/genFunc.cpp.o"
+/usr/bin/c++   -I/home/bcct/code/SimPascal/. -I/home/bcct/code/SimPascal -I/usr/include/llvm-10 -I/usr/include/llvm-c-10  -std=gnu++14 -o CMakeFiles/SimPascal.dir/generator/genFunc.cpp.o -c /home/bcct/code/SimPascal/generator/genFunc.cpp
+/usr/bin/cmake -E cmake_echo_color --switch= --green --progress-dir=/home/bcct/code/SimPascal/CMakeFiles --progress-num=8 "Building CXX object CMakeFiles/SimPascal.dir/generator/genProgram.cpp.o"
+/usr/bin/c++   -I/home/bcct/code/SimPascal/. -I/home/bcct/code/SimPascal -I/usr/include/llvm-10 -I/usr/include/llvm-c-10  -std=gnu++14 -o CMakeFiles/SimPascal.dir/generator/genProgram.cpp.o -c /home/bcct/code/SimPascal/generator/genProgram.cpp
+/usr/bin/cmake -E cmake_echo_color --switch= --green --progress-dir=/home/bcct/code/SimPascal/CMakeFiles --progress-num=9 "Building CXX object CMakeFiles/SimPascal.dir/generator/genStmt.cpp.o"
+/usr/bin/c++   -I/home/bcct/code/SimPascal/. -I/home/bcct/code/SimPascal -I/usr/include/llvm-10 -I/usr/include/llvm-c-10  -std=gnu++14 -o CMakeFiles/SimPascal.dir/generator/genStmt.cpp.o -c /home/bcct/code/SimPascal/generator/genStmt.cpp
+/usr/bin/cmake -E touch_nocreate parser.cpp
+/usr/bin/cmake -E cmake_echo_color --switch= --blue --bold --progress-dir=/home/bcct/code/SimPascal/CMakeFiles --progress-num=1 "Generating token.cpp"
+lex -o token.cpp /home/bcct/code/SimPascal/SimPascal.l
+/usr/bin/cmake -E cmake_echo_color --switch= --green --progress-dir=/home/bcct/code/SimPascal/CMakeFiles --progress-num=10 "Building CXX object CMakeFiles/SimPascal.dir/token.cpp.o"
+/usr/bin/c++   -I/home/bcct/code/SimPascal/. -I/home/bcct/code/SimPascal -I/usr/include/llvm-10 -I/usr/include/llvm-c-10  -std=gnu++14 -o CMakeFiles/SimPascal.dir/token.cpp.o -c /home/bcct/code/SimPascal/token.cpp
+/usr/bin/cmake -E cmake_echo_color --switch= --green --progress-dir=/home/bcct/code/SimPascal/CMakeFiles --progress-num=11 "Building CXX object CMakeFiles/SimPascal.dir/parser.cpp.o"
+/usr/bin/c++   -I/home/bcct/code/SimPascal/. -I/home/bcct/code/SimPascal -I/usr/include/llvm-10 -I/usr/include/llvm-c-10  -std=gnu++14 -o CMakeFiles/SimPascal.dir/parser.cpp.o -c /home/bcct/code/SimPascal/parser.cpp
+/usr/bin/cmake -E cmake_echo_color --switch= --green --bold --progress-dir=/home/bcct/code/SimPascal/CMakeFiles --progress-num=12 "Linking CXX executable SimPascal"
+/usr/bin/cmake -E cmake_link_script CMakeFiles/SimPascal.dir/link.txt --verbose=
+make[2]: Leaving directory '/home/bcct/code/SimPascal'
+/usr/bin/cmake -E cmake_echo_color --switch= --progress-dir=/home/bcct/code/SimPascal/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12 "Built target SimPascal"
+make[1]: Leaving directory '/home/bcct/code/SimPascal'
+/usr/bin/cmake -E cmake_progress_start /home/bcct/code/SimPascal/CMakeFiles 0
+make: Leaving directory '/home/bcct/code/SimPascal'
+ 
