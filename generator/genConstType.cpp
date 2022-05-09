@@ -13,27 +13,44 @@ Value *Const_part::codegen(CodeGenerator &generator) {
 
 Value *Const_expr::codegen(CodeGenerator &generator) {
     print("Const_expr");
-    Value *value = const_value->codegen(generator);
-    // Constant *constant;
+    Constant *value = const_value->get_constant(generator);
     if(is_global){
-        return nullptr;
-        // return new GlobalVariable(*generator.module, value->getType(), true, GlobalValue::ExternalLinkage, value, id->name);
+        return new GlobalVariable(*generator.module, value->getType(), true, GlobalValue::ExternalLinkage, value, id->name);
     } else {
         auto alloc = generator.CreateEntryBlockAlloca(generator.getCurFunction(), id->name, value->getType());
-        return builder.CreateStore(value, alloc);
+        return generator.builder.CreateStore(value, alloc);
     }
 }
 
 Value *Const_value::codegen(CodeGenerator &generator) {
+    print("Const_value::codegen");
     switch (base_type) {
         case Base_type::S_INT:
-            return builder.getInt32(Value.int_value);
+        {
+            return generator.builder.getInt32(Value.int_value);
+        }
         case Base_type::S_REAL:
-            return llvm::ConstantFP::get(builder.getDoubleTy(), Value.double_value);
+            return llvm::ConstantFP::get(generator.builder.getDoubleTy(), Value.double_value);
         case Base_type::S_CHAR:
-            return builder.getInt8(Value.char_value);
+            return generator.builder.getInt8(Value.char_value);
         case Base_type::S_BOOLEN:
-            return builder.getInt1(Value.bool_value);
+            return generator.builder.getInt1(Value.bool_value);
+        default:
+            return nullptr;
+    }
+}
+
+Constant *Const_value::get_constant(CodeGenerator &generator){
+    print("get_constant");
+    switch (base_type) {
+        case Base_type::S_INT:
+            return generator.builder.getInt32(Value.int_value);
+        case Base_type::S_REAL:
+            return llvm::ConstantFP::get(generator.builder.getDoubleTy(), Value.double_value);
+        case Base_type::S_CHAR:
+            return generator.builder.getInt8(Value.char_value);
+        case Base_type::S_BOOLEN:
+            return generator.builder.getInt1(Value.bool_value);
         default:
             return nullptr;
     }
@@ -41,6 +58,7 @@ Value *Const_value::codegen(CodeGenerator &generator) {
 
 //Type part tbd
 Value *Type_part::codegen(CodeGenerator &generator) {
+    print("Type_part");
     for (auto type_definition : *type_decl_list) {
         type_definition->codegen(generator);
     }
@@ -48,11 +66,12 @@ Value *Type_part::codegen(CodeGenerator &generator) {
 }
 
 Value *Type_definition::codegen(CodeGenerator &generator) {
-    
+    print("Type_definition");
     return nullptr;
 }
 
 Value *Type_decl::codegen(CodeGenerator &generator) {
+    print("Type_decl");
     if(simple_type_decl) {
         return simple_type_decl->codegen(generator);
     } else if(array_type_decl) {
@@ -70,17 +89,18 @@ Value *Simple_type_decl::codegen(CodeGenerator &generator) {
         case BASE:
             switch(base_type){
                 case S_INT:
-                    return builder.getInt32(0);
+                    return generator.builder.getInt32(0);
                 case S_REAL:
-                    return ConstantFP::get(builder.getDoubleTy(), 0.0);
+                    return ConstantFP::get(generator.builder.getDoubleTy(), 0.0);
                 case S_CHAR:
-                    return builder.getInt8(0);
+                    return generator.builder.getInt8(0);
                 case S_BOOLEN:
-                    return builder.getInt1(0);
+                    return generator.builder.getInt1(0);
                 default:
                     return nullptr;
             }
     }
+    return nullptr;
 }
 
 Value *Var_part::codegen(CodeGenerator &generator) {
@@ -100,7 +120,7 @@ Value *Var_decl::codegen(CodeGenerator &generator) {
             return new GlobalVariable(*generator.module, value->getType(), false, GlobalValue::ExternalLinkage, constant, name->name);
         } else {
             auto alloc = generator.CreateEntryBlockAlloca(generator.getCurFunction(), name->name, value->getType());
-            return builder.CreateStore(value, alloc);
+            return generator.builder.CreateStore(value, alloc);
         }
     }
     return nullptr;
@@ -138,5 +158,5 @@ Value *Record_type_decl::codegen(CodeGenerator &generator) {
 
 Value *Identifier::codegen(CodeGenerator &generator) {
     print("Identifier");
-    return new llvm::LoadInst(generator.getValue(name), "tmp", false, builder.GetInsertBlock());
+    return new llvm::LoadInst(generator.getValue(name), "tmp", false, generator.builder.GetInsertBlock());
 }

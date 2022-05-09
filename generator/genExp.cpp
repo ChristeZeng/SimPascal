@@ -11,36 +11,38 @@ Value *Binary_expression::codegen(CodeGenerator &generator) {
 
     switch (op) {
         case Binary_op::S_PLUS:
-            if (flag) return builder.CreateFAdd(lhs, rhs, "addtmp");
-            return builder.CreateAdd(lhs, rhs, "addtmp");
+            if (flag) return generator.builder.CreateFAdd(lhs, rhs, "addtmp");
+            return generator.builder.CreateAdd(lhs, rhs, "addtmp");
         case Binary_op::S_MINUS:
-            if (flag) return builder.CreateFSub(lhs, rhs, "subtmp");
-            return builder.CreateSub(lhs, rhs, "subtmp");
+            if (flag) return generator.builder.CreateFSub(lhs, rhs, "subtmp");
+            return generator.builder.CreateSub(lhs, rhs, "subtmp");
         case Binary_op::S_MUL:
-            if (flag) return builder.CreateFMul(lhs, rhs, "multmp");
-            return builder.CreateMul(lhs, rhs, "multmp");
+            if (flag) return generator.builder.CreateFMul(lhs, rhs, "multmp");
+            return generator.builder.CreateMul(lhs, rhs, "multmp");
         case Binary_op::S_DIV:
-            return builder.CreateSDiv(lhs, rhs, "divtmp");
+            return generator.builder.CreateSDiv(lhs, rhs, "divtmp");
         case Binary_op::S_MOD:
-            return builder.CreateSRem(lhs, rhs, "modtmp");
+            return generator.builder.CreateSRem(lhs, rhs, "modtmp");
         case Binary_op::S_AND:
-            return builder.CreateAnd(lhs, rhs, "andtmp");
+            return generator.builder.CreateAnd(lhs, rhs, "andtmp");
         case Binary_op::S_OR:
-            return builder.CreateOr(lhs, rhs, "ortmp");
+            return generator.builder.CreateOr(lhs, rhs, "ortmp");
         case Binary_op::S_GE:
-            return builder.CreateICmpSGE(lhs, rhs, "getmp");
+            return generator.builder.CreateICmpSGE(lhs, rhs, "getmp");
         case Binary_op::S_GT:
-            return builder.CreateICmpSGT(lhs, rhs, "gtmp");
+            return generator.builder.CreateICmpSGT(lhs, rhs, "gtmp");
         case Binary_op::S_LE:
-            return builder.CreateICmpSLE(lhs, rhs, "letmp");
+            return generator.builder.CreateICmpSLE(lhs, rhs, "letmp");
         case Binary_op::S_LT:
-            return builder.CreateICmpSLT(lhs, rhs, "ltmp");
+            return generator.builder.CreateICmpSLT(lhs, rhs, "ltmp");
         case Binary_op::S_EQ:
-            return builder.CreateICmpEQ(lhs, rhs, "eqtmp");
+            return generator.builder.CreateICmpEQ(lhs, rhs, "eqtmp");
         case Binary_op::S_NE:
-            return builder.CreateICmpNE(lhs, rhs, "netmp");
+            return generator.builder.CreateICmpNE(lhs, rhs, "netmp");
         case Binary_op::S_NOT:
-            return builder.CreateNot(lhs, "nottmp");
+            return generator.builder.CreateNot(lhs, "nottmp");
+        default:
+            return nullptr;
     }
 }
 

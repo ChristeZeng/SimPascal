@@ -38,25 +38,29 @@
 using namespace llvm;
 using namespace std;
 
-class Program;
-
-static LLVMContext context;
-static IRBuilder<> builder(context);
-
 static void print(string s) {
     cout << s << endl;
 }
 
+template <typename T> static std::string Print_value(T* value_or_type) {
+    std::string str;
+    llvm::raw_string_ostream stream(str);
+    value_or_type->print(stream);
+    return str;
+}
+
 class CodeGenerator{
 public:
-    Module *module;
+    LLVMContext context;
+    IRBuilder<> builder;
+    std::unique_ptr<llvm::Module> module;
     Function *mainFunction;
     BasicBlock *block;
     unsigned int addrSpace;
     vector<Function*> funcStack;
-    Function *printf, *scanf;
-    CodeGenerator(){
-        module = new Module("main", context);
+    Function *read, *write;
+    CodeGenerator():builder(context) {
+        module = std::unique_ptr<llvm::Module>(new llvm::Module("main", context));
         addrSpace = module->getDataLayout().getAllocaAddrSpace();
     }
     void generateCode(Program& root);
@@ -64,48 +68,8 @@ public:
     void pushFunction(Function* func){funcStack.push_back(func);}
     void popFunction(){funcStack.pop_back();}
 
-    AllocaInst *CreateEntryBlockAlloca(Function *TheFunction, StringRef VarName, Type* type){
-        IRBuilder<> TmpB(&TheFunction->getEntryBlock(), TheFunction->getEntryBlock().begin());
-        return TmpB.CreateAlloca(type, nullptr, VarName);
-    }
-
-    Value* getValue(string & name){
-        Value * result = nullptr;
-        for (auto it = funcStack.rbegin(); it != funcStack.rend(); it++)
-        {
-            if ((result=(*it)->getValueSymbolTable()->lookup(name)) != nullptr)
-            {
-                cout << "Find " << name << " in " << string((*it)->getName()) << endl;
-                return result;
-            }
-            else
-            {
-                cout << "Not Find " << name << " in " << string((*it)->getName()) << endl;
-            }
-        }
-        if ((result = module->getGlobalVariable(name)) == nullptr)
-        {
-            throw logic_error("[ERROR]Undeclared variable: " + name);
-        }
-        cout << "Find " << name << " in global" << endl;
-        return result;
-    }
-
-    Function* createPrintf()
-    {
-        vector<Type*> arg_types;
-        arg_types.push_back(builder.getInt8PtrTy());
-        auto printf_type = FunctionType::get(builder.getInt32Ty(), makeArrayRef(arg_types), true);
-        auto func = Function::Create(printf_type, Function::ExternalLinkage, Twine("printf"), module);
-        func->setCallingConv(CallingConv::C);
-        return func;
-    }
-    
-    Function* createScanf()
-    {
-        auto scanf_type = FunctionType::get(builder.getInt32Ty(), true);
-        auto func = Function::Create(scanf_type, Function::ExternalLinkage, Twine("scanf"), module);
-        func->setCallingConv(CallingConv::C);
-        return func;
-    }
+    AllocaInst *CreateEntryBlockAlloca(Function *TheFunction, StringRef VarName, Type* type);
+    Value* getValue(string & name);
+    Function* setWrite();   
+    Function* setRead();
 };

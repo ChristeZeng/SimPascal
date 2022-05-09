@@ -46,7 +46,6 @@ public:
     Simple_type_decl(Base_type base_type) : base_type(base_type), Type_name(BASE) {}
     Simple_type_decl() : Type_name(VOID) {}
     llvm::Value *codegen(CodeGenerator &generator);
-    string Vis();
 };
 
 class Type_part : public Node {

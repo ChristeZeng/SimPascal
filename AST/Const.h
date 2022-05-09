@@ -17,7 +17,6 @@ private:
 public:
     Const_part(Const_expr_list *const_expr_list) : const_expr_list(const_expr_list) {}
     llvm::Value *codegen(CodeGenerator &generator);
-    string Vis();
 };
 
 class Const_expr : public Node {
@@ -28,7 +27,6 @@ private:
 public:
     Const_expr(Identifier *id, Const_value *const_value) : id(id), const_value(const_value) {}
     llvm::Value *codegen(CodeGenerator &generator);
-    string Vis();
 };
 
 class Const_value : public Expression {
@@ -77,5 +75,5 @@ public:
         }
     }
     llvm::Value *codegen(CodeGenerator &generator);
-    string Vis();
+    llvm::Constant *get_constant(CodeGenerator &generator);
 };

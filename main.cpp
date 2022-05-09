@@ -11,11 +11,11 @@ extern int yyparse();
 int main() {
 	
     yyparse();
-	// InitializeNativeTarget();
-	// InitializeNativeTargetAsmPrinter();
-	// InitializeNativeTargetAsmParser();
-	// CodeGenerator context;
-	// context.generateCode(*root);
+	InitializeNativeTarget();
+	InitializeNativeTargetAsmPrinter();
+	InitializeNativeTargetAsmParser();
+	CodeGenerator generator;
+    generator.generateCode(*root);
 
     return 0;
 }

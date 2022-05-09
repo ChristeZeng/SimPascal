@@ -1,32 +1,4 @@
-/home/bcct/code/SimPascal/SimPascal.y:1.1-5: 警告: POSIX Yacc does not support %code [-Wyacc]
+/home/phoenix/CS/compiler/SimPascal/SimPascal.y:1.1-5: 警告: POSIX Yacc does not support %code [-Wyacc]
     1 | %code requires {
       | ^~~~~
-/home/bcct/code/SimPascal/SimPascal.y: 警告: 3 项偏移/归约冲突 [-Wconflicts-sr]
-/home/bcct/code/SimPascal/generator/genStmt.cpp: In member function ‘virtual llvm::Value* If_stmt::codegen(CodeGenerator&)’:
-/home/bcct/code/SimPascal/generator/genStmt.cpp:165:1: warning: no return statement in function returning non-void [-Wreturn-type]
-  165 | }
-      | ^
-/home/bcct/code/SimPascal/generator/genFunc.cpp: In member function ‘virtual llvm::Value* Function_decl::codegen(CodeGenerator&)’:
-/home/bcct/code/SimPascal/generator/genFunc.cpp:11:78: warning: comparison between ‘enum Base_type’ and ‘enum Simple_type_decl::<unnamed>’ [-Wenum-compare]
-   11 |     if (function_head->return_type->base_type == function_head->return_type->VOID)
-      |                                                                              ^~~~
-/home/bcct/code/SimPascal/generator/genFunc.cpp: In member function ‘virtual llvm::Value* Function_head::codegen(CodeGenerator&)’:
-/home/bcct/code/SimPascal/generator/genFunc.cpp:63:47: warning: comparison between ‘enum Base_type’ and ‘enum Simple_type_decl::<unnamed>’ [-Wenum-compare]
-   63 |     if(return_type->base_type == return_type->VOID){
-      |                                               ^~~~
-/home/bcct/code/SimPascal/generator/genStmt.cpp: In member function ‘virtual llvm::Value* Sysproc_stmt::codegen(CodeGenerator&)’:
-/home/bcct/code/SimPascal/generator/genStmt.cpp:131:1: warning: control reaches end of non-void function [-Wreturn-type]
-  131 | }
-      | ^
-/home/bcct/code/SimPascal/generator/genConstType.cpp: In member function ‘virtual llvm::Value* Simple_type_decl::codegen(CodeGenerator&)’:
-/home/bcct/code/SimPascal/generator/genConstType.cpp:84:1: warning: control reaches end of non-void function [-Wreturn-type]
-   84 | }
-      | ^
-/home/bcct/code/SimPascal/generator/genExp.cpp: In member function ‘virtual llvm::Value* Binary_expression::codegen(CodeGenerator&)’:
-/home/bcct/code/SimPascal/generator/genExp.cpp:45:1: warning: control reaches end of non-void function [-Wreturn-type]
-   45 | }
-      | ^
-/home/bcct/code/SimPascal/generator/genFunc.cpp: In member function ‘virtual llvm::Value* Va_para_list::codegen(CodeGenerator&)’:
-/home/bcct/code/SimPascal/generator/genFunc.cpp:85:1: warning: control reaches end of non-void function [-Wreturn-type]
-   85 | }
-      | ^
+/home/phoenix/CS/compiler/SimPascal/SimPascal.y: 警告: 3 项偏移/归约冲突 [-Wconflicts-sr]

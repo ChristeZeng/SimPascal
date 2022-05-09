@@ -30,7 +30,6 @@ private:
 public:
     Program(Program_head *head, Routine *routine) : head(head), routine(routine) {}
     llvm::Value *codegen(CodeGenerator &generator);
-    string Vis();
 };
 
 class Program_head : public Node {
@@ -39,7 +38,6 @@ private:
 public:
     Program_head(string name) : name(name) {}
     llvm::Value *codegen(CodeGenerator &generator);
-    string Vis();
 };
 
 class Routine : public Node {
@@ -49,7 +47,6 @@ private:
 public:
     Routine(Routine_head *head, Routine_body *body) : head(head), body(body) {}
     llvm::Value *codegen(CodeGenerator &generator);
-    string Vis();
 };
 
 class Routine_head : public Node {
@@ -62,7 +59,6 @@ public:
     Routine_head(Const_part *const_part, Type_part *type_part, Var_part *var_part, Routine_part *routine_part)
         : const_part(const_part), type_part(type_part), var_part(var_part), routine_part(routine_part) {}
     llvm::Value *codegen(CodeGenerator &generator);
-    string Vis();
 };
 
 class Routine_body : public Stmt {
@@ -71,7 +67,6 @@ private:
 public:
     Routine_body(Stmt_list *stmt_list) : stmt_list(stmt_list) {}
     llvm::Value *codegen(CodeGenerator &generator);
-    string Vis();
 };
 
 /*Routine Part*/
@@ -82,7 +77,6 @@ public:
 public:
     Va_para_list(Name_list *name_list, bool is_var_para) : name_list(name_list), is_var_para(is_var_para) {}
     llvm::Value *codegen(CodeGenerator &generator);
-    string Vis();
 };
 
 // This is para_type_list
@@ -93,7 +87,6 @@ public:
 public:
     Para_decl(Va_para_list *va_para_list, Simple_type_decl *simple_type_decl) : va_para_list(va_para_list), simple_type_decl(simple_type_decl) {}
     llvm::Value *codegen(CodeGenerator &generator);
-    string Vis();
 };
 
 class Function_head : public Node {
@@ -105,7 +98,6 @@ public:
     Function_head(Identifier *id, Para_decl_list *parameters, Simple_type_decl *return_type) : id(id), parameters(parameters), return_type(return_type) {}
     Function_head(Identifier *id, Para_decl_list *parameters) : id(id), parameters(parameters) {}
     llvm::Value *codegen(CodeGenerator &generator);
-    string Vis();
 };
 
 class Function_decl : public Node {
@@ -115,5 +107,4 @@ public:
 public:
     Function_decl(Function_head *function_head, Routine *subroutine) : function_head(function_head), subroutine(subroutine) {}
     llvm::Value *codegen(CodeGenerator &generator);
-    string Vis();
 };

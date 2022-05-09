@@ -8,19 +8,19 @@ Value *Function_decl::codegen(CodeGenerator &generator) {
     Value *function = function_head->codegen(generator);
     subroutine->codegen(generator);
 
-    if (function_head->return_type->base_type == function_head->return_type->VOID)
+    if (function_head->return_type->Type_name == function_head->return_type->VOID)
     {
-        builder.CreateRetVoid();
+        generator.builder.CreateRetVoid();
     }
     else
     {
         auto returnInst = function_head->id->codegen(generator);
-        builder.CreateRet(returnInst);
+        generator.builder.CreateRet(returnInst);
     }
     
     //Pop back
     generator.popFunction();
-    builder.SetInsertPoint(&(generator.getCurFunction())->getBasicBlockList().back());
+    generator.builder.SetInsertPoint(&(generator.getCurFunction())->getBasicBlockList().back());
     return function;
 }
     
@@ -36,10 +36,10 @@ Value *Function_head::codegen(CodeGenerator &generator) {
     }
 
     llvm::FunctionType *funcType = FunctionType::get(return_type->codegen(generator)->getType(), arg_types, false);
-    llvm::Function *function = llvm::Function::Create(funcType, llvm::GlobalValue::InternalLinkage, id->name, generator.module);
+    llvm::Function *function = llvm::Function::Create(funcType, llvm::GlobalValue::InternalLinkage, id->name, generator.module.get());
     generator.pushFunction(function);
-    BasicBlock *newBlock = llvm::BasicBlock::Create(context, "entrypoint", function, nullptr);
-    builder.SetInsertPoint(newBlock);
+    BasicBlock *newBlock = llvm::BasicBlock::Create(generator.context, "entrypoint", function, nullptr);
+    generator.builder.SetInsertPoint(newBlock);
 
     Function::arg_iterator argIt = function->arg_begin();
     int index = 1;
@@ -49,18 +49,18 @@ Value *Function_head::codegen(CodeGenerator &generator) {
             if(para->va_para_list->is_var_para){
                 //tbd
                 alloc = generator.CreateEntryBlockAlloca(function, name->name, para->simple_type_decl->codegen(generator)->getType());
-                builder.CreateStore(argIt, alloc);
+                generator.builder.CreateStore(argIt, alloc);
                 argIt++;
             } else {
                 alloc = generator.CreateEntryBlockAlloca(function, name->name, para->simple_type_decl->codegen(generator)->getType());
-                builder.CreateStore(argIt, alloc);
+                generator.builder.CreateStore(argIt, alloc);
                 argIt++;
             }
         }
     }
 
     Value *res;
-    if(return_type->base_type == return_type->VOID){
+    if(return_type->Type_name == return_type->VOID){
         res = nullptr;
     } else {
         res = generator.CreateEntryBlockAlloca(function, id->name, return_type->codegen(generator)->getType());
@@ -77,9 +77,10 @@ Value *Va_para_list::codegen(CodeGenerator &generator) {
     print("Va_para_list");
     for(auto name : *name_list){
         if(is_var_para){
-            return builder.getInt32(0);
+            return generator.builder.getInt32(0);
         } else {
-            return builder.getInt32(0);
+            return generator.builder.getInt32(0);
         }
     }
+    return nullptr;
 }
