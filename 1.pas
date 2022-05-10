@@ -1,5 +1,10 @@
 program hello;
+const
+  a = 1;
+var
+  b: integer;
 
 begin
-  writeln(1);
+  read(b);
+  writeln(b);
 end.

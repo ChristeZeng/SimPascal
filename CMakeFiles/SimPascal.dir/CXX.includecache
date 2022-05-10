@@ -6,67 +6,67 @@
 
 #IncludeRegexTransform: 
 
-/home/phoenix/CS/compiler/SimPascal/AST/AST.h
+/home/phoenix/CS/compiler/clone/SimPascal/AST/AST.h
 llvm/IR/Value.h
 -
 Node.h
-/home/phoenix/CS/compiler/SimPascal/AST/Node.h
+/home/phoenix/CS/compiler/clone/SimPascal/AST/Node.h
 Const.h
-/home/phoenix/CS/compiler/SimPascal/AST/Const.h
+/home/phoenix/CS/compiler/clone/SimPascal/AST/Const.h
 Stmt.h
-/home/phoenix/CS/compiler/SimPascal/AST/Stmt.h
+/home/phoenix/CS/compiler/clone/SimPascal/AST/Stmt.h
 Program.h
-/home/phoenix/CS/compiler/SimPascal/AST/Program.h
+/home/phoenix/CS/compiler/clone/SimPascal/AST/Program.h
 Type.h
-/home/phoenix/CS/compiler/SimPascal/AST/Type.h
+/home/phoenix/CS/compiler/clone/SimPascal/AST/Type.h
 
-/home/phoenix/CS/compiler/SimPascal/AST/Const.h
+/home/phoenix/CS/compiler/clone/SimPascal/AST/Const.h
 AST.h
-/home/phoenix/CS/compiler/SimPascal/AST/AST.h
+/home/phoenix/CS/compiler/clone/SimPascal/AST/AST.h
 Node.h
-/home/phoenix/CS/compiler/SimPascal/AST/Node.h
+/home/phoenix/CS/compiler/clone/SimPascal/AST/Node.h
 
-/home/phoenix/CS/compiler/SimPascal/AST/Node.h
+/home/phoenix/CS/compiler/clone/SimPascal/AST/Node.h
 AST.h
-/home/phoenix/CS/compiler/SimPascal/AST/AST.h
+/home/phoenix/CS/compiler/clone/SimPascal/AST/AST.h
 string
 -
 vector
 -
 
-/home/phoenix/CS/compiler/SimPascal/AST/Program.h
+/home/phoenix/CS/compiler/clone/SimPascal/AST/Program.h
 AST.h
-/home/phoenix/CS/compiler/SimPascal/AST/AST.h
+/home/phoenix/CS/compiler/clone/SimPascal/AST/AST.h
 Node.h
-/home/phoenix/CS/compiler/SimPascal/AST/Node.h
+/home/phoenix/CS/compiler/clone/SimPascal/AST/Node.h
 Const.h
-/home/phoenix/CS/compiler/SimPascal/AST/Const.h
+/home/phoenix/CS/compiler/clone/SimPascal/AST/Const.h
 Type.h
-/home/phoenix/CS/compiler/SimPascal/AST/Type.h
+/home/phoenix/CS/compiler/clone/SimPascal/AST/Type.h
 Stmt.h
-/home/phoenix/CS/compiler/SimPascal/AST/Stmt.h
+/home/phoenix/CS/compiler/clone/SimPascal/AST/Stmt.h
 
-/home/phoenix/CS/compiler/SimPascal/AST/Stmt.h
+/home/phoenix/CS/compiler/clone/SimPascal/AST/Stmt.h
 AST.h
-/home/phoenix/CS/compiler/SimPascal/AST/AST.h
+/home/phoenix/CS/compiler/clone/SimPascal/AST/AST.h
 Node.h
-/home/phoenix/CS/compiler/SimPascal/AST/Node.h
+/home/phoenix/CS/compiler/clone/SimPascal/AST/Node.h
 Const.h
-/home/phoenix/CS/compiler/SimPascal/AST/Const.h
+/home/phoenix/CS/compiler/clone/SimPascal/AST/Const.h
 Type.h
-/home/phoenix/CS/compiler/SimPascal/AST/Type.h
+/home/phoenix/CS/compiler/clone/SimPascal/AST/Type.h
 
-/home/phoenix/CS/compiler/SimPascal/AST/Type.h
+/home/phoenix/CS/compiler/clone/SimPascal/AST/Type.h
 AST.h
-/home/phoenix/CS/compiler/SimPascal/AST/AST.h
+/home/phoenix/CS/compiler/clone/SimPascal/AST/AST.h
 Node.h
-/home/phoenix/CS/compiler/SimPascal/AST/Node.h
+/home/phoenix/CS/compiler/clone/SimPascal/AST/Node.h
 Const.h
-/home/phoenix/CS/compiler/SimPascal/AST/Const.h
+/home/phoenix/CS/compiler/clone/SimPascal/AST/Const.h
 
-/home/phoenix/CS/compiler/SimPascal/VIS/VIS.h
+/home/phoenix/CS/compiler/clone/SimPascal/VIS/VIS.h
 ../AST/AST.h
-/home/phoenix/CS/compiler/SimPascal/AST/AST.h
+/home/phoenix/CS/compiler/clone/SimPascal/AST/AST.h
 vector
 -
 string
@@ -74,7 +74,7 @@ string
 iostream
 -
 
-/home/phoenix/CS/compiler/SimPascal/generator/CodeGenerator.h
+/home/phoenix/CS/compiler/clone/SimPascal/generator/CodeGenerator.h
 llvm/IR/Module.h
 -
 llvm/IR/Function.h
@@ -140,37 +140,33 @@ string
 iostream
 -
 ../AST/AST.h
-/home/phoenix/CS/compiler/SimPascal/AST/AST.h
+/home/phoenix/CS/compiler/clone/SimPascal/AST/AST.h
 
-/home/phoenix/CS/compiler/SimPascal/generator/genFunc.cpp
+/home/phoenix/CS/compiler/clone/SimPascal/generator/genProgram.cpp
 CodeGenerator.h
-/home/phoenix/CS/compiler/SimPascal/generator/CodeGenerator.h
+/home/phoenix/CS/compiler/clone/SimPascal/generator/CodeGenerator.h
 
-/home/phoenix/CS/compiler/SimPascal/generator/genProgram.cpp
-CodeGenerator.h
-/home/phoenix/CS/compiler/SimPascal/generator/CodeGenerator.h
-
-/home/phoenix/CS/compiler/SimPascal/main.cpp
+/home/phoenix/CS/compiler/clone/SimPascal/main.cpp
 iostream
 -
 llvm/IR/Value.h
 -
 AST/AST.h
-/home/phoenix/CS/compiler/SimPascal/AST/AST.h
+/home/phoenix/CS/compiler/clone/SimPascal/AST/AST.h
 generator/CodeGenerator.h
-/home/phoenix/CS/compiler/SimPascal/generator/CodeGenerator.h
+/home/phoenix/CS/compiler/clone/SimPascal/generator/CodeGenerator.h
 VIS/VIS.h
-/home/phoenix/CS/compiler/SimPascal/VIS/VIS.h
+/home/phoenix/CS/compiler/clone/SimPascal/VIS/VIS.h
 parser.hpp
-/home/phoenix/CS/compiler/SimPascal/parser.hpp
+/home/phoenix/CS/compiler/clone/SimPascal/parser.hpp
 fstream
 -
 
-/home/phoenix/CS/compiler/SimPascal/parser.cpp
+/home/phoenix/CS/compiler/clone/SimPascal/parser.cpp
 AST/AST.h
-/home/phoenix/CS/compiler/SimPascal/AST/AST.h
+/home/phoenix/CS/compiler/clone/SimPascal/AST/AST.h
 generator/CodeGenerator.h
-/home/phoenix/CS/compiler/SimPascal/generator/CodeGenerator.h
+/home/phoenix/CS/compiler/clone/SimPascal/generator/CodeGenerator.h
 iostream
 -
 string
@@ -196,17 +192,17 @@ stdlib.h
 stdio.h
 -
 
-/home/phoenix/CS/compiler/SimPascal/parser.hpp
+/home/phoenix/CS/compiler/clone/SimPascal/parser.hpp
 AST/AST.h
-/home/phoenix/CS/compiler/SimPascal/AST/AST.h
+/home/phoenix/CS/compiler/clone/SimPascal/AST/AST.h
 generator/CodeGenerator.h
-/home/phoenix/CS/compiler/SimPascal/generator/CodeGenerator.h
+/home/phoenix/CS/compiler/clone/SimPascal/generator/CodeGenerator.h
 iostream
 -
 string
 -
 
-/home/phoenix/CS/compiler/SimPascal/token.cpp
+/home/phoenix/CS/compiler/clone/SimPascal/token.cpp
 stdio.h
 -
 string.h
@@ -222,7 +218,7 @@ iostream
 string
 -
 parser.hpp
-/home/phoenix/CS/compiler/SimPascal/parser.hpp
+/home/phoenix/CS/compiler/clone/SimPascal/parser.hpp
 unistd.h
 -
 

@@ -16,7 +16,7 @@ Value *Program::codegen(CodeGenerator &codeGenerator) {
     codeGenerator.write = codeGenerator.setWrite();
     codeGenerator.read = codeGenerator.setRead();
 
-    // routine->setGlobal();
+    routine->setGlobalValues();
     routine->codegen(codeGenerator);
     codeGenerator.builder.CreateRetVoid();
     codeGenerator.popFunc();
@@ -26,6 +26,15 @@ Value *Program::codegen(CodeGenerator &codeGenerator) {
 Value *Program_head::codegen(CodeGenerator &codeGenerator) {
     print("Program_head::codegen");
     return nullptr;
+}
+
+void Routine_head::setGlobalValues(){ 
+    if (const_part) const_part->setGlobalValues();
+    if (var_part) var_part->setGlobalValues();
+}
+
+void Routine::setGlobalValues(){ 
+    head->setGlobalValues();
 }
 
 Value *Routine::codegen(CodeGenerator &codeGenerator) {

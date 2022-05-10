@@ -48,6 +48,7 @@ private:
     Routine_body *body;
 public:
     Routine(Routine_head *head, Routine_body *body) : head(head), body(body) {}
+    void setGlobalValues();
     llvm::Value *codegen(CodeGenerator &codeGenerator);
     string Vis();
 };
@@ -61,6 +62,7 @@ private:
 public:
     Routine_head(Const_part *const_part, Type_part *type_part, Var_part *var_part, Routine_part *routine_part)
         : const_part(const_part), type_part(type_part), var_part(var_part), routine_part(routine_part) {}
+    void setGlobalValues();
     llvm::Value *codegen(CodeGenerator &codeGenerator);
     string Vis();
 };

@@ -66,7 +66,7 @@
 
 
 /* First part of user prologue.  */
-#line 11 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 11 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
 
 int yyerror(const char *s);
 int yywrap(void);
@@ -115,7 +115,7 @@ extern int yylex(void);
 extern int yydebug;
 #endif
 /* "%code requires" blocks.  */
-#line 1 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 1 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
 
 #include "AST/AST.h"
 #include "generator/CodeGenerator.h"
@@ -254,7 +254,7 @@ using namespace std;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 17 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 17 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
 
     int ival;
     double dval;
@@ -1687,85 +1687,85 @@ yyreduce:
   switch (yyn)
     {
   case 2:
-#line 113 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 113 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                      { (yyval.id) = new Identifier(*(yyvsp[0].sval)); }
 #line 1693 "parser.cpp"
     break;
 
   case 3:
-#line 116 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 116 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                            { (yyval.program) = new Program((yyvsp[-2].program_head), (yyvsp[-1].routine)); root = (yyval.program);}
 #line 1699 "parser.cpp"
     break;
 
   case 4:
-#line 119 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 119 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                   { (yyval.program_head) = new Program_head(*(yyvsp[-1].sval)); }
 #line 1705 "parser.cpp"
     break;
 
   case 5:
-#line 122 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 122 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                             { (yyval.routine) = new Routine((yyvsp[-1].routine_head), (yyvsp[0].routine_body)); }
 #line 1711 "parser.cpp"
     break;
 
   case 6:
-#line 125 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 125 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                             { (yyval.routine) = new Routine((yyvsp[-1].routine_head), (yyvsp[0].routine_body)); }
 #line 1717 "parser.cpp"
     break;
 
   case 7:
-#line 128 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 128 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                              { (yyval.routine_head) = new Routine_head((yyvsp[-3].const_part), (yyvsp[-2].type_part), (yyvsp[-1].var_part), (yyvsp[0].routine_part)); }
 #line 1723 "parser.cpp"
     break;
 
   case 8:
-#line 131 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 131 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                         { (yyval.const_part) = new Const_part((yyvsp[0].const_expr_list)); }
 #line 1729 "parser.cpp"
     break;
 
   case 9:
-#line 132 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 132 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                         { (yyval.const_part) = nullptr; }
 #line 1735 "parser.cpp"
     break;
 
   case 10:
-#line 135 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 135 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                            { (yyval.const_expr_list) = (yyvsp[-4].const_expr_list); (yyval.const_expr_list)->push_back(new Const_expr((yyvsp[-3].id), (yyvsp[-1].const_value))); }
 #line 1741 "parser.cpp"
     break;
 
   case 11:
-#line 136 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 136 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                            { (yyval.const_expr_list) = new Const_expr_list(); (yyval.const_expr_list)->push_back(new Const_expr((yyvsp[-3].id), (yyvsp[-1].const_value))); }
 #line 1747 "parser.cpp"
     break;
 
   case 12:
-#line 139 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 139 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                           { (yyval.const_value) = new Const_value(S_INT, (yyvsp[0].ival)); }
 #line 1753 "parser.cpp"
     break;
 
   case 13:
-#line 140 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 140 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                           { (yyval.const_value) = new Const_value(S_REAL, (yyvsp[0].dval)); }
 #line 1759 "parser.cpp"
     break;
 
   case 14:
-#line 141 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 141 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                           { (yyval.const_value) = new Const_value(S_CHAR, (yyvsp[0].cval)); }
 #line 1765 "parser.cpp"
     break;
 
   case 15:
-#line 142 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 142 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                           { 
                             if (*(yyvsp[0].sval) == "true") {
                                 (yyval.const_value) = new Const_value(S_BOOLEN, true); 
@@ -1781,55 +1781,55 @@ yyreduce:
     break;
 
   case 16:
-#line 155 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 155 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                       { (yyval.type_part) = new Type_part((yyvsp[0].type_decl_list)); }
 #line 1787 "parser.cpp"
     break;
 
   case 17:
-#line 156 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 156 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                       { (yyval.type_part) = nullptr; }
 #line 1793 "parser.cpp"
     break;
 
   case 18:
-#line 159 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 159 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                  { (yyval.type_decl_list) = (yyvsp[-1].type_decl_list); (yyval.type_decl_list)->push_back((yyvsp[0].type_definition)); }
 #line 1799 "parser.cpp"
     break;
 
   case 19:
-#line 160 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 160 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                  { (yyval.type_decl_list) = new Type_decl_list(); (yyval.type_decl_list)->push_back((yyvsp[0].type_definition)); }
 #line 1805 "parser.cpp"
     break;
 
   case 20:
-#line 163 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 163 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                  { (yyval.type_definition) = new Type_definition((yyvsp[-3].id), (yyvsp[-1].type_decl)); }
 #line 1811 "parser.cpp"
     break;
 
   case 21:
-#line 166 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 166 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                  { (yyval.type_decl) = new Type_decl((yyvsp[0].simple_type_decl)); }
 #line 1817 "parser.cpp"
     break;
 
   case 22:
-#line 167 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 167 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                  { (yyval.type_decl) = new Type_decl((yyvsp[0].array_type_decl)); }
 #line 1823 "parser.cpp"
     break;
 
   case 23:
-#line 168 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 168 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                  { (yyval.type_decl) = new Type_decl((yyvsp[0].record_type_decl)); }
 #line 1829 "parser.cpp"
     break;
 
   case 24:
-#line 171 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 171 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                 { 
                                                     if (*(yyvsp[0].sval) == "integer") {
                                                         (yyval.simple_type_decl) = new Simple_type_decl(S_INT);
@@ -1848,337 +1848,337 @@ yyreduce:
     break;
 
   case 25:
-#line 185 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 185 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                     { (yyval.simple_type_decl) = new Simple_type_decl((yyvsp[0].id)); }
 #line 1854 "parser.cpp"
     break;
 
   case 26:
-#line 186 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 186 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                     { (yyval.simple_type_decl) = new Simple_type_decl(new Enum_Type((yyvsp[-1].name_list))); }
 #line 1860 "parser.cpp"
     break;
 
   case 27:
-#line 187 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 187 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                     { (yyval.simple_type_decl) = new Simple_type_decl(new Const_range((yyvsp[-2].const_value), (yyvsp[0].const_value))); }
 #line 1866 "parser.cpp"
     break;
 
   case 28:
-#line 188 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 188 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                     { (yyval.simple_type_decl) = new Simple_type_decl(new Const_range(-*(yyvsp[-2].const_value), (yyvsp[0].const_value))); }
 #line 1872 "parser.cpp"
     break;
 
   case 29:
-#line 189 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 189 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                     { (yyval.simple_type_decl) = new Simple_type_decl(new Const_range(-*(yyvsp[-3].const_value), -*(yyvsp[0].const_value))); }
 #line 1878 "parser.cpp"
     break;
 
   case 30:
-#line 190 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 190 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                     { (yyval.simple_type_decl) = new Simple_type_decl(new Enum_range((yyvsp[-2].id), (yyvsp[0].id))); }
 #line 1884 "parser.cpp"
     break;
 
   case 31:
-#line 193 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 193 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                     { (yyval.array_type_decl) = new Array_type_decl((yyvsp[-3].simple_type_decl), (yyvsp[0].type_decl)); }
 #line 1890 "parser.cpp"
     break;
 
   case 32:
-#line 196 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 196 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                     { (yyval.record_type_decl) = new Record_type_decl((yyvsp[-1].field_decl_list)); }
 #line 1896 "parser.cpp"
     break;
 
   case 33:
-#line 199 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 199 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                     { (yyval.field_decl_list) = (yyvsp[-1].field_decl_list); (yyval.field_decl_list)->push_back((yyvsp[0].field_decl)); }
 #line 1902 "parser.cpp"
     break;
 
   case 34:
-#line 200 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 200 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                     { (yyval.field_decl_list) = new Field_decl_list(); (yyval.field_decl_list)->push_back((yyvsp[0].field_decl)); }
 #line 1908 "parser.cpp"
     break;
 
   case 35:
-#line 203 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 203 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                     { (yyval.field_decl) = new Field_decl((yyvsp[-3].name_list), (yyvsp[-1].type_decl)); }
 #line 1914 "parser.cpp"
     break;
 
   case 36:
-#line 206 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 206 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                       { (yyval.name_list) = (yyvsp[-2].name_list); (yyval.name_list)->push_back((yyvsp[0].id)); }
 #line 1920 "parser.cpp"
     break;
 
   case 37:
-#line 207 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 207 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                       { (yyval.name_list) = new Name_list(); (yyval.name_list)->push_back((yyvsp[0].id)); }
 #line 1926 "parser.cpp"
     break;
 
   case 38:
-#line 210 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 210 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                     { (yyval.var_part) = new Var_part((yyvsp[0].var_decl_list)); }
 #line 1932 "parser.cpp"
     break;
 
   case 39:
-#line 211 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 211 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                     { (yyval.var_part) = nullptr; }
 #line 1938 "parser.cpp"
     break;
 
   case 40:
-#line 214 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 214 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                     { (yyval.var_decl_list) = (yyvsp[-1].var_decl_list); (yyval.var_decl_list)->push_back((yyvsp[0].var_decl)); }
 #line 1944 "parser.cpp"
     break;
 
   case 41:
-#line 215 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 215 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                     { (yyval.var_decl_list) = new Var_decl_list(); (yyval.var_decl_list)->push_back((yyvsp[0].var_decl)); }
 #line 1950 "parser.cpp"
     break;
 
   case 42:
-#line 218 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 218 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                     { (yyval.var_decl) = new Var_decl((yyvsp[-3].name_list), (yyvsp[-1].type_decl)); }
 #line 1956 "parser.cpp"
     break;
 
   case 43:
-#line 221 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 221 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                     { (yyval.routine_part) = (yyvsp[-1].routine_part); (yyval.routine_part)->push_back((yyvsp[0].function_decl)); }
 #line 1962 "parser.cpp"
     break;
 
   case 44:
-#line 222 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 222 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                     { (yyval.routine_part) = (yyvsp[-1].routine_part); (yyval.routine_part)->push_back((yyvsp[0].function_decl)); }
 #line 1968 "parser.cpp"
     break;
 
   case 45:
-#line 223 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 223 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                     { (yyval.routine_part) = new Routine_part(); (yyval.routine_part)->push_back((yyvsp[0].function_decl)); }
 #line 1974 "parser.cpp"
     break;
 
   case 46:
-#line 224 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 224 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                     { (yyval.routine_part) = new Routine_part(); (yyval.routine_part)->push_back((yyvsp[0].function_decl)); }
 #line 1980 "parser.cpp"
     break;
 
   case 47:
-#line 225 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 225 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                     { (yyval.routine_part) = new Routine_part(); }
 #line 1986 "parser.cpp"
     break;
 
   case 48:
-#line 228 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 228 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                     { (yyval.function_decl) = new Function_decl((yyvsp[-3].function_head), (yyvsp[-1].routine)); }
 #line 1992 "parser.cpp"
     break;
 
   case 49:
-#line 231 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 231 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                     { (yyval.function_head) = new Function_head((yyvsp[-3].id), (yyvsp[-2].para_decl_list), (yyvsp[0].simple_type_decl)); }
 #line 1998 "parser.cpp"
     break;
 
   case 50:
-#line 234 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 234 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                     { (yyval.function_decl) = new Function_decl((yyvsp[-3].function_head), (yyvsp[-1].routine)); }
 #line 2004 "parser.cpp"
     break;
 
   case 51:
-#line 237 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 237 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                     { (yyval.function_head) = new Function_head((yyvsp[-1].id), (yyvsp[0].para_decl_list)); }
 #line 2010 "parser.cpp"
     break;
 
   case 52:
-#line 240 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 240 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                     { (yyval.para_decl_list) = (yyvsp[-1].para_decl_list); }
 #line 2016 "parser.cpp"
     break;
 
   case 53:
-#line 241 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 241 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                     { (yyval.para_decl_list) = new Para_decl_list(); }
 #line 2022 "parser.cpp"
     break;
 
   case 54:
-#line 244 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 244 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                     { (yyval.para_decl_list) = (yyvsp[-2].para_decl_list); (yyval.para_decl_list)->push_back((yyvsp[0].para_type_list)); }
 #line 2028 "parser.cpp"
     break;
 
   case 55:
-#line 245 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 245 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                     { (yyval.para_decl_list) = new Para_decl_list(); (yyval.para_decl_list)->push_back((yyvsp[0].para_type_list)); }
 #line 2034 "parser.cpp"
     break;
 
   case 56:
-#line 248 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 248 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                     { (yyval.para_type_list) = new Para_decl((yyvsp[-2].var_para_list), (yyvsp[0].simple_type_decl)); }
 #line 2040 "parser.cpp"
     break;
 
   case 57:
-#line 249 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 249 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                     { (yyval.para_type_list) = new Para_decl((yyvsp[-2].val_para_list), (yyvsp[0].simple_type_decl)); }
 #line 2046 "parser.cpp"
     break;
 
   case 58:
-#line 252 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 252 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                     { (yyval.var_para_list) = new Va_para_list((yyvsp[0].name_list), true); }
 #line 2052 "parser.cpp"
     break;
 
   case 59:
-#line 255 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 255 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                     { (yyval.val_para_list) = new Va_para_list((yyvsp[0].name_list), false); }
 #line 2058 "parser.cpp"
     break;
 
   case 60:
-#line 258 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 258 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                     { (yyval.routine_body) = (yyvsp[0].routine_body); }
 #line 2064 "parser.cpp"
     break;
 
   case 61:
-#line 261 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 261 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                      { (yyval.routine_body) = new Routine_body((yyvsp[-1].stmt_list)); }
 #line 2070 "parser.cpp"
     break;
 
   case 62:
-#line 264 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 264 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                     { (yyval.stmt_list) = (yyvsp[-2].stmt_list); (yyval.stmt_list)->push_back((yyvsp[-1].stmt)); }
 #line 2076 "parser.cpp"
     break;
 
   case 63:
-#line 265 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 265 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                     { (yyval.stmt_list) = new Stmt_list(); }
 #line 2082 "parser.cpp"
     break;
 
   case 64:
-#line 268 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 268 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                     { (yyval.stmt) = (yyvsp[0].stmt); (yyvsp[0].stmt)->Setlabel((yyvsp[-2].ival)); }
 #line 2088 "parser.cpp"
     break;
 
   case 65:
-#line 269 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 269 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                     { (yyval.stmt) = (yyvsp[0].stmt); }
 #line 2094 "parser.cpp"
     break;
 
   case 66:
-#line 272 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 272 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                     { (yyval.stmt) = (yyvsp[0].stmt); }
 #line 2100 "parser.cpp"
     break;
 
   case 67:
-#line 273 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 273 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                     { (yyval.stmt) = (yyvsp[0].stmt); }
 #line 2106 "parser.cpp"
     break;
 
   case 68:
-#line 274 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 274 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                     { (yyval.stmt) = (yyvsp[0].routine_body); }
 #line 2112 "parser.cpp"
     break;
 
   case 69:
-#line 275 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 275 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                     { (yyval.stmt) = (yyvsp[0].stmt); }
 #line 2118 "parser.cpp"
     break;
 
   case 70:
-#line 276 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 276 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                     { (yyval.stmt) = (yyvsp[0].stmt); }
 #line 2124 "parser.cpp"
     break;
 
   case 71:
-#line 277 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 277 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                     { (yyval.stmt) = (yyvsp[0].stmt); }
 #line 2130 "parser.cpp"
     break;
 
   case 72:
-#line 278 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 278 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                     { (yyval.stmt) = (yyvsp[0].stmt); }
 #line 2136 "parser.cpp"
     break;
 
   case 73:
-#line 279 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 279 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                     { (yyval.stmt) = (yyvsp[0].stmt); }
 #line 2142 "parser.cpp"
     break;
 
   case 74:
-#line 280 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 280 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                     { (yyval.stmt) = (yyvsp[0].stmt); }
 #line 2148 "parser.cpp"
     break;
 
   case 75:
-#line 283 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 283 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                       { (yyval.stmt) = new Assign_stmt((yyvsp[-2].id), (yyvsp[0].expression)); }
 #line 2154 "parser.cpp"
     break;
 
   case 76:
-#line 284 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 284 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                       { (yyval.stmt) = new Assign_stmt((yyvsp[-5].id), (yyvsp[-3].expression), (yyvsp[0].expression)); }
 #line 2160 "parser.cpp"
     break;
 
   case 77:
-#line 285 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 285 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                         { (yyval.stmt) = new Assign_stmt((yyvsp[-4].id), (yyvsp[0].expression), (yyvsp[-2].id)); }
 #line 2166 "parser.cpp"
     break;
 
   case 78:
-#line 288 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 288 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                       { (yyval.stmt) = new Proc_stmt((yyvsp[0].id)); }
 #line 2172 "parser.cpp"
     break;
 
   case 79:
-#line 289 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 289 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                       { (yyval.stmt) = new Proc_stmt((yyvsp[-3].id), (yyvsp[-1].args_list)); }
 #line 2178 "parser.cpp"
     break;
 
   case 80:
-#line 290 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 290 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                     {
                                                                         if (*(yyvsp[0].sval) == "write")
                                                                             (yyval.stmt) = new Sysproc_stmt(S_WRITE); 
@@ -2189,7 +2189,7 @@ yyreduce:
     break;
 
   case 81:
-#line 296 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 296 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                     { 
                                                                         if (*(yyvsp[-3].sval) == "write")
                                                                             (yyval.stmt) = new Sysproc_stmt(S_WRITE, (yyvsp[-1].expression_list)); 
@@ -2200,7 +2200,7 @@ yyreduce:
     break;
 
   case 82:
-#line 302 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 302 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                     { 
                                                                         (yyval.stmt) = new Sysproc_stmt(S_READ, (yyvsp[-1].expression)); 
                                                                     }
@@ -2208,211 +2208,211 @@ yyreduce:
     break;
 
   case 83:
-#line 307 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 307 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                     { (yyval.stmt) = new If_stmt((yyvsp[-3].expression), (yyvsp[-1].stmt), (yyvsp[0].stmt)); }
 #line 2214 "parser.cpp"
     break;
 
   case 84:
-#line 310 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 310 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                     { (yyval.stmt) = (yyvsp[0].stmt); }
 #line 2220 "parser.cpp"
     break;
 
   case 85:
-#line 311 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 311 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                     { (yyval.stmt) = nullptr; }
 #line 2226 "parser.cpp"
     break;
 
   case 86:
-#line 314 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 314 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                     { (yyval.stmt) = new Repeat_stmt((yyvsp[-2].stmt_list), (yyvsp[0].expression)); }
 #line 2232 "parser.cpp"
     break;
 
   case 87:
-#line 317 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 317 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                     { (yyval.stmt) = new While_stmt((yyvsp[-2].expression), (yyvsp[0].stmt)); }
 #line 2238 "parser.cpp"
     break;
 
   case 88:
-#line 320 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 320 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                               { (yyval.stmt) = new For_stmt((yyvsp[-6].id), (yyvsp[-4].expression), (yyvsp[-3].direction), (yyvsp[-2].expression), (yyvsp[0].stmt)); }
 #line 2244 "parser.cpp"
     break;
 
   case 89:
-#line 323 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 323 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                 { (yyval.direction) = new Direction(S_TO); }
 #line 2250 "parser.cpp"
     break;
 
   case 90:
-#line 324 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 324 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                 { (yyval.direction) = new Direction(S_DOWNTO); }
 #line 2256 "parser.cpp"
     break;
 
   case 91:
-#line 327 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 327 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                         { (yyval.stmt) = new Case_stmt((yyvsp[-3].expression), (yyvsp[-1].case_expr_list)); }
 #line 2262 "parser.cpp"
     break;
 
   case 92:
-#line 330 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 330 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                         { (yyval.case_expr_list) = (yyvsp[-1].case_expr_list); (yyval.case_expr_list)->push_back((yyvsp[0].case_expr)); }
 #line 2268 "parser.cpp"
     break;
 
   case 93:
-#line 331 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 331 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                         { (yyval.case_expr_list) = new Case_expr_list(); (yyval.case_expr_list)->push_back((yyvsp[0].case_expr)); }
 #line 2274 "parser.cpp"
     break;
 
   case 94:
-#line 334 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 334 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                         { (yyval.case_expr) = new Case_expr((yyvsp[-3].const_value), (yyvsp[-1].stmt)); }
 #line 2280 "parser.cpp"
     break;
 
   case 95:
-#line 335 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 335 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                           { (yyval.case_expr) = new Case_expr((yyvsp[-3].id), (yyvsp[-1].stmt)); }
 #line 2286 "parser.cpp"
     break;
 
   case 96:
-#line 338 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 338 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                         { (yyval.stmt) = new Goto_stmt((yyvsp[0].ival)); }
 #line 2292 "parser.cpp"
     break;
 
   case 97:
-#line 341 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 341 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                         { (yyval.expression_list) = (yyvsp[-2].expression_list); (yyval.expression_list)->push_back((yyvsp[0].expression)); }
 #line 2298 "parser.cpp"
     break;
 
   case 98:
-#line 342 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 342 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                         { (yyval.expression_list) = new Expression_list(); (yyval.expression_list)->push_back((yyvsp[0].expression)); }
 #line 2304 "parser.cpp"
     break;
 
   case 99:
-#line 345 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 345 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                         { (yyval.expression) = new Binary_expression(S_GE, (yyvsp[-2].expression), (yyvsp[0].expression)); }
 #line 2310 "parser.cpp"
     break;
 
   case 100:
-#line 346 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 346 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                         { (yyval.expression) = new Binary_expression(S_GT, (yyvsp[-2].expression), (yyvsp[0].expression)); }
 #line 2316 "parser.cpp"
     break;
 
   case 101:
-#line 347 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 347 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                         { (yyval.expression) = new Binary_expression(S_LE, (yyvsp[-2].expression), (yyvsp[0].expression)); }
 #line 2322 "parser.cpp"
     break;
 
   case 102:
-#line 348 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 348 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                         { (yyval.expression) = new Binary_expression(S_LT, (yyvsp[-2].expression), (yyvsp[0].expression)); }
 #line 2328 "parser.cpp"
     break;
 
   case 103:
-#line 349 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 349 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                         { (yyval.expression) = new Binary_expression(S_EQ, (yyvsp[-2].expression), (yyvsp[0].expression)); }
 #line 2334 "parser.cpp"
     break;
 
   case 104:
-#line 350 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 350 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                         { (yyval.expression) = new Binary_expression(S_NE, (yyvsp[-2].expression), (yyvsp[0].expression)); }
 #line 2340 "parser.cpp"
     break;
 
   case 105:
-#line 351 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 351 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                         { (yyval.expression) = (yyvsp[0].expression); }
 #line 2346 "parser.cpp"
     break;
 
   case 106:
-#line 354 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 354 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                         { (yyval.expression) = new Binary_expression(S_PLUS, (yyvsp[-2].expression), (yyvsp[0].expression)); }
 #line 2352 "parser.cpp"
     break;
 
   case 107:
-#line 355 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 355 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                         { (yyval.expression) = new Binary_expression(S_MINUS, (yyvsp[-2].expression), (yyvsp[0].expression)); }
 #line 2358 "parser.cpp"
     break;
 
   case 108:
-#line 356 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 356 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                         { (yyval.expression) = new Binary_expression(S_OR, (yyvsp[-2].expression), (yyvsp[0].expression)); }
 #line 2364 "parser.cpp"
     break;
 
   case 109:
-#line 357 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 357 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                         { (yyval.expression) = (yyvsp[0].expression); }
 #line 2370 "parser.cpp"
     break;
 
   case 110:
-#line 360 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 360 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                         { (yyval.expression) = new Binary_expression(S_MUL, (yyvsp[-2].expression), (yyvsp[0].expression)); }
 #line 2376 "parser.cpp"
     break;
 
   case 111:
-#line 361 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 361 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                         { (yyval.expression) = new Binary_expression(S_DIV, (yyvsp[-2].expression), (yyvsp[0].expression)); }
 #line 2382 "parser.cpp"
     break;
 
   case 112:
-#line 362 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 362 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                         { (yyval.expression) = new Binary_expression(S_MOD, (yyvsp[-2].expression), (yyvsp[0].expression)); }
 #line 2388 "parser.cpp"
     break;
 
   case 113:
-#line 363 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 363 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                         { (yyval.expression) = new Binary_expression(S_AND, (yyvsp[-2].expression), (yyvsp[0].expression)); }
 #line 2394 "parser.cpp"
     break;
 
   case 114:
-#line 364 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 364 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                         { (yyval.expression) = (yyvsp[0].expression); }
 #line 2400 "parser.cpp"
     break;
 
   case 115:
-#line 367 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 367 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                         { (yyval.expression) = (yyvsp[0].id); }
 #line 2406 "parser.cpp"
     break;
 
   case 116:
-#line 368 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 368 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                         { (yyval.expression) = new Func_stmt((yyvsp[-3].id), (yyvsp[-1].args_list)); }
 #line 2412 "parser.cpp"
     break;
 
   case 117:
-#line 369 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 369 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                         {
                                                                             if (*(yyvsp[0].sval) == "ads")  
                                                                                 (yyval.expression) = new Sysfunc_stmt(S_ADS);
@@ -2435,7 +2435,7 @@ yyreduce:
     break;
 
   case 118:
-#line 387 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 387 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                         {
                                                                             if (*(yyvsp[-3].sval) == "ads")  
                                                                                 (yyval.expression) = new Sysfunc_stmt(S_ADS, (yyvsp[-1].args_list));
@@ -2458,49 +2458,49 @@ yyreduce:
     break;
 
   case 119:
-#line 405 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 405 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                         { (yyval.expression) = (yyvsp[0].const_value); }
 #line 2464 "parser.cpp"
     break;
 
   case 120:
-#line 406 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 406 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                         { (yyval.expression) = (yyvsp[-1].expression); }
 #line 2470 "parser.cpp"
     break;
 
   case 121:
-#line 407 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 407 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                         { (yyval.expression) = new Binary_expression(S_NOT, new Const_value(S_BOOLEN, true), (yyvsp[0].expression)); }
 #line 2476 "parser.cpp"
     break;
 
   case 122:
-#line 408 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 408 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                         { (yyval.expression) = new Binary_expression(S_MINUS, new Const_value(S_INT, 0), (yyvsp[0].expression)); }
 #line 2482 "parser.cpp"
     break;
 
   case 123:
-#line 409 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 409 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                           { (yyval.expression) = new Array_access((yyvsp[-3].id), (yyvsp[-1].expression)); }
 #line 2488 "parser.cpp"
     break;
 
   case 124:
-#line 410 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 410 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                             { (yyval.expression) = new Record_access((yyvsp[-2].id), (yyvsp[0].id)); }
 #line 2494 "parser.cpp"
     break;
 
   case 125:
-#line 413 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 413 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                         { (yyval.args_list) = (yyvsp[-2].args_list); (yyval.args_list)->push_back((yyvsp[0].expression)); }
 #line 2500 "parser.cpp"
     break;
 
   case 126:
-#line 414 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 414 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
                                                                         { (yyval.args_list) = new Args_list(); (yyval.args_list)->push_back((yyvsp[0].expression)); }
 #line 2506 "parser.cpp"
     break;
@@ -2738,7 +2738,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 417 "/home/phoenix/CS/compiler/SimPascal/SimPascal.y"
+#line 417 "/home/phoenix/CS/compiler/clone/SimPascal/SimPascal.y"
 
 
 int yyerror(const char *s) {

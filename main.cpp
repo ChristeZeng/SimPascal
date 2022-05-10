@@ -13,14 +13,17 @@ extern int yyparse();
 int main() {
 	
     yyparse();
-	if (root) {
-		ofstream out("tree.json");
-		out << root->Vis() << endl;
-		out.close();
-	}
-	else {
-		cout << "no" << endl;
-	}
+	cout<<"Finish parsing"<<endl;
+	// if (root) {
+	// 	ofstream out("tree.json");
+	// 	out << root->Vis() << endl;
+	// 	out.close();
+	// 	cout<<"yes"<<endl;
+	// }
+	// else {
+	// 	cout << "no" << endl;
+	// }
+	cout<<"Start code generation"<<endl;
 	InitializeNativeTarget();
 	InitializeNativeTargetAsmPrinter();
 	InitializeNativeTargetAsmParser();

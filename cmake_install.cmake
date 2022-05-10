@@ -1,4 +1,4 @@
-# Install script for directory: /home/phoenix/CS/compiler/SimPascal
+# Install script for directory: /home/phoenix/CS/compiler/clone/SimPascal
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/phoenix/CS/compiler/SimPascal/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/phoenix/CS/compiler/clone/SimPascal/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

@@ -16,6 +16,7 @@ private:
     Const_expr_list *const_expr_list;
 public:
     Const_part(Const_expr_list *const_expr_list) : const_expr_list(const_expr_list) {}
+    void setGlobalValues();
     llvm::Value *codegen(CodeGenerator &codeGenerator);
     string Vis();
 };
@@ -24,9 +25,10 @@ class Const_expr : public Node {
 private:
     Identifier *id;
     Const_value *const_value;
-    bool is_global;
+    bool is_global=false;
 public:
     Const_expr(Identifier *id, Const_value *const_value) : id(id), const_value(const_value) {}
+    void setGlobalValues(){ is_global = true;}
     llvm::Value *codegen(CodeGenerator &codeGenerator);
     string Vis();
 };

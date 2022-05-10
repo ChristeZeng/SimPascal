@@ -1,4 +1,4 @@
-/home/phoenix/CS/compiler/SimPascal/CMakeFiles/edit_cache.dir
-/home/phoenix/CS/compiler/SimPascal/CMakeFiles/rebuild_cache.dir
-/home/phoenix/CS/compiler/SimPascal/CMakeFiles/intrinsics_gen.dir
-/home/phoenix/CS/compiler/SimPascal/CMakeFiles/SimPascal.dir
+/home/phoenix/CS/compiler/clone/SimPascal/CMakeFiles/edit_cache.dir
+/home/phoenix/CS/compiler/clone/SimPascal/CMakeFiles/rebuild_cache.dir
+/home/phoenix/CS/compiler/clone/SimPascal/CMakeFiles/intrinsics_gen.dir
+/home/phoenix/CS/compiler/clone/SimPascal/CMakeFiles/SimPascal.dir

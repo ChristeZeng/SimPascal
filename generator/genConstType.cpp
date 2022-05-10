@@ -3,6 +3,18 @@
 using namespace std;
 using namespace llvm;
 
+void Const_part::setGlobalValues(){
+    for (auto const_expr : *const_expr_list) {
+        const_expr->setGlobalValues();
+    }
+}
+
+void Var_part::setGlobalValues(){
+    for(auto var_decl : *var_decl_list){
+        var_decl->setGlobalValues();
+    }
+}
+
 Value *Const_part::codegen(CodeGenerator &codeGenerator) {
     print("Const_part");
     for (auto const_expr : *const_expr_list) {

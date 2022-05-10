@@ -6,8 +6,10 @@ using namespace llvm;
 Value *Assign_stmt::codegen(CodeGenerator &codeGenerator) {
     print("Assign_stmt::codegen");
     if((!lexpression)&&(!fid)){
+        print("Assign_stmt::codegen: lid");
         return codeGenerator.builder.CreateStore(rexpression->codegen(codeGenerator), codeGenerator.getValue(lid->name));
     } else if(lexpression) {
+        print("Assign_stmt::codegen: lexpression");
         //tbd
     } else if(fid) {
         //tbd

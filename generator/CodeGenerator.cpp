@@ -4,6 +4,7 @@ using namespace std;
 using namespace llvm;
 
 void CodeGenerator::generateCode(Program& root) {
+    cout<<"Begin Gen"<<endl;
     root.codegen(*this);
     cout<<"Finish Gen"<<endl;
     
