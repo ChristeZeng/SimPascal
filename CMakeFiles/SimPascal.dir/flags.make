@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/phoenix/CS/compiler/clone/SimPascal/. -I/home/phoenix/CS/compiler/clone/SimPascal -I/usr/include/llvm-10 -I/usr/include/llvm-c-10
+CXX_INCLUDES = -I/home/phoenix/CS/compiler/SimPascal/. -I/home/phoenix/CS/compiler/SimPascal -I/usr/include/llvm-10 -I/usr/include/llvm-c-10
 
 CXX_FLAGS = -std=gnu++14
 
