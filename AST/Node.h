@@ -36,7 +36,7 @@ using Name_list = vector<Identifier *>;
 class Node {
 public:
     virtual ~Node() {}
-    virtual llvm::Value *codegen(CodeGenerator &generator) = 0;
+    virtual llvm::Value *codegen(CodeGenerator &codeGenerator) = 0;
     virtual string Vis() { return ""; };
 };
 
@@ -47,7 +47,7 @@ public:
     string name;
 public:
     Identifier(string name) : name(name) {}
-    llvm::Value *codegen(CodeGenerator &generator);
+    llvm::Value *codegen(CodeGenerator &codeGenerator);
     string Vis();
 };
 
@@ -59,5 +59,5 @@ public:
     void Setlabel(int label) {
         this->label = label;
     }
-    virtual llvm::Value *codegen(CodeGenerator &generator) = 0;
+    virtual llvm::Value *codegen(CodeGenerator &codeGenerator) = 0;
 };

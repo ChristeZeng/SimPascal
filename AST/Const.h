@@ -16,7 +16,7 @@ private:
     Const_expr_list *const_expr_list;
 public:
     Const_part(Const_expr_list *const_expr_list) : const_expr_list(const_expr_list) {}
-    llvm::Value *codegen(CodeGenerator &generator);
+    llvm::Value *codegen(CodeGenerator &codeGenerator);
     string Vis();
 };
 
@@ -27,7 +27,7 @@ private:
     bool is_global;
 public:
     Const_expr(Identifier *id, Const_value *const_value) : id(id), const_value(const_value) {}
-    llvm::Value *codegen(CodeGenerator &generator);
+    llvm::Value *codegen(CodeGenerator &codeGenerator);
     string Vis();
 };
 
@@ -76,7 +76,7 @@ public:
             return nullptr;
         }
     }
-    llvm::Value *codegen(CodeGenerator &generator);
-    llvm::Constant *get_constant(CodeGenerator &generator);
+    llvm::Value *codegen(CodeGenerator &codeGenerator);
+    llvm::Constant *get_constant(CodeGenerator &codeGenerator);
     string Vis();
 };

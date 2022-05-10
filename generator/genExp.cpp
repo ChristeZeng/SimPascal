@@ -3,55 +3,55 @@
 using namespace std;
 using namespace llvm;
 
-Value *Binary_expression::codegen(CodeGenerator &generator) {
+Value *Binary_expression::codegen(CodeGenerator &codeGenerator) {
     print("Binary_expression::codegen");
-    Value *lhs = lexpression->codegen(generator);
-    Value *rhs = rexpression->codegen(generator);
+    Value *lhs = lexpression->codegen(codeGenerator);
+    Value *rhs = rexpression->codegen(codeGenerator);
     bool flag = lhs->getType()->isDoubleTy() || rhs->getType()->isDoubleTy();
 
     switch (op) {
         case Binary_op::S_PLUS:
-            if (flag) return generator.builder.CreateFAdd(lhs, rhs, "addtmp");
-            return generator.builder.CreateAdd(lhs, rhs, "addtmp");
+            if (flag) return codeGenerator.builder.CreateFAdd(lhs, rhs, "addtmp");
+            return codeGenerator.builder.CreateAdd(lhs, rhs, "addtmp");
         case Binary_op::S_MINUS:
-            if (flag) return generator.builder.CreateFSub(lhs, rhs, "subtmp");
-            return generator.builder.CreateSub(lhs, rhs, "subtmp");
+            if (flag) return codeGenerator.builder.CreateFSub(lhs, rhs, "subtmp");
+            return codeGenerator.builder.CreateSub(lhs, rhs, "subtmp");
         case Binary_op::S_MUL:
-            if (flag) return generator.builder.CreateFMul(lhs, rhs, "multmp");
-            return generator.builder.CreateMul(lhs, rhs, "multmp");
+            if (flag) return codeGenerator.builder.CreateFMul(lhs, rhs, "multmp");
+            return codeGenerator.builder.CreateMul(lhs, rhs, "multmp");
         case Binary_op::S_DIV:
-            return generator.builder.CreateSDiv(lhs, rhs, "divtmp");
+            return codeGenerator.builder.CreateSDiv(lhs, rhs, "divtmp");
         case Binary_op::S_MOD:
-            return generator.builder.CreateSRem(lhs, rhs, "modtmp");
+            return codeGenerator.builder.CreateSRem(lhs, rhs, "modtmp");
         case Binary_op::S_AND:
-            return generator.builder.CreateAnd(lhs, rhs, "andtmp");
+            return codeGenerator.builder.CreateAnd(lhs, rhs, "andtmp");
         case Binary_op::S_OR:
-            return generator.builder.CreateOr(lhs, rhs, "ortmp");
+            return codeGenerator.builder.CreateOr(lhs, rhs, "ortmp");
         case Binary_op::S_GE:
-            return generator.builder.CreateICmpSGE(lhs, rhs, "getmp");
+            return codeGenerator.builder.CreateICmpSGE(lhs, rhs, "getmp");
         case Binary_op::S_GT:
-            return generator.builder.CreateICmpSGT(lhs, rhs, "gtmp");
+            return codeGenerator.builder.CreateICmpSGT(lhs, rhs, "gtmp");
         case Binary_op::S_LE:
-            return generator.builder.CreateICmpSLE(lhs, rhs, "letmp");
+            return codeGenerator.builder.CreateICmpSLE(lhs, rhs, "letmp");
         case Binary_op::S_LT:
-            return generator.builder.CreateICmpSLT(lhs, rhs, "ltmp");
+            return codeGenerator.builder.CreateICmpSLT(lhs, rhs, "ltmp");
         case Binary_op::S_EQ:
-            return generator.builder.CreateICmpEQ(lhs, rhs, "eqtmp");
+            return codeGenerator.builder.CreateICmpEQ(lhs, rhs, "eqtmp");
         case Binary_op::S_NE:
-            return generator.builder.CreateICmpNE(lhs, rhs, "netmp");
+            return codeGenerator.builder.CreateICmpNE(lhs, rhs, "netmp");
         case Binary_op::S_NOT:
-            return generator.builder.CreateNot(lhs, "nottmp");
+            return codeGenerator.builder.CreateNot(lhs, "nottmp");
         default:
             return nullptr;
     }
 }
 
-Value *Array_access::codegen(CodeGenerator &generator) {
+Value *Array_access::codegen(CodeGenerator &codeGenerator) {
     print("Array_access::codegen");
     return nullptr;
 }
 
-Value *Record_access::codegen(CodeGenerator &generator) {
+Value *Record_access::codegen(CodeGenerator &codeGenerator) {
     print("Record_access::codegen");
     return nullptr;
 }

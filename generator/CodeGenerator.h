@@ -53,20 +53,20 @@ class CodeGenerator{
 public:
     LLVMContext context;
     IRBuilder<> builder;
-    std::unique_ptr<llvm::Module> module;
+    Module *module;
     Function *mainFunction;
     BasicBlock *block;
     unsigned int addrSpace;
-    vector<Function*> funcStack;
+    vector<Function*> functions;
     Function *read, *write;
     CodeGenerator():builder(context) {
-        module = std::unique_ptr<llvm::Module>(new llvm::Module("main", context));
+        module = new Module("main", context);
         addrSpace = module->getDataLayout().getAllocaAddrSpace();
     }
     void generateCode(Program& root);
-    Function* getCurFunction(){return funcStack.back();}
-    void pushFunction(Function* func){funcStack.push_back(func);}
-    void popFunction(){funcStack.pop_back();}
+    Function* getFunc(){return functions.back();}
+    void pushFunc(Function* func){functions.push_back(func);}
+    void popFunc(){functions.pop_back();}
 
     AllocaInst *CreateEntryBlockAlloca(Function *TheFunction, StringRef VarName, Type* type);
     Value* getValue(string & name);

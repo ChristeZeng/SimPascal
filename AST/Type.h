@@ -45,7 +45,7 @@ public:
     Simple_type_decl(Enum_Type *enum_type) : enum_type(enum_type), Type_name(ENUM) {}
     Simple_type_decl(Base_type base_type) : base_type(base_type), Type_name(BASE) {}
     Simple_type_decl() : Type_name(VOID) {}
-    llvm::Value *codegen(CodeGenerator &generator);
+    llvm::Value *codegen(CodeGenerator &codeGenerator);
     string Vis();
 };
 
@@ -54,7 +54,7 @@ private:
     Type_decl_list *type_decl_list;
 public:
     Type_part(Type_decl_list *type_decl_list) : type_decl_list(type_decl_list) {}
-    llvm::Value *codegen(CodeGenerator &generator);
+    llvm::Value *codegen(CodeGenerator &codeGenerator);
     string Vis();
 };
 
@@ -66,7 +66,7 @@ private:
     
 public:
     Type_definition(Identifier *id, Type_decl *type_decl) : id(id), type_decl(type_decl) {}
-    llvm::Value *codegen(CodeGenerator &generator);
+    llvm::Value *codegen(CodeGenerator &codeGenerator);
     string Vis();
 };
 
@@ -76,7 +76,7 @@ private:
     Const_value *upper;
 public:
     Const_range(Const_value *lower, Const_value *upper) : lower(lower), upper(upper) {}
-    llvm::Value *codegen(CodeGenerator &generator);
+    llvm::Value *codegen(CodeGenerator &codeGenerator);
     string Vis();
 };
 
@@ -85,7 +85,7 @@ private:
     Name_list *name_list;
 public:
     Enum_Type(Name_list *name_list) : name_list(name_list) {}
-    llvm::Value *codegen(CodeGenerator &generator);
+    llvm::Value *codegen(CodeGenerator &codeGenerator);
     string Vis();
 };
 
@@ -95,7 +95,7 @@ private:
     Identifier *upper_id;
 public:
     Enum_range(Identifier *lower_id, Identifier *upper_id) : lower_id(lower_id), upper_id(upper_id) {}
-    llvm::Value *codegen(CodeGenerator &generator);
+    llvm::Value *codegen(CodeGenerator &codeGenerator);
     string Vis();
 };
 
@@ -105,7 +105,7 @@ private:
     Type_decl *type_decl;
 public:
     Array_type_decl(Simple_type_decl *simple_type_decl, Type_decl *type_decl) : simple_type_decl(simple_type_decl), type_decl(type_decl) {}
-    llvm::Value *codegen(CodeGenerator &generator);
+    llvm::Value *codegen(CodeGenerator &codeGenerator);
     string Vis();
 };
 
@@ -115,7 +115,7 @@ private:
     Type_decl *type_decl;
 public:
     Field_decl(Name_list *name_list, Type_decl *type_decl) : name_list(name_list), type_decl(type_decl) {}
-    llvm::Value *codegen(CodeGenerator &generator);
+    llvm::Value *codegen(CodeGenerator &codeGenerator);
     string Vis();
 };
 
@@ -126,7 +126,7 @@ private:
     Field_decl_list *field_decl_list;
 public:
     Record_type_decl(Field_decl_list *field_decl_list) : field_decl_list(field_decl_list) {}
-    llvm::Value *codegen(CodeGenerator &generator);
+    llvm::Value *codegen(CodeGenerator &codeGenerator);
     string Vis();
 };
 
@@ -139,7 +139,7 @@ public:
     Type_decl(Simple_type_decl *simple_type_decl) : simple_type_decl(simple_type_decl) {}
     Type_decl(Array_type_decl *array_type_decl) : array_type_decl(array_type_decl) {}
     Type_decl(Record_type_decl *record_type_decl) : record_type_decl(record_type_decl) {}
-    llvm::Value *codegen(CodeGenerator &generator);
+    llvm::Value *codegen(CodeGenerator &codeGenerator);
     string Vis();
 };
 
@@ -150,7 +150,7 @@ private:
     bool is_global;
 public:
     Var_decl(Name_list *name_list, Type_decl *type_decl) : name_list(name_list), type_decl(type_decl) {}
-    llvm::Value *codegen(CodeGenerator &generator);
+    llvm::Value *codegen(CodeGenerator &codeGenerator);
     string Vis();
 };
 
@@ -159,6 +159,6 @@ private:
     Var_decl_list *var_decl_list;
 public:
     Var_part(Var_decl_list *var_decl_list) : var_decl_list(var_decl_list) {}
-    llvm::Value *codegen(CodeGenerator &generator);
+    llvm::Value *codegen(CodeGenerator &codeGenerator);
     string Vis();
 };

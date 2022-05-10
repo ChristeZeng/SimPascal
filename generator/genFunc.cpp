@@ -3,83 +3,77 @@
 using namespace std;
 using namespace llvm;
 
-Value *Function_decl::codegen(CodeGenerator &generator) {
+Value *Function_decl::codegen(CodeGenerator &codeGenerator) {
     print("Function_decl");
-    Value *function = function_head->codegen(generator);
-    subroutine->codegen(generator);
+    Value *function = function_head->codegen(codeGenerator);
+    subroutine->codegen(codeGenerator);
 
-    if (function_head->return_type->Type_name == function_head->return_type->VOID)
-    {
-        generator.builder.CreateRetVoid();
-    }
-    else
-    {
-        auto returnInst = function_head->id->codegen(generator);
-        generator.builder.CreateRet(returnInst);
+    if (function_head->return_type->Type_name == function_head->return_type->VOID){
+        codeGenerator.builder.CreateRetVoid();
+    } else {
+        codeGenerator.builder.CreateRet(function_head->id->codegen(codeGenerator));
     }
     
-    //Pop back
-    generator.popFunction();
-    generator.builder.SetInsertPoint(&(generator.getCurFunction())->getBasicBlockList().back());
+    codeGenerator.popFunc();
+    codeGenerator.builder.SetInsertPoint(&(codeGenerator.getFunc())->getBasicBlockList().back());
     return function;
 }
     
-Value *Function_head::codegen(CodeGenerator &generator) {
+Value *Function_head::codegen(CodeGenerator &codeGenerator) {
     print("Function_head");
-    vector<Type*> arg_types;
+    vector<Type*> types;
     for(auto para : *parameters) {
         if(para->va_para_list->is_var_para){
-            arg_types.insert(arg_types.end(), para->va_para_list->name_list->size(), para->simple_type_decl->codegen(generator)->getType());
+            types.insert(types.end(), para->va_para_list->name_list->size(), para->simple_type_decl->codegen(codeGenerator)->getType());
         } else {
-            arg_types.insert(arg_types.end(), para->va_para_list->name_list->size(), para->simple_type_decl->codegen(generator)->getType());
+            types.insert(types.end(), para->va_para_list->name_list->size(), para->simple_type_decl->codegen(codeGenerator)->getType());
         }
     }
 
-    llvm::FunctionType *funcType = FunctionType::get(return_type->codegen(generator)->getType(), arg_types, false);
-    llvm::Function *function = llvm::Function::Create(funcType, llvm::GlobalValue::InternalLinkage, id->name, generator.module.get());
-    generator.pushFunction(function);
-    BasicBlock *newBlock = llvm::BasicBlock::Create(generator.context, "entrypoint", function, nullptr);
-    generator.builder.SetInsertPoint(newBlock);
+    FunctionType *funcType = FunctionType::get(return_type->codegen(codeGenerator)->getType(), types, false);
+    Function *function = Function::Create(funcType, GlobalValue::InternalLinkage, id->name, codeGenerator.module);
+    codeGenerator.pushFunc(function);
+    BasicBlock *newBlock = BasicBlock::Create(codeGenerator.context, "entrypoint", function, nullptr);
+    codeGenerator.builder.SetInsertPoint(newBlock);
 
-    Function::arg_iterator argIt = function->arg_begin();
-    int index = 1;
+    Function::arg_iterator iter = function->arg_begin();
     for (auto para : *parameters) {
         for (auto name : *para->va_para_list->name_list){
             Value *alloc = nullptr;
             if(para->va_para_list->is_var_para){
                 //tbd
-                alloc = generator.CreateEntryBlockAlloca(function, name->name, para->simple_type_decl->codegen(generator)->getType());
-                generator.builder.CreateStore(argIt, alloc);
-                argIt++;
+                alloc = codeGenerator.CreateEntryBlockAlloca(function, name->name, para->simple_type_decl->codegen(codeGenerator)->getType());
+                codeGenerator.builder.CreateStore(iter, alloc);
+                iter++;
             } else {
-                alloc = generator.CreateEntryBlockAlloca(function, name->name, para->simple_type_decl->codegen(generator)->getType());
-                generator.builder.CreateStore(argIt, alloc);
-                argIt++;
+                alloc = codeGenerator.CreateEntryBlockAlloca(function, name->name, para->simple_type_decl->codegen(codeGenerator)->getType());
+                codeGenerator.builder.CreateStore(iter, alloc);
+                iter++;
             }
         }
     }
 
-    Value *res;
+    Value *ret;
     if(return_type->Type_name == return_type->VOID){
-        res = nullptr;
+        ret = nullptr;
     } else {
-        res = generator.CreateEntryBlockAlloca(function, id->name, return_type->codegen(generator)->getType());
+        ret = codeGenerator.CreateEntryBlockAlloca(function, id->name, return_type->codegen(codeGenerator)->getType());
     }
     return function;
 }
 
-Value *Para_decl::codegen(CodeGenerator &generator) {
+Value *Para_decl::codegen(CodeGenerator &codeGenerator) {
     print("Para_decl");
     return nullptr;
 }
 
-Value *Va_para_list::codegen(CodeGenerator &generator) {
+Value *Va_para_list::codegen(CodeGenerator &codeGenerator) {
     print("Va_para_list");
     for(auto name : *name_list){
         if(is_var_para){
-            return generator.builder.getInt32(0);
+            return codeGenerator.builder.getInt32(0);
         } else {
-            return generator.builder.getInt32(0);
+            return codeGenerator.builder.getInt32(0);
         }
     }
     return nullptr;

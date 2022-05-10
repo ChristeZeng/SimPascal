@@ -24,8 +24,8 @@ int main() {
 	InitializeNativeTarget();
 	InitializeNativeTargetAsmPrinter();
 	InitializeNativeTargetAsmParser();
-	CodeGenerator generator;
-    generator.generateCode(*root);
+	CodeGenerator codeGenerator;
+    codeGenerator.generateCode(*root);
 
     return 0;
 }

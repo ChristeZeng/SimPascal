@@ -3,53 +3,53 @@
 using namespace std;
 using namespace llvm;
 
-Value *Program::codegen(CodeGenerator &generator) {
+Value *Program::codegen(CodeGenerator &codeGenerator) {
     print("Program::codegen");
-    vector<llvm::Type*> argTypes;
-    llvm::FunctionType * funcType = llvm::FunctionType::get(generator.builder.getVoidTy(), makeArrayRef(argTypes), false);
-    generator.mainFunction = llvm::Function::Create(funcType, llvm::GlobalValue::InternalLinkage, "main", generator.module.get());
-    llvm::BasicBlock * basicBlock = llvm::BasicBlock::Create(generator.context, "entry", generator.mainFunction, 0);
+    vector<Type*> argTypes;
+    FunctionType * funcType = FunctionType::get(codeGenerator.builder.getVoidTy(), makeArrayRef(argTypes), false);
+    codeGenerator.mainFunction = Function::Create(funcType, GlobalValue::InternalLinkage, "main", codeGenerator.module);
+    BasicBlock * basicBlock = BasicBlock::Create(codeGenerator.context, "entrypoint", codeGenerator.mainFunction, 0);
     
-    generator.pushFunction(generator.mainFunction);
-    generator.builder.SetInsertPoint(basicBlock);
+    codeGenerator.pushFunc(codeGenerator.mainFunction);
+    codeGenerator.builder.SetInsertPoint(basicBlock);
 
-    generator.write = generator.setWrite();
-    generator.read = generator.setRead();
+    codeGenerator.write = codeGenerator.setWrite();
+    codeGenerator.read = codeGenerator.setRead();
 
     // routine->setGlobal();
-    routine->codegen(generator);
-    generator.builder.CreateRetVoid();
-    generator.popFunction();
+    routine->codegen(codeGenerator);
+    codeGenerator.builder.CreateRetVoid();
+    codeGenerator.popFunc();
     
     return nullptr;
 }
-Value *Program_head::codegen(CodeGenerator &generator) {
+Value *Program_head::codegen(CodeGenerator &codeGenerator) {
     print("Program_head::codegen");
     return nullptr;
 }
 
-Value *Routine::codegen(CodeGenerator &generator) {
+Value *Routine::codegen(CodeGenerator &codeGenerator) {
     print("Routine::codegen");
-    head->codegen(generator);
-    body->codegen(generator);
+    head->codegen(codeGenerator);
+    body->codegen(codeGenerator);
     return nullptr;
 }
 
-Value *Routine_head::codegen(CodeGenerator &generator) {
+Value *Routine_head::codegen(CodeGenerator &codeGenerator) {
     print("Routine_head::codegen");
-    if(const_part!=nullptr) const_part->codegen(generator);
-    if(type_part!=nullptr) type_part->codegen(generator);
-    if(var_part!=nullptr) var_part->codegen(generator);
+    if(const_part!=nullptr) const_part->codegen(codeGenerator);
+    if(type_part!=nullptr) type_part->codegen(codeGenerator);
+    if(var_part!=nullptr) var_part->codegen(codeGenerator);
     for (auto routine : *routine_part) {
-        routine->codegen(generator);
+        routine->codegen(codeGenerator);
     }
     return nullptr;
 }
 
-Value *Routine_body::codegen(CodeGenerator &generator) {
+Value *Routine_body::codegen(CodeGenerator &codeGenerator) {
     print("Routine_body::codegen");
     for (auto statement : *stmt_list) {
-        statement->codegen(generator);
+        statement->codegen(codeGenerator);
     }
     return nullptr;
 }

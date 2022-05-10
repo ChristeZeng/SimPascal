@@ -54,7 +54,7 @@ public:
     Assign_stmt(Identifier *lid, Expression *rexpression) : lid(lid), rexpression(rexpression) {}
     Assign_stmt(Identifier *lid, Expression *lexpression, Expression *rexpression) : lid(lid), lexpression(lexpression), rexpression(rexpression) {}
     Assign_stmt(Identifier *lid, Expression *rexpression, Identifier *fid) : lid(lid), rexpression(rexpression), fid(fid) {}
-    llvm::Value *codegen(CodeGenerator &generator);
+    llvm::Value *codegen(CodeGenerator &codeGenerator);
     string Vis();
 };
 
@@ -65,7 +65,7 @@ private:
 public:
     Proc_stmt(Identifier *id) : id(id) {}
     Proc_stmt(Identifier *id, Args_list *args_list) : id(id), args_list(args_list) {}
-    llvm::Value *codegen(CodeGenerator &generator);
+    llvm::Value *codegen(CodeGenerator &codeGenerator);
     string Vis();
 };
 
@@ -80,7 +80,7 @@ public:
         this->args_list = new Args_list();
         this->args_list->push_back(expression);
     }
-    llvm::Value *codegen(CodeGenerator &generator);
+    llvm::Value *codegen(CodeGenerator &codeGenerator);
     string Vis();
 };
 
@@ -91,7 +91,7 @@ private:
 public:
     Func_stmt(Identifier *id) : id(id) {}
     Func_stmt(Identifier *id, Args_list *args_list) : id(id), args_list(args_list) {}
-    llvm::Value *codegen(CodeGenerator &generator);
+    llvm::Value *codegen(CodeGenerator &codeGenerator);
     string Vis();
 };
 
@@ -102,7 +102,7 @@ private:
 public:
     Sysfunc_stmt(SysFunc func) : func(func) {}
     Sysfunc_stmt(SysFunc func, Args_list *args_list) : func(func), args_list(args_list) {}
-    llvm::Value *codegen(CodeGenerator &generator);
+    llvm::Value *codegen(CodeGenerator &codeGenerator);
     string Vis();
 };
 
@@ -114,7 +114,7 @@ private:
 public:
     If_stmt(Expression *expression, Stmt *stmt) : expression(expression), stmt(stmt) {}
     If_stmt(Expression *expression, Stmt *stmt, Stmt *else_stmt) : expression(expression), stmt(stmt), else_stmt(else_stmt) {}
-    llvm::Value *codegen(CodeGenerator &generator);
+    llvm::Value *codegen(CodeGenerator &codeGenerator);
     string Vis();
 };
 
@@ -124,7 +124,7 @@ private:
     Expression *expression;
 public:
     Repeat_stmt(Stmt_list *stmt_list, Expression *expression) : stmt_list(stmt_list), expression(expression) {}
-    llvm::Value *codegen(CodeGenerator &generator);
+    llvm::Value *codegen(CodeGenerator &codeGenerator);
     string Vis();
 };
 
@@ -134,7 +134,7 @@ private:
     Stmt *stmt;
 public:
     While_stmt(Expression *expression, Stmt *stmt) : expression(expression), stmt(stmt) {}
-    llvm::Value *codegen(CodeGenerator &generator);
+    llvm::Value *codegen(CodeGenerator &codeGenerator);
     string Vis();
 };
 
@@ -143,7 +143,7 @@ private:
     Direction_type direction_type;
 public:
     Direction(Direction_type direction_type) : direction_type(direction_type) {}
-    llvm::Value *codegen(CodeGenerator &generator);
+    llvm::Value *codegen(CodeGenerator &codeGenerator);
     string Vis();
 };
 
@@ -155,7 +155,7 @@ private:
 public:
     Case_expr(Const_value *const_value, Stmt *stmt) : const_value(const_value), stmt(stmt) {}
     Case_expr(Identifier *id, Stmt *stmt) : id(id), stmt(stmt) {}
-    llvm::Value *codegen(CodeGenerator &generator);
+    llvm::Value *codegen(CodeGenerator &codeGenerator);
     string Vis();
 };
 
@@ -165,7 +165,7 @@ private:
     Case_expr_list *case_expr_list;
 public:
     Case_stmt(Expression *expression, Case_expr_list *case_expr_list) : expression(expression), case_expr_list(case_expr_list) {}
-    llvm::Value *codegen(CodeGenerator &generator);
+    llvm::Value *codegen(CodeGenerator &codeGenerator);
     string Vis();
 };
 
@@ -174,7 +174,7 @@ private:
     int label;
 public:
     Goto_stmt(int label) : label(label) {}
-    llvm::Value *codegen(CodeGenerator &generator);
+    llvm::Value *codegen(CodeGenerator &codeGenerator);
     string Vis();
 };
 
@@ -188,7 +188,7 @@ private:
 public:
     For_stmt(Identifier *id, Expression *Out_expression, Direction *direction, Expression *In_expression, Stmt *stmt)
         : id(id), Out_expression(Out_expression), direction(direction), In_expression(In_expression), stmt(stmt) {}
-    llvm::Value *codegen(CodeGenerator &generator);
+    llvm::Value *codegen(CodeGenerator &codeGenerator);
     string Vis();
 };
 
@@ -199,7 +199,7 @@ private:
     Expression *rexpression;
 public:
     Binary_expression(Binary_op op, Expression *lexpression, Expression *rexpression) : op(op), lexpression(lexpression), rexpression(rexpression) {}
-    llvm::Value *codegen(CodeGenerator &generator);
+    llvm::Value *codegen(CodeGenerator &codeGenerator);
     string Vis();
 };
 
@@ -209,7 +209,7 @@ private:
     Expression *index;
 public:
     Array_access(Identifier *id, Expression *index) : id(id), index(index) {}
-    llvm::Value *codegen(CodeGenerator &generator);
+    llvm::Value *codegen(CodeGenerator &codeGenerator);
     string Vis();
 };
 
@@ -219,6 +219,6 @@ private:
     Identifier *field_id;
 public:
     Record_access(Identifier *id, Identifier *field_id) : id(id), field_id(field_id) {}
-    llvm::Value *codegen(CodeGenerator &generator);
+    llvm::Value *codegen(CodeGenerator &codeGenerator);
     string Vis();
 };
