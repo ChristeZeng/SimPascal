@@ -111,6 +111,8 @@ Value *Simple_type_decl::codegen(CodeGenerator &codeGenerator) {
                 default:
                     return nullptr;
             }
+        default:
+            return nullptr;
     }
     return nullptr;
 }

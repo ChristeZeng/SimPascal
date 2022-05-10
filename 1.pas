@@ -2,9 +2,12 @@ program hello;
 const
   a = 1;
 var
-  b: integer;
+  b, i: integer;
 
 begin
-  read(b);
-  writeln(b);
+  b := 1;
+  for i:= 1 to 10 do 
+  begin
+    writeln(i);
+  end;
 end.

@@ -126,27 +126,91 @@ Value *Sysfunc_stmt::codegen(CodeGenerator &codeGenerator) {
 
 Value *If_stmt::codegen(CodeGenerator &codeGenerator) {
     print("If_stmt::codegen");
+    Value *cond = expression->codegen(codeGenerator);
+    if (cond->getType() != codeGenerator.builder.getInt1Ty()) throw logic_error("If condition type error!");
+    cond = codeGenerator.builder.CreateICmpNE(cond, ConstantInt::get(codeGenerator.context, APInt(1, 0)), "ifcond");
+
+    Function *function = codeGenerator.getFunc();
+    BasicBlock *mergeblock = BasicBlock::Create(codeGenerator.context, "ifcont", function);
+    BasicBlock *thenblock = BasicBlock::Create(codeGenerator.context, "then", function);
+    BasicBlock *elseblock = BasicBlock::Create(codeGenerator.context, "else", function);
+    codeGenerator.builder.CreateCondBr(cond, thenblock, elseblock);
+
+    codeGenerator.builder.SetInsertPoint(thenblock);
+    stmt->codegen(codeGenerator);
+    codeGenerator.builder.CreateBr(mergeblock);
+    thenblock = codeGenerator.builder.GetInsertBlock();
+
+    codeGenerator.builder.SetInsertPoint(elseblock);
+    if(else_stmt) else_stmt->codegen(codeGenerator);
+    codeGenerator.builder.CreateBr(mergeblock);
+    elseblock = codeGenerator.builder.GetInsertBlock();
+
+    codeGenerator.builder.SetInsertPoint(mergeblock);
+
     return nullptr;
 }
 
-//tbd
 Value *Repeat_stmt::codegen(CodeGenerator &codeGenerator) {
     print("Repeat_stmt::codegen");
+
+    Function *function = codeGenerator.getFunc();
+    BasicBlock *mergeblock = BasicBlock::Create(codeGenerator.context, "repeatcont", function);
+    BasicBlock *bodyblock = BasicBlock::Create(codeGenerator.context, "body", function);
+    BasicBlock *condblock = BasicBlock::Create(codeGenerator.context, "cond", function);
+
+    codeGenerator.builder.CreateBr(bodyblock);
+    codeGenerator.builder.SetInsertPoint(bodyblock);
+
+    for(auto stmt : *stmt_list){
+        stmt->codegen(codeGenerator);
+    }
+
+    codeGenerator.builder.CreateBr(condblock);
+    bodyblock = codeGenerator.builder.GetInsertBlock();
+
+    codeGenerator.builder.SetInsertPoint(condblock);
+    Value *cond = expression->codegen(codeGenerator);
+    if (cond->getType() != codeGenerator.builder.getInt1Ty()) throw logic_error("Repeat condition type error!");
+    cond = codeGenerator.builder.CreateICmpNE(cond, ConstantInt::get(codeGenerator.context, APInt(1, 1)), "repeatcond");
+    codeGenerator.builder.CreateCondBr(cond, bodyblock, mergeblock);
+
+    codeGenerator.builder.SetInsertPoint(mergeblock);
     return nullptr;
 }
 
 Value *While_stmt::codegen(CodeGenerator &codeGenerator) {
     print("while_stmt::codegen");
-    return nullptr;
-}
+    Function *function = codeGenerator.getFunc();
+    BasicBlock *mergeblock = BasicBlock::Create(codeGenerator.context, "whilecont", function);
+    BasicBlock *bodyblock = BasicBlock::Create(codeGenerator.context, "body", function);
+    BasicBlock *condblock = BasicBlock::Create(codeGenerator.context, "cond", function);
 
-Value *For_stmt::codegen(CodeGenerator &codeGenerator) {
-    print("for_stmt::codegen");
+    codeGenerator.builder.CreateBr(condblock);
+    codeGenerator.builder.SetInsertPoint(condblock);
+    Value *cond = expression->codegen(codeGenerator);
+    if (cond->getType() != codeGenerator.builder.getInt1Ty()) throw logic_error("While condition type error!");
+    cond = codeGenerator.builder.CreateICmpNE(cond, ConstantInt::get(codeGenerator.context, APInt(1, 0)), "whilecond");
+    codeGenerator.builder.CreateCondBr(cond, bodyblock, mergeblock);
+
+    codeGenerator.builder.SetInsertPoint(bodyblock);
+    stmt->codegen(codeGenerator);
+
+    codeGenerator.builder.CreateBr(condblock);
+    bodyblock = codeGenerator.builder.GetInsertBlock();
+
+    codeGenerator.builder.SetInsertPoint(mergeblock);
     return nullptr;
 }
 
 Value *Direction::codegen(CodeGenerator &codeGenerator) {
-    print("direction::codegen");
+    print("Direction::codegen");
+    if(direction_type == Direction_type::S_TO) return ConstantInt::get(codeGenerator.context, APInt(1, 0));
+    else return ConstantInt::get(codeGenerator.context, APInt(1, 1));
+}
+
+Value *For_stmt::codegen(CodeGenerator &codeGenerator) {
+    print("for_stmt::codegen");
     return nullptr;
 }
 

@@ -14,15 +14,15 @@ int main() {
 	
     yyparse();
 	cout<<"Finish parsing"<<endl;
-	// if (root) {
-	// 	ofstream out("tree.json");
-	// 	out << root->Vis() << endl;
-	// 	out.close();
-	// 	cout<<"yes"<<endl;
-	// }
-	// else {
-	// 	cout << "no" << endl;
-	// }
+	if (root) {
+		ofstream out("tree.json");
+		out << root->Vis() << endl;
+		out.close();
+		cout<<"yes"<<endl;
+	}
+	else {
+		cout << "no" << endl;
+	}
 	cout<<"Start code generation"<<endl;
 	InitializeNativeTarget();
 	InitializeNativeTargetAsmPrinter();
