@@ -1,4 +1,0 @@
-/home/bcct/code/Test/SimPascal/CMakeFiles/rebuild_cache.dir
-/home/bcct/code/Test/SimPascal/CMakeFiles/edit_cache.dir
-/home/bcct/code/Test/SimPascal/CMakeFiles/SimPascal.dir
-/home/bcct/code/Test/SimPascal/CMakeFiles/intrinsics_gen.dir

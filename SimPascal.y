@@ -141,10 +141,10 @@ const_value     : INTEGER { $$ = new Const_value(S_INT, $1); }
                 | CHAR    { $$ = new Const_value(S_CHAR, $1); }
                 | SYS_CON { 
                             if (*$1 == "true") {
-                                $$ = new Const_value(S_BOOLEN, true); 
+                                $$ = new Const_value(S_BOOLEAN, true); 
                             }
                             else if (*$1 == "false") {
-                                $$ = new Const_value(S_BOOLEN, false);
+                                $$ = new Const_value(S_BOOLEAN, false);
                             }
                             else {
                                 $$ = new Const_value(S_INT, 0x7FFFFFFF);
@@ -179,7 +179,7 @@ simple_type_decl    : SYS_TYPE                  {
                                                         $$ = new Simple_type_decl(S_CHAR);
                                                     }
                                                     else if (*$1 == "boolen") {
-                                                        $$ = new Simple_type_decl(S_BOOLEN);
+                                                        $$ = new Simple_type_decl(S_BOOLEAN);
                                                     }
                                                 }
                     | name                                          { $$ = new Simple_type_decl($1); }
@@ -404,7 +404,7 @@ factor          : name                                                  { $$ = $
                                                                         }
                 | const_value                                           { $$ = $1; }
                 | LP expression RP                                      { $$ = $2; }
-                | NOT factor                                            { $$ = new Binary_expression(S_NOT, new Const_value(S_BOOLEN, true), $2); }
+                | NOT factor                                            { $$ = new Binary_expression(S_NOT, new Const_value(S_BOOLEAN, true), $2); }
                 | MINUS factor                                          { $$ = new Binary_expression(S_MINUS, new Const_value(S_INT, 0), $2); }
                 | name LS expression RS                                   { $$ = new Array_access($1, $3); }
                 | name DOT name                                             { $$ = new Record_access($1, $3); }

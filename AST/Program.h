@@ -78,44 +78,53 @@ public:
 
 /*Routine Part*/
 class Va_para_list : public Node {
-public:
+private:
     Name_list *name_list;
     bool is_var_para;
 public:
     Va_para_list(Name_list *name_list, bool is_var_para) : name_list(name_list), is_var_para(is_var_para) {}
+    Name_list *getNameList() { return name_list; }
+    bool getIsVarPara() { return is_var_para; }
     llvm::Value *codegen(CodeGenerator &codeGenerator);
     string Vis();
 };
 
 // This is para_type_list
 class Para_decl : public Node {
-public:
+private:
     Va_para_list *va_para_list;
     Simple_type_decl *simple_type_decl;
 public:
     Para_decl(Va_para_list *va_para_list, Simple_type_decl *simple_type_decl) : va_para_list(va_para_list), simple_type_decl(simple_type_decl) {}
+    Va_para_list *getVaParaList() { return va_para_list; }
+    Simple_type_decl *getSimpleTypeDecl() { return simple_type_decl; }
     llvm::Value *codegen(CodeGenerator &codeGenerator);
     string Vis();
 };
 
 class Function_head : public Node {
-public:
+private:
     Identifier *id;
     Para_decl_list *parameters;
     Simple_type_decl *return_type;
 public:
     Function_head(Identifier *id, Para_decl_list *parameters, Simple_type_decl *return_type) : id(id), parameters(parameters), return_type(return_type) {}
     Function_head(Identifier *id, Para_decl_list *parameters) : id(id), parameters(parameters) {}
+    Identifier *getId() { return id; }
+    Para_decl_list *getParameters() { return parameters; }
+    Simple_type_decl *getReturnType() { return return_type; }
     llvm::Value *codegen(CodeGenerator &codeGenerator);
     string Vis();
 };
 
 class Function_decl : public Node {
-public:
+private:
     Function_head *function_head;
     Routine *subroutine;
 public:
     Function_decl(Function_head *function_head, Routine *subroutine) : function_head(function_head), subroutine(subroutine) {}
+    Function_head *getFunctionHead() { return function_head; }
+    Routine *getSubroutine() { return subroutine; }
     llvm::Value *codegen(CodeGenerator &codeGenerator);
     string Vis();
 };

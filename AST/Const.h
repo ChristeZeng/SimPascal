@@ -72,8 +72,8 @@ public:
             return new Const_value(S_REAL, -Value.double_value);
         case S_CHAR:
             return new Const_value(S_CHAR, -Value.char_value);
-        case S_BOOLEN:
-            return new Const_value(S_BOOLEN, !Value.bool_value);
+        case S_BOOLEAN:
+            return new Const_value(S_BOOLEAN, !Value.bool_value);
         default:
             return nullptr;
         }

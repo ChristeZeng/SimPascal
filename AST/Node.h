@@ -7,7 +7,7 @@ enum Base_type {
     S_INT,
     S_REAL,
     S_CHAR,
-    S_BOOLEN,
+    S_BOOLEAN,
 };
 
 enum Pas_type{
@@ -56,7 +56,6 @@ class Expression : public Node {};
 class Identifier : public Expression {
 public:
     string name;
-public:
     Identifier(string name) : name(name) {}
     llvm::Value *codegen(CodeGenerator &codeGenerator);
     string Vis();

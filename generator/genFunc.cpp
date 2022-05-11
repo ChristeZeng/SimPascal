@@ -8,10 +8,10 @@ Value *Function_decl::codegen(CodeGenerator &codeGenerator) {
     Value *function = function_head->codegen(codeGenerator);
     subroutine->codegen(codeGenerator);
 
-    if (function_head->return_type->Type_name == Pas_type::VOID){
+    if (function_head->getReturnType()->Type_name == Pas_type::VOID){
         codeGenerator.builder.CreateRetVoid();
     } else {
-        codeGenerator.builder.CreateRet(function_head->id->codegen(codeGenerator));
+        codeGenerator.builder.CreateRet(function_head->getId()->codegen(codeGenerator));
     }
     
     codeGenerator.popFunc();
@@ -23,10 +23,10 @@ Value *Function_head::codegen(CodeGenerator &codeGenerator) {
     print("Function_head");
     vector<Type*> types;
     for(auto para : *parameters) {
-        if(para->va_para_list->is_var_para){
-            types.insert(types.end(), para->va_para_list->name_list->size(), para->simple_type_decl->codegen(codeGenerator)->getType());
+        if(para->getVaParaList()->getIsVarPara()){
+            types.insert(types.end(), para->getVaParaList()->getNameList()->size(), para->getSimpleTypeDecl()->codegen(codeGenerator)->getType());
         } else {
-            types.insert(types.end(), para->va_para_list->name_list->size(), para->simple_type_decl->codegen(codeGenerator)->getType());
+            types.insert(types.end(), para->getVaParaList()->getNameList()->size(), para->getSimpleTypeDecl()->codegen(codeGenerator)->getType());
         }
     }
 
@@ -38,15 +38,15 @@ Value *Function_head::codegen(CodeGenerator &codeGenerator) {
 
     Function::arg_iterator iter = function->arg_begin();
     for (auto para : *parameters) {
-        for (auto name : *para->va_para_list->name_list){
+        for (auto name : *para->getVaParaList()->getNameList()){
             Value *alloc = nullptr;
-            if(para->va_para_list->is_var_para){
+            if(para->getVaParaList()->getIsVarPara()){
                 //tbd
-                alloc = codeGenerator.CreateEntryBlockAlloca(function, name->name, para->simple_type_decl->codegen(codeGenerator)->getType());
+                alloc = codeGenerator.CreateEntryBlockAlloca(function, name->name, para->getSimpleTypeDecl()->codegen(codeGenerator)->getType());
                 codeGenerator.builder.CreateStore(iter, alloc);
                 iter++;
             } else {
-                alloc = codeGenerator.CreateEntryBlockAlloca(function, name->name, para->simple_type_decl->codegen(codeGenerator)->getType());
+                alloc = codeGenerator.CreateEntryBlockAlloca(function, name->name, para->getSimpleTypeDecl()->codegen(codeGenerator)->getType());
                 codeGenerator.builder.CreateStore(iter, alloc);
                 iter++;
             }

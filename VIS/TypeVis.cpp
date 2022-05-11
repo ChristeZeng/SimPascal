@@ -24,7 +24,7 @@ string Simple_type_decl::Vis() {
                 return Out("RealType");
             case S_CHAR:
                 return Out("CharType");
-            case S_BOOLEN:
+            case S_BOOLEAN:
                 return Out("BoolenType");
             default:
                 return Out("VoidType");

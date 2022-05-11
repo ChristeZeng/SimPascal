@@ -45,7 +45,7 @@ Value *Const_value::codegen(CodeGenerator &codeGenerator) {
             return llvm::ConstantFP::get(codeGenerator.builder.getDoubleTy(), Value.double_value);
         case Base_type::S_CHAR:
             return codeGenerator.builder.getInt8(Value.char_value);
-        case Base_type::S_BOOLEN:
+        case Base_type::S_BOOLEAN:
             return codeGenerator.builder.getInt1(Value.bool_value);
         default:
             return nullptr;
@@ -65,7 +65,7 @@ int Const_value::get_value(){
             return Value.double_value;
         case Base_type::S_CHAR:
             return Value.char_value;
-        case Base_type::S_BOOLEN:
+        case Base_type::S_BOOLEAN:
             return Value.bool_value;
         default:
             return 0;
@@ -81,7 +81,7 @@ Constant *Const_value::get_constant(CodeGenerator &codeGenerator){
             return llvm::ConstantFP::get(codeGenerator.builder.getDoubleTy(), Value.double_value);
         case Base_type::S_CHAR:
             return codeGenerator.builder.getInt8(Value.char_value);
-        case Base_type::S_BOOLEN:
+        case Base_type::S_BOOLEAN:
             return codeGenerator.builder.getInt1(Value.bool_value);
         default:
             return nullptr;
@@ -126,7 +126,7 @@ Value *Simple_type_decl::codegen(CodeGenerator &codeGenerator) {
                     return ConstantFP::get(codeGenerator.builder.getDoubleTy(), 0.0);
                 case S_CHAR:
                     return codeGenerator.builder.getInt8(0);
-                case S_BOOLEN:
+                case S_BOOLEAN:
                     return codeGenerator.builder.getInt1(0);
                 default:
                     return nullptr;
