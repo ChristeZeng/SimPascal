@@ -144,6 +144,7 @@ private:
 public:
     Direction(Direction_type direction_type) : direction_type(direction_type) {}
     llvm::Value *codegen(CodeGenerator &codeGenerator);
+    bool getDir(){return direction_type==S_TO;}
     string Vis();
 };
 
@@ -155,6 +156,7 @@ private:
 public:
     Case_expr(Const_value *const_value, Stmt *stmt) : const_value(const_value), stmt(stmt) {}
     Case_expr(Identifier *id, Stmt *stmt) : id(id), stmt(stmt) {}
+    llvm::Value *getValue(CodeGenerator &codeGenerator);
     llvm::Value *codegen(CodeGenerator &codeGenerator);
     string Vis();
 };

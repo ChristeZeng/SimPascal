@@ -64,6 +64,26 @@ Node.h
 Const.h
 /home/phoenix/CS/compiler/SimPascal/AST/Const.h
 
+/home/phoenix/CS/compiler/SimPascal/VIS/ConstVis.cpp
+VIS.h
+/home/phoenix/CS/compiler/SimPascal/VIS/VIS.h
+
+/home/phoenix/CS/compiler/SimPascal/VIS/NodeVis.cpp
+VIS.h
+/home/phoenix/CS/compiler/SimPascal/VIS/VIS.h
+
+/home/phoenix/CS/compiler/SimPascal/VIS/ProgramVis.cpp
+VIS.h
+/home/phoenix/CS/compiler/SimPascal/VIS/VIS.h
+
+/home/phoenix/CS/compiler/SimPascal/VIS/StmtVis.cpp
+VIS.h
+/home/phoenix/CS/compiler/SimPascal/VIS/VIS.h
+
+/home/phoenix/CS/compiler/SimPascal/VIS/TypeVis.cpp
+VIS.h
+/home/phoenix/CS/compiler/SimPascal/VIS/VIS.h
+
 /home/phoenix/CS/compiler/SimPascal/VIS/VIS.h
 ../AST/AST.h
 /home/phoenix/CS/compiler/SimPascal/AST/AST.h
@@ -73,6 +93,10 @@ string
 -
 iostream
 -
+
+/home/phoenix/CS/compiler/SimPascal/generator/CodeGenerator.cpp
+CodeGenerator.h
+/home/phoenix/CS/compiler/SimPascal/generator/CodeGenerator.h
 
 /home/phoenix/CS/compiler/SimPascal/generator/CodeGenerator.h
 llvm/IR/Module.h
@@ -141,6 +165,26 @@ iostream
 -
 ../AST/AST.h
 /home/phoenix/CS/compiler/SimPascal/AST/AST.h
+
+/home/phoenix/CS/compiler/SimPascal/generator/genConstType.cpp
+CodeGenerator.h
+/home/phoenix/CS/compiler/SimPascal/generator/CodeGenerator.h
+
+/home/phoenix/CS/compiler/SimPascal/generator/genExp.cpp
+CodeGenerator.h
+/home/phoenix/CS/compiler/SimPascal/generator/CodeGenerator.h
+
+/home/phoenix/CS/compiler/SimPascal/generator/genFunc.cpp
+CodeGenerator.h
+/home/phoenix/CS/compiler/SimPascal/generator/CodeGenerator.h
+
+/home/phoenix/CS/compiler/SimPascal/generator/genProgram.cpp
+CodeGenerator.h
+/home/phoenix/CS/compiler/SimPascal/generator/CodeGenerator.h
+
+/home/phoenix/CS/compiler/SimPascal/generator/genStmt.cpp
+CodeGenerator.h
+/home/phoenix/CS/compiler/SimPascal/generator/CodeGenerator.h
 
 /home/phoenix/CS/compiler/SimPascal/main.cpp
 iostream
