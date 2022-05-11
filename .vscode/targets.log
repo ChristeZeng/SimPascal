@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Mon May  9 10:12:28 2022
+# Make data base, printed on Wed May 11 16:23:04 2022
 
 # Variables
 
@@ -35,17 +35,17 @@ VSCODE_LOG_NATIVE = false
 # default
 MAKE_VERSION := 4.2.1
 # makefile
-CURDIR := /home/bcct/code/SimPascal
+CURDIR := /home/bcct/code/Test/SimPascal
 # makefile (from 'Makefile', line 39)
 SHELL = /bin/sh
 # makefile (from 'Makefile', line 45)
 RM = /usr/bin/cmake -E remove -f
 # environment
-VSCODE_NLS_CONFIG = {"locale":"zh-cn","availableLanguages":{"*":"zh-cn"},"_languagePackId":"a78078f10f99ab7adc9063c14c25e7ae.zh-cn","_translationsConfigFile":"/home/bcct/.vscode-server/data/clp/a78078f10f99ab7adc9063c14c25e7ae.zh-cn/tcf.json","_cacheRoot":"/home/bcct/.vscode-server/data/clp/a78078f10f99ab7adc9063c14c25e7ae.zh-cn","_resolvedLanguagePackCoreLocation":"/home/bcct/.vscode-server/data/clp/a78078f10f99ab7adc9063c14c25e7ae.zh-cn/57fd6d0195bb9b9d1b49f6da5db789060795de47","_corruptedFile":"/home/bcct/.vscode-server/data/clp/a78078f10f99ab7adc9063c14c25e7ae.zh-cn/corrupted.info","_languagePackSupport":true}
+VSCODE_NLS_CONFIG = {"locale":"zh-cn","availableLanguages":{"*":"zh-cn"},"_languagePackId":"a78078f10f99ab7adc9063c14c25e7ae.zh-cn","_translationsConfigFile":"/home/bcct/.vscode-server/data/clp/a78078f10f99ab7adc9063c14c25e7ae.zh-cn/tcf.json","_cacheRoot":"/home/bcct/.vscode-server/data/clp/a78078f10f99ab7adc9063c14c25e7ae.zh-cn","_resolvedLanguagePackCoreLocation":"/home/bcct/.vscode-server/data/clp/a78078f10f99ab7adc9063c14c25e7ae.zh-cn/da15b6fd3ef856477bf6f4fb29ba1b7af717770d","_corruptedFile":"/home/bcct/.vscode-server/data/clp/a78078f10f99ab7adc9063c14c25e7ae.zh-cn/corrupted.info","_languagePackSupport":true}
 # environment
-_ = /home/bcct/.vscode-server/bin/57fd6d0195bb9b9d1b49f6da5db789060795de47/node
+_ = /home/bcct/.vscode-server/bin/da15b6fd3ef856477bf6f4fb29ba1b7af717770d/node
 # makefile (from 'Makefile', line 54)
-CMAKE_BINARY_DIR = /home/bcct/code/SimPascal
+CMAKE_BINARY_DIR = /home/bcct/code/Test/SimPascal
 # makefile (from 'Makefile', line 1)
 MAKEFILE_LIST :=  Makefile
 # 'override' directive
@@ -61,9 +61,9 @@ LC_NAME = zh_CN.UTF-8
 # environment
 VSCODE_CWD = /home/bcct
 # environment
-SSH_CONNECTION = 192.168.85.1 1506 192.168.85.128 22
+SSH_CONNECTION = 192.168.85.1 5702 192.168.85.128 22
 # environment
-PATH = /home/bcct/.vscode-server/bin/57fd6d0195bb9b9d1b49f6da5db789060795de47/bin/remote-cli:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+PATH = /home/bcct/.vscode-server/bin/da15b6fd3ef856477bf6f4fb29ba1b7af717770d/bin/remote-cli:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
 # environment
 LSCOLORS = Gxfxcxdxbxegedabagacad
 # environment
@@ -73,7 +73,7 @@ VSCODE_LOG_STACK = false
 # environment
 LC_NUMERIC = zh_CN.UTF-8
 # environment
-VSCODE_IPC_HOOK_CLI = /run/user/1000/vscode-ipc-fd872c2e-7f5c-4806-82cb-59c5eb9121e6.sock
+VSCODE_IPC_HOOK_CLI = /run/user/1000/vscode-ipc-b3c61074-1546-422c-b020-8e5cf29dd027.sock
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
@@ -83,7 +83,7 @@ LS_COLORS =
 # environment
 VSCODE_PIPE_LOGGING = true
 # environment
-PWD = /home/bcct/code/SimPascal
+PWD = /home/bcct/code/Test/SimPascal
 # default
 .LOADED := 
 # automatic
@@ -115,7 +115,7 @@ MAKECMDGOALS := all
 # environment
 SHLVL = 0
 # environment
-XDG_SESSION_ID = 3
+XDG_SESSION_ID = 19
 # environment
 USER = bcct
 # environment
@@ -123,7 +123,7 @@ LC_MONETARY = zh_CN.UTF-8
 # makefile
 .DEFAULT_GOAL := default_target
 # makefile (from 'Makefile', line 51)
-CMAKE_SOURCE_DIR = /home/bcct/code/SimPascal
+CMAKE_SOURCE_DIR = /home/bcct/code/Test/SimPascal
 # environment
 LESS = -R
 # automatic
@@ -145,11 +145,11 @@ MAKEFLAGS = pqrRs
 # environment
 MFLAGS = -pqrRs
 # environment
-SSH_CLIENT = 192.168.85.1 1506 22
+SSH_CLIENT = 192.168.85.1 5702 22
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # environment
-BROWSER = /home/bcct/.vscode-server/bin/57fd6d0195bb9b9d1b49f6da5db789060795de47/bin/helpers/browser.sh
+BROWSER = /home/bcct/.vscode-server/bin/da15b6fd3ef856477bf6f4fb29ba1b7af717770d/bin/helpers/browser.sh
 # environment
 VSCODE_HANDLES_SIGPIPE = true
 # default
@@ -195,9 +195,9 @@ MOTD_SHOWN = pam
 
 # Directories
 
-# . (device 2053, inode 1705742): 19 files, no impossibilities.
+# . (device 2053, inode 1974576): 25 files, no impossibilities.
 
-# 19 files, no impossibilities in 1 directories.
+# 25 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -218,7 +218,7 @@ token.cpp.i:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 370):
+#  recipe to execute (from 'Makefile', line 505):
 	$(MAKE) -f CMakeFiles/SimPascal.dir/build.make CMakeFiles/SimPascal.dir/token.cpp.i
 
 token.cpp.o:
@@ -226,7 +226,7 @@ token.cpp.o:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 361):
+#  recipe to execute (from 'Makefile', line 496):
 	$(MAKE) -f CMakeFiles/SimPascal.dir/build.make CMakeFiles/SimPascal.dir/token.cpp.o
 
 intrinsics_gen/fast:
@@ -237,6 +237,20 @@ intrinsics_gen/fast:
 #  recipe to execute (from 'Makefile', line 136):
 	$(MAKE) -f CMakeFiles/intrinsics_gen.dir/build.make CMakeFiles/intrinsics_gen.dir/build
 
+VIS/NodeVis.s: VIS/NodeVis.cpp.s
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+VIS/StmtVis.cpp.s:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 244):
+	$(MAKE) -f CMakeFiles/SimPascal.dir/build.make CMakeFiles/SimPascal.dir/VIS/StmtVis.cpp.s
+
 edit_cache:
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
@@ -246,9 +260,26 @@ edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
 	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
 
+VIS/TypeVis.cpp.s:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 271):
+	$(MAKE) -f CMakeFiles/SimPascal.dir/build.make CMakeFiles/SimPascal.dir/VIS/TypeVis.cpp.s
+
+VIS/ProgramVis.cpp.s:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 217):
+	$(MAKE) -f CMakeFiles/SimPascal.dir/build.make CMakeFiles/SimPascal.dir/VIS/ProgramVis.cpp.s
+
 all: cmake_check_build_system
 #  Phony target (prerequisite of .PHONY).
 #  Command line target.
+ 
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has been updated.
@@ -256,13 +287,37 @@ all: cmake_check_build_system
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/6=0%
 #  recipe to execute (from 'Makefile', line 83):
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/bcct/code/SimPascal/CMakeFiles /home/bcct/code/SimPascal/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/bcct/code/Test/SimPascal/CMakeFiles /home/bcct/code/Test/SimPascal/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/bcct/code/SimPascal/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/bcct/code/Test/SimPascal/CMakeFiles 0
 
-.PHONY: default_target cmake_force rebuild_cache rebuild_cache/fast edit_cache edit_cache/fast all clean clean/fast preinstall preinstall/fast depend SimPascal SimPascal/fast intrinsics_gen intrinsics_gen/fast generator/CodeGenerator.o generator/CodeGenerator.cpp.o generator/CodeGenerator.i generator/CodeGenerator.cpp.i generator/CodeGenerator.s generator/CodeGenerator.cpp.s generator/genConstType.o generator/genConstType.cpp.o generator/genConstType.i generator/genConstType.cpp.i generator/genConstType.s generator/genConstType.cpp.s generator/genExp.o generator/genExp.cpp.o generator/genExp.i generator/genExp.cpp.i generator/genExp.s generator/genExp.cpp.s generator/genFunc.o generator/genFunc.cpp.o generator/genFunc.i generator/genFunc.cpp.i generator/genFunc.s generator/genFunc.cpp.s generator/genProgram.o generator/genProgram.cpp.o generator/genProgram.i generator/genProgram.cpp.i generator/genProgram.s generator/genProgram.cpp.s generator/genStmt.o generator/genStmt.cpp.o generator/genStmt.i generator/genStmt.cpp.i generator/genStmt.s generator/genStmt.cpp.s main.o main.cpp.o main.i main.cpp.i main.s main.cpp.s parser.o parser.cpp.o parser.i parser.cpp.i parser.s parser.cpp.s token.o token.cpp.o token.i token.cpp.i token.s token.cpp.s help cmake_check_build_system
+VIS/StmtVis.i: VIS/StmtVis.cpp.i
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+VIS/StmtVis.o: VIS/StmtVis.cpp.o
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+.PHONY: default_target cmake_force rebuild_cache rebuild_cache/fast edit_cache edit_cache/fast all clean clean/fast preinstall preinstall/fast depend SimPascal SimPascal/fast intrinsics_gen intrinsics_gen/fast VIS/ConstVis.o VIS/ConstVis.cpp.o VIS/ConstVis.i VIS/ConstVis.cpp.i VIS/ConstVis.s VIS/ConstVis.cpp.s VIS/NodeVis.o VIS/NodeVis.cpp.o VIS/NodeVis.i VIS/NodeVis.cpp.i VIS/NodeVis.s VIS/NodeVis.cpp.s VIS/ProgramVis.o VIS/ProgramVis.cpp.o VIS/ProgramVis.i VIS/ProgramVis.cpp.i VIS/ProgramVis.s VIS/ProgramVis.cpp.s VIS/StmtVis.o VIS/StmtVis.cpp.o VIS/StmtVis.i VIS/StmtVis.cpp.i VIS/StmtVis.s VIS/StmtVis.cpp.s VIS/TypeVis.o VIS/TypeVis.cpp.o VIS/TypeVis.i VIS/TypeVis.cpp.i VIS/TypeVis.s VIS/TypeVis.cpp.s generator/CodeGenerator.o generator/CodeGenerator.cpp.o generator/CodeGenerator.i generator/CodeGenerator.cpp.i generator/CodeGenerator.s generator/CodeGenerator.cpp.s generator/genConstType.o generator/genConstType.cpp.o generator/genConstType.i generator/genConstType.cpp.i generator/genConstType.s generator/genConstType.cpp.s generator/genExp.o generator/genExp.cpp.o generator/genExp.i generator/genExp.cpp.i generator/genExp.s generator/genExp.cpp.s generator/genFunc.o generator/genFunc.cpp.o generator/genFunc.i generator/genFunc.cpp.i generator/genFunc.s generator/genFunc.cpp.s generator/genProgram.o generator/genProgram.cpp.o generator/genProgram.i generator/genProgram.cpp.i generator/genProgram.s generator/genProgram.cpp.s generator/genStmt.o generator/genStmt.cpp.o generator/genStmt.i generator/genStmt.cpp.i generator/genStmt.s generator/genStmt.cpp.s main.o main.cpp.o main.i main.cpp.i main.s main.cpp.s parser.o parser.cpp.o parser.i parser.cpp.i parser.s parser.cpp.s token.o token.cpp.o token.i token.cpp.i token.s token.cpp.s help cmake_check_build_system
 #  Implicit rule search has not been done.
 #  Modification time never checked.
+#  File has not been updated.
+
+VIS/ConstVis.s: VIS/ConstVis.cpp.s
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+VIS/TypeVis.o: VIS/TypeVis.cpp.o
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
 #  File has not been updated.
 
 parser.cpp.i:
@@ -270,25 +325,34 @@ parser.cpp.i:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 343):
+#  recipe to execute (from 'Makefile', line 478):
 	$(MAKE) -f CMakeFiles/SimPascal.dir/build.make CMakeFiles/SimPascal.dir/parser.cpp.i
 
 parser.cpp.o:
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File does not exist.
- 
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 334):
+#  recipe to execute (from 'Makefile', line 469):
 	$(MAKE) -f CMakeFiles/SimPascal.dir/build.make CMakeFiles/SimPascal.dir/parser.cpp.o
 
-generator/genExp.cpp.s:
+VIS/TypeVis.i: VIS/TypeVis.cpp.i
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 217):
-	$(MAKE) -f CMakeFiles/SimPascal.dir/build.make CMakeFiles/SimPascal.dir/generator/genExp.cpp.s
+
+VIS/ProgramVis.i: VIS/ProgramVis.cpp.i
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+VIS/ProgramVis.o: VIS/ProgramVis.cpp.o
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
 
 main.s: main.cpp.s
 #  Phony target (prerequisite of .PHONY).
@@ -315,7 +379,7 @@ generator/genStmt.cpp.s:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 298):
+#  recipe to execute (from 'Makefile', line 433):
 	$(MAKE) -f CMakeFiles/SimPascal.dir/build.make CMakeFiles/SimPascal.dir/generator/genStmt.cpp.s
 
 generator/genExp.i: generator/genExp.cpp.i
@@ -330,17 +394,41 @@ generator/genExp.o: generator/genExp.cpp.o
 #  File does not exist.
 #  File has not been updated.
 
+VIS/NodeVis.cpp.i:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 181):
+	$(MAKE) -f CMakeFiles/SimPascal.dir/build.make CMakeFiles/SimPascal.dir/VIS/NodeVis.cpp.i
+
+VIS/NodeVis.cpp.o:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 172):
+	$(MAKE) -f CMakeFiles/SimPascal.dir/build.make CMakeFiles/SimPascal.dir/VIS/NodeVis.cpp.o
+
 .SUFFIXES: .hpux_make_needs_suffix_list
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
+
+VIS/TypeVis.cpp.o:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 253):
+	$(MAKE) -f CMakeFiles/SimPascal.dir/build.make CMakeFiles/SimPascal.dir/VIS/TypeVis.cpp.o
 
 generator/genProgram.cpp.s:
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 271):
+#  recipe to execute (from 'Makefile', line 406):
 	$(MAKE) -f CMakeFiles/SimPascal.dir/build.make CMakeFiles/SimPascal.dir/generator/genProgram.cpp.s
 
 generator/genFunc.cpp.s:
@@ -348,7 +436,7 @@ generator/genFunc.cpp.s:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 244):
+#  recipe to execute (from 'Makefile', line 379):
 	$(MAKE) -f CMakeFiles/SimPascal.dir/build.make CMakeFiles/SimPascal.dir/generator/genFunc.cpp.s
 
 generator/genStmt.i: generator/genStmt.cpp.i
@@ -360,7 +448,7 @@ generator/genStmt.i: generator/genStmt.cpp.i
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-08 21:50:06.9729142
+#  Last modified 2022-05-11 14:58:14.068755517
 #  File has been updated.
 #  Successfully updated.
 
@@ -375,7 +463,7 @@ generator/genConstType.cpp.s:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 190):
+#  recipe to execute (from 'Makefile', line 325):
 	$(MAKE) -f CMakeFiles/SimPascal.dir/build.make CMakeFiles/SimPascal.dir/generator/genConstType.cpp.s
 
 token.cpp.s:
@@ -383,7 +471,7 @@ token.cpp.s:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 379):
+#  recipe to execute (from 'Makefile', line 514):
 	$(MAKE) -f CMakeFiles/SimPascal.dir/build.make CMakeFiles/SimPascal.dir/token.cpp.s
 
 intrinsics_gen: cmake_check_build_system
@@ -394,18 +482,34 @@ intrinsics_gen: cmake_check_build_system
 #  recipe to execute (from 'Makefile', line 131):
 	$(MAKE) -f CMakeFiles/Makefile2 intrinsics_gen
 
+VIS/ConstVis.cpp.i:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 154):
+	$(MAKE) -f CMakeFiles/SimPascal.dir/build.make CMakeFiles/SimPascal.dir/VIS/ConstVis.cpp.i
+
 generator/CodeGenerator.cpp.s:
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 163):
+#  recipe to execute (from 'Makefile', line 298):
 	$(MAKE) -f CMakeFiles/SimPascal.dir/build.make CMakeFiles/SimPascal.dir/generator/CodeGenerator.cpp.s
 
 .NOTPARALLEL:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
+
+VIS/ConstVis.cpp.o:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 145):
+	$(MAKE) -f CMakeFiles/SimPascal.dir/build.make CMakeFiles/SimPascal.dir/VIS/ConstVis.cpp.o
 
 generator/genProgram.i: generator/genProgram.cpp.i
 #  Phony target (prerequisite of .PHONY).
@@ -450,11 +554,12 @@ clean/fast: clean
 #  File has not been updated.
 
 main.cpp.i:
+ 
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 316):
+#  recipe to execute (from 'Makefile', line 451):
 	$(MAKE) -f CMakeFiles/SimPascal.dir/build.make CMakeFiles/SimPascal.dir/main.cpp.i
 
 main.cpp.o:
@@ -462,7 +567,7 @@ main.cpp.o:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 307):
+#  recipe to execute (from 'Makefile', line 442):
 	$(MAKE) -f CMakeFiles/SimPascal.dir/build.make CMakeFiles/SimPascal.dir/main.cpp.o
 
 generator/CodeGenerator.i: generator/CodeGenerator.cpp.i
@@ -510,7 +615,7 @@ cmake_check_build_system:
 # ? := 
 # variable set hash-table stats:
 # Load=8/32=25%, Rehash=0, Collisions=3/14=21%
-#  recipe to execute (from 'Makefile', line 430):
+#  recipe to execute (from 'Makefile', line 580):
 	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 
 token.i: token.cpp.i
@@ -530,7 +635,7 @@ help:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 384):
+#  recipe to execute (from 'Makefile', line 519):
 	@echo "The following are some of the valid targets for this Makefile:"
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
@@ -539,6 +644,21 @@ help:
 	@echo "... edit_cache"
 	@echo "... SimPascal"
 	@echo "... intrinsics_gen"
+	@echo "... VIS/ConstVis.o"
+	@echo "... VIS/ConstVis.i"
+	@echo "... VIS/ConstVis.s"
+	@echo "... VIS/NodeVis.o"
+	@echo "... VIS/NodeVis.i"
+	@echo "... VIS/NodeVis.s"
+	@echo "... VIS/ProgramVis.o"
+	@echo "... VIS/ProgramVis.i"
+	@echo "... VIS/ProgramVis.s"
+	@echo "... VIS/StmtVis.o"
+	@echo "... VIS/StmtVis.i"
+	@echo "... VIS/StmtVis.s"
+	@echo "... VIS/TypeVis.o"
+	@echo "... VIS/TypeVis.i"
+	@echo "... VIS/TypeVis.s"
 	@echo "... generator/CodeGenerator.o"
 	@echo "... generator/CodeGenerator.i"
 	@echo "... generator/CodeGenerator.s"
@@ -557,7 +677,6 @@ help:
 	@echo "... generator/genStmt.o"
 	@echo "... generator/genStmt.i"
 	@echo "... generator/genStmt.s"
- 
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
@@ -568,6 +687,12 @@ help:
 	@echo "... token.i"
 	@echo "... token.s"
 
+VIS/StmtVis.s: VIS/StmtVis.cpp.s
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
 preinstall: all
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
@@ -576,13 +701,33 @@ preinstall: all
 #  recipe to execute (from 'Makefile', line 100):
 	$(MAKE) -f CMakeFiles/Makefile2 preinstall
 
-parser.cpp.s:
+generator/genExp.cpp.s:
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 352):
+	$(MAKE) -f CMakeFiles/SimPascal.dir/build.make CMakeFiles/SimPascal.dir/generator/genExp.cpp.s
+
+parser.cpp.s:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 487):
 	$(MAKE) -f CMakeFiles/SimPascal.dir/build.make CMakeFiles/SimPascal.dir/parser.cpp.s
+
+VIS/TypeVis.s: VIS/TypeVis.cpp.s
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+VIS/ProgramVis.s: VIS/ProgramVis.cpp.s
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
 
 .SILENT:
 #  Implicit rule search has not been done.
@@ -621,6 +766,14 @@ generator/genExp.s: generator/genExp.cpp.s
 #  Modification time never checked.
 #  File has not been updated.
 
+VIS/NodeVis.cpp.s:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 190):
+	$(MAKE) -f CMakeFiles/SimPascal.dir/build.make CMakeFiles/SimPascal.dir/VIS/NodeVis.cpp.s
+
 default_target: all
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
@@ -633,6 +786,26 @@ generator/genStmt.s: generator/genStmt.cpp.s
 #  File does not exist.
 #  File has not been updated.
 
+VIS/NodeVis.i: VIS/NodeVis.cpp.i
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+VIS/NodeVis.o: VIS/NodeVis.cpp.o
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+VIS/StmtVis.cpp.i:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 235):
+	$(MAKE) -f CMakeFiles/SimPascal.dir/build.make CMakeFiles/SimPascal.dir/VIS/StmtVis.cpp.i
+
 clean:
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
@@ -641,10 +814,27 @@ clean:
 #  recipe to execute (from 'Makefile', line 90):
 	$(MAKE) -f CMakeFiles/Makefile2 clean
 
+VIS/StmtVis.cpp.o:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 226):
+	$(MAKE) -f CMakeFiles/SimPascal.dir/build.make CMakeFiles/SimPascal.dir/VIS/StmtVis.cpp.o
+
+VIS/ConstVis.cpp.s:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 163):
+	$(MAKE) -f CMakeFiles/SimPascal.dir/build.make CMakeFiles/SimPascal.dir/VIS/ConstVis.cpp.s
+
 rebuild_cache/fast: rebuild_cache
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File does not exist.
+ 
 #  File has not been updated.
 
 generator/genProgram.s: generator/genProgram.cpp.s
@@ -673,21 +863,57 @@ SimPascal: cmake_check_build_system
 #  recipe to execute (from 'Makefile', line 118):
 	$(MAKE) -f CMakeFiles/Makefile2 SimPascal
 
+VIS/TypeVis.cpp.i:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 262):
+	$(MAKE) -f CMakeFiles/SimPascal.dir/build.make CMakeFiles/SimPascal.dir/VIS/TypeVis.cpp.i
+
+VIS/ProgramVis.cpp.i:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 208):
+	$(MAKE) -f CMakeFiles/SimPascal.dir/build.make CMakeFiles/SimPascal.dir/VIS/ProgramVis.cpp.i
+
 generator/genConstType.s: generator/genConstType.cpp.s
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
 
+VIS/ProgramVis.cpp.o:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 199):
+	$(MAKE) -f CMakeFiles/SimPascal.dir/build.make CMakeFiles/SimPascal.dir/VIS/ProgramVis.cpp.o
+
 main.cpp.s:
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 325):
+#  recipe to execute (from 'Makefile', line 460):
 	$(MAKE) -f CMakeFiles/SimPascal.dir/build.make CMakeFiles/SimPascal.dir/main.cpp.s
 
+VIS/ConstVis.i: VIS/ConstVis.cpp.i
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
 generator/CodeGenerator.s: generator/CodeGenerator.cpp.s
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+VIS/ConstVis.o: VIS/ConstVis.cpp.o
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File does not exist.
@@ -698,7 +924,7 @@ generator/genExp.cpp.i:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 208):
+#  recipe to execute (from 'Makefile', line 343):
 	$(MAKE) -f CMakeFiles/SimPascal.dir/build.make CMakeFiles/SimPascal.dir/generator/genExp.cpp.i
 
 generator/genExp.cpp.o:
@@ -706,7 +932,7 @@ generator/genExp.cpp.o:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 199):
+#  recipe to execute (from 'Makefile', line 334):
 	$(MAKE) -f CMakeFiles/SimPascal.dir/build.make CMakeFiles/SimPascal.dir/generator/genExp.cpp.o
 
 main.i: main.cpp.i
@@ -726,7 +952,7 @@ generator/genStmt.cpp.i:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 289):
+#  recipe to execute (from 'Makefile', line 424):
 	$(MAKE) -f CMakeFiles/SimPascal.dir/build.make CMakeFiles/SimPascal.dir/generator/genStmt.cpp.i
 
 generator/genStmt.cpp.o:
@@ -734,7 +960,7 @@ generator/genStmt.cpp.o:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 280):
+#  recipe to execute (from 'Makefile', line 415):
 	$(MAKE) -f CMakeFiles/SimPascal.dir/build.make CMakeFiles/SimPascal.dir/generator/genStmt.cpp.o
 
 # Not a target:
@@ -748,7 +974,7 @@ generator/genProgram.cpp.i:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 262):
+#  recipe to execute (from 'Makefile', line 397):
 	$(MAKE) -f CMakeFiles/SimPascal.dir/build.make CMakeFiles/SimPascal.dir/generator/genProgram.cpp.i
 
 generator/genFunc.cpp.i:
@@ -756,7 +982,7 @@ generator/genFunc.cpp.i:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 235):
+#  recipe to execute (from 'Makefile', line 370):
 	$(MAKE) -f CMakeFiles/SimPascal.dir/build.make CMakeFiles/SimPascal.dir/generator/genFunc.cpp.i
 
 generator/genProgram.cpp.o:
@@ -764,7 +990,7 @@ generator/genProgram.cpp.o:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 253):
+#  recipe to execute (from 'Makefile', line 388):
 	$(MAKE) -f CMakeFiles/SimPascal.dir/build.make CMakeFiles/SimPascal.dir/generator/genProgram.cpp.o
 
 generator/genFunc.cpp.o:
@@ -772,7 +998,7 @@ generator/genFunc.cpp.o:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 226):
+#  recipe to execute (from 'Makefile', line 361):
 	$(MAKE) -f CMakeFiles/SimPascal.dir/build.make CMakeFiles/SimPascal.dir/generator/genFunc.cpp.o
 
 generator/genConstType.cpp.i:
@@ -780,7 +1006,7 @@ generator/genConstType.cpp.i:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 181):
+#  recipe to execute (from 'Makefile', line 316):
 	$(MAKE) -f CMakeFiles/SimPascal.dir/build.make CMakeFiles/SimPascal.dir/generator/genConstType.cpp.i
 
 generator/genConstType.cpp.o:
@@ -788,7 +1014,7 @@ generator/genConstType.cpp.o:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 172):
+#  recipe to execute (from 'Makefile', line 307):
 	$(MAKE) -f CMakeFiles/SimPascal.dir/build.make CMakeFiles/SimPascal.dir/generator/genConstType.cpp.o
 
 parser.s: parser.cpp.s
@@ -802,7 +1028,7 @@ generator/CodeGenerator.cpp.i:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 154):
+#  recipe to execute (from 'Makefile', line 289):
 	$(MAKE) -f CMakeFiles/SimPascal.dir/build.make CMakeFiles/SimPascal.dir/generator/CodeGenerator.cpp.i
 
 generator/CodeGenerator.cpp.o:
@@ -810,7 +1036,7 @@ generator/CodeGenerator.cpp.o:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 145):
+#  recipe to execute (from 'Makefile', line 280):
 	$(MAKE) -f CMakeFiles/SimPascal.dir/build.make CMakeFiles/SimPascal.dir/generator/CodeGenerator.cpp.o
 
 rebuild_cache:
@@ -823,19 +1049,19 @@ rebuild_cache:
 	/usr/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 
 # files hash-table stats:
-# Load=79/1024=8%, Rehash=0, Collisions=11/300=4%
+# Load=109/1024=11%, Rehash=0, Collisions=21/420=5%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 100 / storage = 1595 B / avg = 15 B
-# current buf: size = 8162 B / used = 1595 B / count = 100 / avg = 15 B
+# strcache buffers: 1 (0) / strings = 136 / storage = 2124 B / avg = 15 B
+# current buf: size = 8162 B / used = 2124 B / count = 136 / avg = 15 B
 
-# strcache performance: lookups = 434 / hit rate = 76%
+# strcache performance: lookups = 605 / hit rate = 77%
 # hash-table stats:
-# Load=100/8192=1%, Rehash=0, Collisions=5/434=1%
-# Finished Make data base on Mon May  9 10:12:28 2022
+# Load=136/8192=2%, Rehash=0, Collisions=12/605=2%
+# Finished Make data base on Wed May 11 16:23:04 2022
 
  

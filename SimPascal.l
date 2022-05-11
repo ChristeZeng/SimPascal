@@ -98,9 +98,9 @@ using namespace std;
                                 return REAL;
                             }
 
-\'(\\.|[^"\\])*\'           {
-                                std::cout << "Char: " << yytext << std::endl;
-                                yylval.cval = *yytext;
+\'(\\.|[^'\\])*\'           {
+                                std::cout << "Char: " << yytext[1] << std::endl;
+                                yylval.cval = yytext[1];
                                 return CHAR;
                             }
 %%

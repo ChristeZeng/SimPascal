@@ -3,6 +3,6 @@ var
   e: char;
 
 begin
-    read(e);
-    writeln(e);
+  e := 'e';
+  writeln(e);
 end.
