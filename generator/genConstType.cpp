@@ -52,6 +52,26 @@ Value *Const_value::codegen(CodeGenerator &codeGenerator) {
     }
 }
 
+Base_type Const_value::get_type(){
+    return base_type;
+}
+
+//need to make it look better
+int Const_value::get_value(){
+    switch (base_type) {
+        case Base_type::S_INT:
+            return Value.int_value;
+        case Base_type::S_REAL:
+            return Value.double_value;
+        case Base_type::S_CHAR:
+            return Value.char_value;
+        case Base_type::S_BOOLEN:
+            return Value.bool_value;
+        default:
+            return 0;
+    }
+}
+
 Constant *Const_value::get_constant(CodeGenerator &codeGenerator){
     print("get_constant");
     switch (base_type) {
@@ -111,6 +131,9 @@ Value *Simple_type_decl::codegen(CodeGenerator &codeGenerator) {
                 default:
                     return nullptr;
             }
+            case CONSTRANGE:
+                const_range->codegen(codeGenerator);
+                break;
         default:
             return nullptr;
     }
@@ -142,6 +165,17 @@ Value *Var_decl::codegen(CodeGenerator &codeGenerator) {
 
 Value *Const_range::codegen(CodeGenerator &codeGenerator) {
     print("Const_range");
+    // lower->get_constant(codeGenerator);
+    // upper->get_constant(codeGenerator);
+    int s;
+    if(lower->get_type() == upper->get_type()){
+        s = upper->get_value() - lower->get_value();
+    }
+    if(s <= 0){
+        print("Invalid range");
+    }
+    size = s;
+    std::cout << "size: " << size << endl;
     return nullptr;
 }
 
@@ -157,6 +191,12 @@ Value *Enum_range::codegen(CodeGenerator &codeGenerator) {
 
 Value *Array_type_decl::codegen(CodeGenerator &codeGenerator) {
     print("Array_type_decl");
+    this->simple_type_decl->codegen(codeGenerator);
+    Pas_type t = type_decl->get_type();
+    if(t == Pas_type::BASE){
+        Base_type Btype = type_decl->get_base_type();
+        if(Btype == Base_type::S_INT)print("type: S_INT");
+    }
     return nullptr;
 }
 

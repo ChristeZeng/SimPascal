@@ -22,16 +22,7 @@ using Var_decl_list = vector<Var_decl *>;
 
 class Simple_type_decl : public Node {
 public:
-    enum {
-        BASE,
-        ARRARY,
-        RECORD,
-        ENUM,
-        CONSTRANGE,
-        ENUMRANGE,
-        USERDEFINED,
-        VOID,
-    } Type_name;
+    Pas_type Type_name;
 
     Identifier *id;
     Const_range *const_range;
@@ -47,6 +38,8 @@ public:
     Simple_type_decl() : Type_name(VOID) {}
     llvm::Value *codegen(CodeGenerator &codeGenerator);
     string Vis();
+    Pas_type get_type(){ return Type_name; };
+    Base_type get_base_type() { return base_type; };
 };
 
 class Type_part : public Node {
@@ -74,10 +67,13 @@ class Const_range : public Node {
 private:
     Const_value *lower;
     Const_value *upper;
+    size_t size;
 public:
     Const_range(Const_value *lower, Const_value *upper) : lower(lower), upper(upper) {}
     llvm::Value *codegen(CodeGenerator &codeGenerator);
     string Vis();
+    void set_size(size_t s){ size = s; };
+    size_t get_size(){ return size; };
 };
 
 class Enum_Type : public Node {
@@ -107,6 +103,8 @@ public:
     Array_type_decl(Simple_type_decl *simple_type_decl, Type_decl *type_decl) : simple_type_decl(simple_type_decl), type_decl(type_decl) {}
     llvm::Value *codegen(CodeGenerator &codeGenerator);
     string Vis();
+    // Pas_type get_type(){ return type_decl->get_type(); };
+    // Base_type get_base_type(){ return type_decl->get_base_type(); };
 };
 
 class Field_decl : public Node {
@@ -141,6 +139,17 @@ public:
     Type_decl(Record_type_decl *record_type_decl) : record_type_decl(record_type_decl) {}
     llvm::Value *codegen(CodeGenerator &codeGenerator);
     string Vis();
+    Pas_type get_type(){
+        if(simple_type_decl) {
+            return simple_type_decl->get_type();
+        } else if(array_type_decl) {
+            return Pas_type::ARRARY;
+        } else if(record_type_decl) {
+            return Pas_type::RECORD_Type;
+        }
+        return Pas_type::VOID;
+    }
+    Base_type get_base_type(){ return simple_type_decl->get_base_type(); };
 };
 
 class Var_decl : public Node {

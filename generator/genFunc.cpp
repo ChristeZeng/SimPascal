@@ -8,7 +8,7 @@ Value *Function_decl::codegen(CodeGenerator &codeGenerator) {
     Value *function = function_head->codegen(codeGenerator);
     subroutine->codegen(codeGenerator);
 
-    if (function_head->return_type->Type_name == function_head->return_type->VOID){
+    if (function_head->return_type->Type_name == Pas_type::VOID){
         codeGenerator.builder.CreateRetVoid();
     } else {
         codeGenerator.builder.CreateRet(function_head->id->codegen(codeGenerator));
@@ -54,7 +54,7 @@ Value *Function_head::codegen(CodeGenerator &codeGenerator) {
     }
 
     Value *ret;
-    if(return_type->Type_name == return_type->VOID){
+    if(return_type->Type_name == Pas_type::VOID){
         ret = nullptr;
     } else {
         ret = codeGenerator.CreateEntryBlockAlloca(function, id->name, return_type->codegen(codeGenerator)->getType());

@@ -10,6 +10,17 @@ enum Base_type {
     S_BOOLEN,
 };
 
+enum Pas_type{
+    BASE,
+    ARRARY,
+    RECORD_Type,  //may be some bug
+    ENUM,
+    CONSTRANGE,
+    ENUMRANGE,
+    USERDEFINED,
+    VOID,
+};
+
 enum SysFunc {
     S_READ,
     S_WRITE,
