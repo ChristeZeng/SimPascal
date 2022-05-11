@@ -59,6 +59,7 @@ public:
     unsigned int addrSpace;
     vector<Function*> functions;
     Function *read, *write;
+    map<string, Array_type_decl*> arrMap;
     CodeGenerator():builder(context) {
         module = new Module("main", context);
         addrSpace = module->getDataLayout().getAllocaAddrSpace();

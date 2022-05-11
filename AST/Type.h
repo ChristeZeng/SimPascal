@@ -150,6 +150,7 @@ public:
         return Pas_type::VOID;
     }
     Base_type get_base_type(){ return simple_type_decl->get_base_type(); };
+    Array_type_decl* get_array_decl(){ return array_type_decl; };
 };
 
 class Var_decl : public Node {

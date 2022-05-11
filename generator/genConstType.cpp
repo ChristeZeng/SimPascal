@@ -152,6 +152,10 @@ Value *Var_decl::codegen(CodeGenerator &codeGenerator) {
     print("Var_decl");
     Value *value = type_decl->codegen(codeGenerator);
     for(auto name : *name_list) {
+        if(type_decl->get_type() == Pas_type::ARRARY){
+            print("Add array map");
+            codeGenerator.arrMap[name->name] = type_decl->get_array_decl();
+        }
         if(is_global){
             Constant *constant = Constant::getNullValue(value->getType());
             return new GlobalVariable(*codeGenerator.module, value->getType(), false, GlobalValue::ExternalLinkage, constant, name->name);
