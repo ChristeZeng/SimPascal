@@ -40,6 +40,8 @@ public:
     string Vis();
     Pas_type get_type(){ return Type_name; };
     Base_type get_base_type() { return base_type; };
+    llvm::Type* get_llvm_type(CodeGenerator &codeGenerator);
+    size_t get_size();
 };
 
 class Type_part : public Node {
@@ -72,7 +74,16 @@ public:
     Const_range(Const_value *lower, Const_value *upper) : lower(lower), upper(upper) {}
     llvm::Value *codegen(CodeGenerator &codeGenerator);
     string Vis();
-    void set_size(size_t s){ size = s; };
+    void cal_size(){
+        int s;
+        if(lower->get_type() == upper->get_type()){
+            s = upper->get_value() - lower->get_value();
+        }
+        if(s <= 0){
+            //print("Invalid range");
+        }
+        size = s;
+    }
     size_t get_size(){ return size; };
 };
 
@@ -103,7 +114,7 @@ public:
     Array_type_decl(Simple_type_decl *simple_type_decl, Type_decl *type_decl) : simple_type_decl(simple_type_decl), type_decl(type_decl) {}
     llvm::Value *codegen(CodeGenerator &codeGenerator);
     string Vis();
-    // Pas_type get_type(){ return type_decl->get_type(); };
+    int get_size(){ return simple_type_decl->get_size(); };
     // Base_type get_base_type(){ return type_decl->get_base_type(); };
 };
 
@@ -151,6 +162,7 @@ public:
     }
     Base_type get_base_type(){ return simple_type_decl->get_base_type(); };
     Array_type_decl* get_array_decl(){ return array_type_decl; };
+    size_t get_array_size(){ return array_type_decl->get_size(); };
 };
 
 class Var_decl : public Node {

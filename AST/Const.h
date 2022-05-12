@@ -81,6 +81,6 @@ public:
     llvm::Value *codegen(CodeGenerator &codeGenerator);
     llvm::Constant *get_constant(CodeGenerator &codeGenerator);
     string Vis();
-    Base_type get_type();
+    Base_type get_type(){ return base_type;};
     int get_value();
 };

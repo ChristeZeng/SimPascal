@@ -52,9 +52,6 @@ Value *Const_value::codegen(CodeGenerator &codeGenerator) {
     }
 }
 
-Base_type Const_value::get_type(){
-    return base_type;
-}
 
 //need to make it look better
 int Const_value::get_value(){
@@ -115,6 +112,35 @@ Value *Type_decl::codegen(CodeGenerator &codeGenerator) {
     }
 }
 
+llvm::Type* Simple_type_decl::get_llvm_type(CodeGenerator &codeGenerator){
+    print("get llvm type");
+    switch(Type_name){
+        case BASE:
+            switch(base_type){
+                case S_INT:
+                    return codeGenerator.builder.getInt32Ty();
+                case S_REAL:
+                    return codeGenerator.builder.getDoubleTy();
+                case S_CHAR:
+                    return codeGenerator.builder.getInt8Ty();
+                case S_BOOLEAN:
+                    return codeGenerator.builder.getInt1Ty();
+                default:
+                    return nullptr;
+            }
+            case CONSTRANGE:
+                return codeGenerator.builder.getInt32Ty();
+                break;
+        default:
+            return nullptr;
+    }
+    return nullptr;
+}
+
+size_t Simple_type_decl::get_size(){ 
+    return const_range->get_size(); 
+};
+
 Value *Simple_type_decl::codegen(CodeGenerator &codeGenerator) {
     print("Simple_type_decl");
     switch(Type_name){
@@ -132,7 +158,8 @@ Value *Simple_type_decl::codegen(CodeGenerator &codeGenerator) {
                     return nullptr;
             }
             case CONSTRANGE:
-                const_range->codegen(codeGenerator);
+                const_range->cal_size();
+                //return codeGenerator.builder.getInt32(const_range->get_size());
                 break;
         default:
             return nullptr;
@@ -152,12 +179,22 @@ Value *Var_decl::codegen(CodeGenerator &codeGenerator) {
     print("Var_decl");
     Value *value = type_decl->codegen(codeGenerator);
     for(auto name : *name_list) {
+        Constant *constant;
         if(type_decl->get_type() == Pas_type::ARRARY){
             print("Add array map");
+            size_t size = type_decl->get_array_size();
+            ArrayType* arrType = (ArrayType*)ArrayType::get(value->getType(), size);
+            vector<llvm::Constant*> e;
+            for(int i=0; i<size; i++){
+                e.push_back(Constant::getNullValue(value->getType()));
+            }
             codeGenerator.arrMap[name->name] = type_decl->get_array_decl();
+            constant = ConstantArray::get(arrType, e);
+        }else{
+            constant = Constant::getNullValue(value->getType());
         }
         if(is_global){
-            Constant *constant = Constant::getNullValue(value->getType());
+            
             return new GlobalVariable(*codeGenerator.module, value->getType(), false, GlobalValue::ExternalLinkage, constant, name->name);
         } else {
             auto alloc = codeGenerator.CreateEntryBlockAlloca(codeGenerator.getFunc(), name->name, value->getType());
@@ -167,19 +204,13 @@ Value *Var_decl::codegen(CodeGenerator &codeGenerator) {
     return nullptr;
 }
 
+
+
 Value *Const_range::codegen(CodeGenerator &codeGenerator) {
     print("Const_range");
     // lower->get_constant(codeGenerator);
     // upper->get_constant(codeGenerator);
-    int s;
-    if(lower->get_type() == upper->get_type()){
-        s = upper->get_value() - lower->get_value();
-    }
-    if(s <= 0){
-        print("Invalid range");
-    }
-    size = s;
-    std::cout << "size: " << size << endl;
+    
     return nullptr;
 }
 
@@ -195,13 +226,14 @@ Value *Enum_range::codegen(CodeGenerator &codeGenerator) {
 
 Value *Array_type_decl::codegen(CodeGenerator &codeGenerator) {
     print("Array_type_decl");
-    this->simple_type_decl->codegen(codeGenerator);
-    Pas_type t = type_decl->get_type();
-    if(t == Pas_type::BASE){
-        Base_type Btype = type_decl->get_base_type();
-        if(Btype == Base_type::S_INT)print("type: S_INT");
+    simple_type_decl->codegen(codeGenerator); //calculate size
+    Pas_type idx_type = simple_type_decl->get_type();
+    llvm::Type* array_type;
+    llvm::Type* e_type = simple_type_decl->get_llvm_type(codeGenerator);
+    if(idx_type == Pas_type::CONSTRANGE){
+        array_type = llvm::ArrayType::get(e_type, simple_type_decl->const_range->get_size());
     }
-    return nullptr;
+    return type_decl->codegen(codeGenerator);
 }
 
 Value *Field_decl::codegen(CodeGenerator &codeGenerator) {
