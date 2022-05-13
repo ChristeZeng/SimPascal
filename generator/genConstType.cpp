@@ -139,7 +139,11 @@ llvm::Type* Simple_type_decl::get_llvm_type(CodeGenerator &codeGenerator){
 
 size_t Simple_type_decl::get_size(){ 
     return const_range->get_size(); 
-};
+}
+
+llvm::Value *Simple_type_decl::get_idx(llvm::Value *originIdx, CodeGenerator &codeGenerator){\
+    return const_range->get_abs_index(originIdx, codeGenerator);
+}
 
 Value *Simple_type_decl::codegen(CodeGenerator &codeGenerator) {
     print("Simple_type_decl");
@@ -158,6 +162,7 @@ Value *Simple_type_decl::codegen(CodeGenerator &codeGenerator) {
                     return nullptr;
             }
             case CONSTRANGE:
+                //print("cal size");
                 const_range->cal_size();
                 //return codeGenerator.builder.getInt32(const_range->get_size());
                 break;
@@ -177,25 +182,29 @@ Value *Var_part::codegen(CodeGenerator &codeGenerator) {
 
 Value *Var_decl::codegen(CodeGenerator &codeGenerator) {
     print("Var_decl");
-    Value *value = type_decl->codegen(codeGenerator);
+    Value *value = type_decl->codegen(codeGenerator);// if array, value is an element of type
+    llvm::Type *varType;
     for(auto name : *name_list) {
         Constant *constant;
         if(type_decl->get_type() == Pas_type::ARRARY){
             print("Add array map");
-            size_t size = type_decl->get_array_size();
-            ArrayType* arrType = (ArrayType*)ArrayType::get(value->getType(), size);
-            vector<llvm::Constant*> e;
-            for(int i=0; i<size; i++){
-                e.push_back(Constant::getNullValue(value->getType()));
-            }
             codeGenerator.arrMap[name->name] = type_decl->get_array_decl();
+            size_t size = type_decl->get_array_size();
+            cout << "size: " << size << endl;
+            ArrayType* arrType = ArrayType::get(value->getType(), size);
+            varType = arrType;
+            vector<llvm::Constant*> e;
+            for(int i=0; i<=size; i++){
+                e.push_back(Constant::getNullValue(value->getType()));
+            }          
             constant = ConstantArray::get(arrType, e);
         }else{
+            varType = value->getType();
             constant = Constant::getNullValue(value->getType());
         }
         if(is_global){
             
-            return new GlobalVariable(*codeGenerator.module, value->getType(), false, GlobalValue::ExternalLinkage, constant, name->name);
+            return new GlobalVariable(*codeGenerator.module, varType, false, GlobalValue::ExternalLinkage, constant, name->name);
         } else {
             auto alloc = codeGenerator.CreateEntryBlockAlloca(codeGenerator.getFunc(), name->name, value->getType());
             return codeGenerator.builder.CreateStore(value, alloc);
@@ -204,7 +213,9 @@ Value *Var_decl::codegen(CodeGenerator &codeGenerator) {
     return nullptr;
 }
 
-
+Value *Const_range::get_abs_index(llvm::Value* originIdx, CodeGenerator &codeGenerator){
+    return Binary_operation(originIdx, Binary_op::S_MINUS, lower->codegen(codeGenerator), codeGenerator);
+}
 
 Value *Const_range::codegen(CodeGenerator &codeGenerator) {
     print("Const_range");
@@ -224,15 +235,15 @@ Value *Enum_range::codegen(CodeGenerator &codeGenerator) {
     return nullptr;
 }
 
+Pas_type Array_type_decl::get_idx_type(){
+    return simple_type_decl->get_type(); 
+}
+
 Value *Array_type_decl::codegen(CodeGenerator &codeGenerator) {
     print("Array_type_decl");
     simple_type_decl->codegen(codeGenerator); //calculate size
     Pas_type idx_type = simple_type_decl->get_type();
-    llvm::Type* array_type;
     llvm::Type* e_type = simple_type_decl->get_llvm_type(codeGenerator);
-    if(idx_type == Pas_type::CONSTRANGE){
-        array_type = llvm::ArrayType::get(e_type, simple_type_decl->const_range->get_size());
-    }
     return type_decl->codegen(codeGenerator);
 }
 

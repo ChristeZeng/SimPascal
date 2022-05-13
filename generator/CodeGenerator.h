@@ -74,3 +74,6 @@ public:
     Function* setWrite();   
     Function* setRead();
 };
+
+Value *Binary_operation(Value* lv, Binary_op op, Value* rv, CodeGenerator &codeGenerator);
+

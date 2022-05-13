@@ -38,10 +38,13 @@ public:
     Simple_type_decl() : Type_name(VOID) {}
     llvm::Value *codegen(CodeGenerator &codeGenerator);
     string Vis();
-    Pas_type get_type(){ return Type_name; };
+    Pas_type get_type(){ 
+        //if(Type_name == Pas_type::CONSTRANGE)cout << "simple: get type const_range" << endl;
+        return Type_name; };
     Base_type get_base_type() { return base_type; };
     llvm::Type* get_llvm_type(CodeGenerator &codeGenerator);
     size_t get_size();
+    llvm::Value *get_idx(llvm::Value *originIdx, CodeGenerator &codeGenerator);
 };
 
 class Type_part : public Node {
@@ -74,10 +77,11 @@ public:
     Const_range(Const_value *lower, Const_value *upper) : lower(lower), upper(upper) {}
     llvm::Value *codegen(CodeGenerator &codeGenerator);
     string Vis();
+    llvm::Value *get_abs_index(llvm::Value *originIdx, CodeGenerator &codeGenerator);
     void cal_size(){
         int s;
         if(lower->get_type() == upper->get_type()){
-            s = upper->get_value() - lower->get_value();
+            s = upper->get_value() - lower->get_value() + 1;
         }
         if(s <= 0){
             //print("Invalid range");
@@ -86,6 +90,7 @@ public:
     }
     size_t get_size(){ return size; };
 };
+
 
 class Enum_Type : public Node {
 private:
@@ -115,7 +120,8 @@ public:
     llvm::Value *codegen(CodeGenerator &codeGenerator);
     string Vis();
     int get_size(){ return simple_type_decl->get_size(); };
-    // Base_type get_base_type(){ return type_decl->get_base_type(); };
+    Pas_type get_idx_type();
+    llvm::Value* get_idx(llvm::Value* originIdx, CodeGenerator &codeGenerator){return simple_type_decl->get_idx(originIdx, codeGenerator);};
 };
 
 class Field_decl : public Node {
@@ -161,7 +167,8 @@ public:
         return Pas_type::VOID;
     }
     Base_type get_base_type(){ return simple_type_decl->get_base_type(); };
-    Array_type_decl* get_array_decl(){ return array_type_decl; };
+    Array_type_decl *get_array_decl(){ 
+        return array_type_decl; };
     size_t get_array_size(){ return array_type_decl->get_size(); };
 };
 

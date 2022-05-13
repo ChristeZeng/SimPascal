@@ -212,6 +212,7 @@ private:
 public:
     Array_access(Identifier *id, Expression *index) : id(id), index(index) {}
     llvm::Value *codegen(CodeGenerator &codeGenerator);
+    llvm::Value *getPtr(CodeGenerator &codeGenerator);
     string Vis();
 };
 
