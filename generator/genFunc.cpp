@@ -8,7 +8,7 @@ Value *Function_decl::codegen(CodeGenerator &codeGenerator) {
     Value *function = function_head->codegen(codeGenerator);
     subroutine->codegen(codeGenerator);
 
-    if (function_head->getReturnType()->Type_name == Pas_type::VOID){
+    if (!function_head->getReturnType()){
         codeGenerator.builder.CreateRetVoid();
     } else {
         codeGenerator.builder.CreateRet(function_head->getId()->codegen(codeGenerator));
@@ -30,7 +30,13 @@ Value *Function_head::codegen(CodeGenerator &codeGenerator) {
         }
     }
 
-    FunctionType *funcType = FunctionType::get(return_type->codegen(codeGenerator)->getType(), types, false);
+    Type *retType;
+    if(return_type) {
+        retType = return_type->codegen(codeGenerator)->getType();
+    } else {
+        retType = codeGenerator.builder.getVoidTy();
+    }
+    FunctionType *funcType = FunctionType::get(retType, types, false);
     Function *function = Function::Create(funcType, GlobalValue::InternalLinkage, id->name, codeGenerator.module);
     codeGenerator.pushFunc(function);
     BasicBlock *newBlock = BasicBlock::Create(codeGenerator.context, "entrypoint", function, nullptr);
@@ -53,12 +59,7 @@ Value *Function_head::codegen(CodeGenerator &codeGenerator) {
         }
     }
 
-    Value *ret;
-    if(return_type->Type_name == Pas_type::VOID){
-        ret = nullptr;
-    } else {
-        ret = codeGenerator.CreateEntryBlockAlloca(function, id->name, return_type->codegen(codeGenerator)->getType());
-    }
+    codeGenerator.CreateEntryBlockAlloca(function, id->name, retType);
     return function;
 }
 

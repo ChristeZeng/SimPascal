@@ -28,7 +28,8 @@ Value *Proc_stmt::codegen(CodeGenerator &codeGenerator) {
         args.push_back(arg->codegen(codeGenerator));
         iter++;
     }
-    return codeGenerator.builder.CreateCall(function, args, "calltmp");;
+    
+    return codeGenerator.builder.CreateCall(function, args, "calltmp");
 }
 
 Value *Func_stmt::codegen(CodeGenerator &codeGenerator) {
@@ -42,8 +43,8 @@ Value *Func_stmt::codegen(CodeGenerator &codeGenerator) {
         args.push_back(arg->codegen(codeGenerator));
         iter++;
     }
-    Value* res = codeGenerator.builder.CreateCall(function, args, "calltmp");
-    return res;
+
+    return codeGenerator.builder.CreateCall(function, args, "calltmp");
 }
 
 Value *Sysproc_stmt::codegen(CodeGenerator &codeGenerator) {

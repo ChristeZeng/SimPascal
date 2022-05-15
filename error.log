@@ -1,4 +1,8 @@
-/home/bcct/code/Test/SimPascal/SimPascal.y:1.1-5: 警告: POSIX Yacc does not support %code [-Wyacc]
+/home/phoenix/CS/compiler/SimPascal/SimPascal.y:1.1-5: 警告: POSIX Yacc does not support %code [-Wyacc]
     1 | %code requires {
       | ^~~~~
-/home/bcct/code/Test/SimPascal/SimPascal.y: 警告: 3 项偏移/归约冲突 [-Wconflicts-sr]
+/home/phoenix/CS/compiler/SimPascal/SimPascal.y: 警告: 3 项偏移/归约冲突 [-Wconflicts-sr]
+/home/phoenix/CS/compiler/SimPascal/generator/genStmt.cpp: In member function ‘virtual llvm::Value* Proc_stmt::codegen(CodeGenerator&)’:
+/home/phoenix/CS/compiler/SimPascal/generator/genStmt.cpp:38:1: warning: no return statement in function returning non-void [-Wreturn-type]
+   38 | }
+      | ^

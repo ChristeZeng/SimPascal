@@ -203,11 +203,10 @@ Value *Var_decl::codegen(CodeGenerator &codeGenerator) {
             constant = Constant::getNullValue(value->getType());
         }
         if(is_global){
-            
-            return new GlobalVariable(*codeGenerator.module, varType, false, GlobalValue::ExternalLinkage, constant, name->name);
+            new GlobalVariable(*codeGenerator.module, varType, false, GlobalValue::ExternalLinkage, constant, name->name);
         } else {
             auto alloc = codeGenerator.CreateEntryBlockAlloca(codeGenerator.getFunc(), name->name, value->getType());
-            return codeGenerator.builder.CreateStore(value, alloc);
+            codeGenerator.builder.CreateStore(value, alloc);
         }
     }
     return nullptr;

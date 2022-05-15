@@ -1,11 +1,9 @@
 program hello;
 var
-  a: array[0..2] of integer;
-  b: integer;
-
+    a, b, c: integer;
 begin
-  writeln(a[0]);
-  a[0] := 1;  
-  b := a[0];
-  writeln(b);
+    a := 1;
+    b := 2;
+    c := a + b;
+    writeln(c);
 end.
