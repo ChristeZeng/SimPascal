@@ -21,6 +21,10 @@ enum Pas_type{
     VOID,
 };
 
+enum exp_type{
+    ARRAY_ACCESS,
+};
+
 enum SysFunc {
     S_READ,
     S_WRITE,
@@ -51,7 +55,10 @@ public:
     virtual string Vis() { return ""; };
 };
 
-class Expression : public Node {};
+class Expression : public Node {
+public:
+    exp_type etype;
+};
 
 class Identifier : public Expression {
 public:

@@ -210,7 +210,7 @@ private:
     Identifier *id;
     Expression *index;
 public:
-    Array_access(Identifier *id, Expression *index) : id(id), index(index) {}
+    Array_access(Identifier *id, Expression *index) : id(id), index(index){etype = ARRAY_ACCESS;}
     llvm::Value *codegen(CodeGenerator &codeGenerator);
     llvm::Value *getPtr(CodeGenerator &codeGenerator);
     string Vis();

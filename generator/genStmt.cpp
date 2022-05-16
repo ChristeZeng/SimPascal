@@ -56,7 +56,12 @@ Value *Sysproc_stmt::codegen(CodeGenerator &codeGenerator) {
         {
             auto arg = args_list->at(0);
             Value *addr, *argValue;
-            addr = codeGenerator.getValue(dynamic_cast<Identifier*>(arg)->name);
+            if(arg->etype == ARRAY_ACCESS){
+                print("array access");
+                addr = dynamic_cast<Array_access*>(arg)->getPtr(codeGenerator);
+            }else{
+                addr = codeGenerator.getValue(dynamic_cast<Identifier*>(arg)->name);
+            }
             argValue = arg->codegen(codeGenerator);
             if (argValue->getType() == codeGenerator.builder.getInt32Ty()||
                 argValue->getType() == codeGenerator.builder.getInt1Ty()) Format = Format + "%d";
