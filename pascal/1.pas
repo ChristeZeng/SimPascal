@@ -1,12 +1,13 @@
-program hello;
-var
-  a: array[0..2] of integer;
-  b: integer;
+program QSort;
+  const
+    MaxN = 100;
+  var
+    a : array[0..2] of array[0..2] of integer;
+    n : integer;
 
 begin
-  read(a[0]);
-  b := a[0];
-  writeln(a[0]);
-  b := a[0];
-  writeln(b);
+  n := a[0][0];
+  writeln(n);
+  n := 5;
+  writeln(n);
 end.

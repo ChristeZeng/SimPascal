@@ -120,10 +120,13 @@ public:
     llvm::Value *codegen(CodeGenerator &codeGenerator);
     string Vis();
     int get_size(){ return simple_type_decl->get_size(); };
+    int get_sub_size();
     Pas_type get_idx_type();
     llvm::Type *get_llvm_type(CodeGenerator &codeGenerator);
+    llvm::Type *get_sub_llvm_type(CodeGenerator &codeGenerator);
     llvm::Constant *get_init_value(CodeGenerator &codeGenerator);
     llvm::Value* get_idx(llvm::Value* originIdx, CodeGenerator &codeGenerator){return simple_type_decl->get_idx(originIdx, codeGenerator);};
+    llvm::Value* get_sub_idx(llvm::Value* originIdx, CodeGenerator &codeGenerator);
 };
 
 class Field_decl : public Node {
@@ -174,6 +177,7 @@ public:
     Array_type_decl *get_array_decl(){ 
         return array_type_decl; };
     size_t get_array_size(){ return array_type_decl->get_size(); };
+    llvm::Value *get_idx(llvm::Value* originIdx, CodeGenerator &codeGenerator){ return array_type_decl->get_idx(originIdx, codeGenerator); };
 };
 
 class Var_decl : public Node {

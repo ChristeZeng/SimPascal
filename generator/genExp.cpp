@@ -60,16 +60,34 @@ Value *Array_access::getPtr(CodeGenerator &codeGenerator) {
     print("get array item pointer");
     std::string name = id->name;
     Value *arrValue = codeGenerator.getValue(name), *idxValue;
-    if(codeGenerator.arrMap[name]->get_idx_type() == Pas_type::CONSTRANGE){
+    Array_type_decl *arr = codeGenerator.arrMap[name];
+    if(arr->get_idx_type() == Pas_type::CONSTRANGE){
         print("idx is const range");
-        idxValue = codeGenerator.arrMap[name]->get_idx(index->codegen(codeGenerator), codeGenerator);
+        idxValue = arr->get_idx(index->codegen(codeGenerator), codeGenerator);
     }else{
         print("not const range");
     }
     vector<Value*> idxs;
     idxs.push_back(codeGenerator.builder.getInt32(0));
     idxs.push_back(idxValue);
-    return codeGenerator.builder.CreateInBoundsGEP(arrValue, idxs);
+    ArrayType *arrType = (ArrayType*)(arr->get_llvm_type(codeGenerator));
+    if(etype == DARRAY_ACCESS){
+        int size1, size2; // actually not be used
+        size1 = arr->get_size();
+        size2 = arr->get_sub_size();
+        std::cout << "2-d array access: " << std::endl;
+        std::cout << size1 << " " << size2 << std::endl;
+        //get first-level Ptr
+        arrValue = codeGenerator.builder.CreateInBoundsGEP(arrType, arrValue, idxs);
+        //Update arrType to next-level arrayType
+        arrType = (ArrayType*)(arr->get_sub_llvm_type(codeGenerator));
+        idxs.pop_back();
+        // update index
+        idxValue = arr->get_sub_idx(findex->codegen(codeGenerator), codeGenerator);
+        idxs.push_back(idxValue);
+    }
+   
+    return codeGenerator.builder.CreateInBoundsGEP(arrType, arrValue, idxs);
 }
 
 Value *Record_access::codegen(CodeGenerator &codeGenerator) {

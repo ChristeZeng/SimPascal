@@ -143,7 +143,7 @@ llvm::Constant *Type_decl::get_init_value(CodeGenerator &codeGenerator, Const_va
 }
 
 llvm::Type* Simple_type_decl::get_llvm_type(CodeGenerator &codeGenerator){
-    print("get llvm type");
+    //print("get llvm type");
     switch(Type_name){
         case BASE:
             switch(base_type){
@@ -262,12 +262,22 @@ Pas_type Array_type_decl::get_idx_type(){
     return simple_type_decl->get_type(); 
 }
 
+int Array_type_decl::get_sub_size(){ return type_decl->get_array_size(); };
+
 llvm::Type *Array_type_decl::get_llvm_type(CodeGenerator &codeGenerator){
     if(simple_type_decl->get_type() == CONSTRANGE){
         return ArrayType::get(type_decl->get_llvm_type(codeGenerator), simple_type_decl->get_size());
     }else{
         //enum TBD
     }
+}
+
+llvm::Type *Array_type_decl::get_sub_llvm_type(CodeGenerator &codeGenerator){
+    return type_decl->get_llvm_type(codeGenerator);
+}
+
+llvm::Value* Array_type_decl::get_sub_idx(llvm::Value* originIdx, CodeGenerator &codeGenerator){
+    return type_decl->get_idx(originIdx, codeGenerator);
 }
 
 llvm::Constant *Array_type_decl::get_init_value(CodeGenerator &codeGenerator){
