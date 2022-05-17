@@ -121,6 +121,8 @@ public:
     string Vis();
     int get_size(){ return simple_type_decl->get_size(); };
     Pas_type get_idx_type();
+    llvm::Type *get_llvm_type(CodeGenerator &codeGenerator);
+    llvm::Constant *get_init_value(CodeGenerator &codeGenerator);
     llvm::Value* get_idx(llvm::Value* originIdx, CodeGenerator &codeGenerator){return simple_type_decl->get_idx(originIdx, codeGenerator);};
 };
 
@@ -166,6 +168,8 @@ public:
         }
         return Pas_type::VOID;
     }
+    llvm::Type *get_llvm_type(CodeGenerator &codeGenerator);
+    llvm::Constant * get_init_value(CodeGenerator &codeGenerator, Const_value* v);
     Base_type get_base_type(){ return simple_type_decl->get_base_type(); };
     Array_type_decl *get_array_decl(){ 
         return array_type_decl; };

@@ -112,6 +112,36 @@ Value *Type_decl::codegen(CodeGenerator &codeGenerator) {
     }
 }
 
+Type* Type_decl::get_llvm_type(CodeGenerator &codeGenerator){
+    print("Type_decl");
+    if(simple_type_decl) {
+        return simple_type_decl->get_llvm_type(codeGenerator);
+    } else if(array_type_decl) {
+        return array_type_decl->get_llvm_type(codeGenerator);
+    } else if(record_type_decl) {
+        //TBD
+    } else {
+        return nullptr;
+    }
+}
+
+llvm::Constant *Type_decl::get_init_value(CodeGenerator &codeGenerator, Const_value* v){
+    if(v != nullptr){
+        //TBD
+    }else{
+        if(simple_type_decl) {
+            return Constant::getNullValue(simple_type_decl->get_llvm_type(codeGenerator));
+        } else if(array_type_decl) {
+            return array_type_decl->get_init_value(codeGenerator);
+        } else if(record_type_decl) {
+            //TBD
+        } else {
+            return nullptr;
+    }
+    }
+    return nullptr;
+}
+
 llvm::Type* Simple_type_decl::get_llvm_type(CodeGenerator &codeGenerator){
     print("get llvm type");
     switch(Type_name){
@@ -189,15 +219,9 @@ Value *Var_decl::codegen(CodeGenerator &codeGenerator) {
         if(type_decl->get_type() == Pas_type::ARRARY){
             print("Add array map");
             codeGenerator.arrMap[name->name] = type_decl->get_array_decl();
-            size_t size = type_decl->get_array_size();
-            cout << "size: " << size << endl;
-            ArrayType* arrType = ArrayType::get(value->getType(), size);
-            varType = arrType;
-            vector<llvm::Constant*> e;
-            for(int i=0; i<=size; i++){
-                e.push_back(Constant::getNullValue(value->getType()));
-            }          
-            constant = ConstantArray::get(arrType, e);
+            varType = type_decl->get_llvm_type(codeGenerator);
+            constant = type_decl->get_init_value(codeGenerator, nullptr);
+            print("get constant");
         }else{
             varType = value->getType();
             constant = Constant::getNullValue(value->getType());
@@ -236,6 +260,28 @@ Value *Enum_range::codegen(CodeGenerator &codeGenerator) {
 
 Pas_type Array_type_decl::get_idx_type(){
     return simple_type_decl->get_type(); 
+}
+
+llvm::Type *Array_type_decl::get_llvm_type(CodeGenerator &codeGenerator){
+    if(simple_type_decl->get_type() == CONSTRANGE){
+        return ArrayType::get(type_decl->get_llvm_type(codeGenerator), simple_type_decl->get_size());
+    }else{
+        //enum TBD
+    }
+}
+
+llvm::Constant *Array_type_decl::get_init_value(CodeGenerator &codeGenerator){
+    size_t size = simple_type_decl->get_size();
+    cout << "size: " << size << endl;
+    if(type_decl->get_llvm_type(codeGenerator) == codeGenerator.builder.getInt32Ty()){
+        print("type is int");
+    }
+    ArrayType* arrType = ArrayType::get(type_decl->get_llvm_type(codeGenerator), size);
+    vector<llvm::Constant*> e;
+    for(int i=0; i<=size; i++){
+        e.push_back(type_decl->get_init_value(codeGenerator, nullptr));
+    }          
+    return ConstantArray::get(arrType, e);
 }
 
 Value *Array_type_decl::codegen(CodeGenerator &codeGenerator) {
