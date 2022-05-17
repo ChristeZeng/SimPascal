@@ -239,9 +239,9 @@ Value *For_stmt::codegen(CodeGenerator &codeGenerator) {
     Value *condValue = id->codegen(codeGenerator);
     Value *cond;
     if(dirValue) {
-        cond = codeGenerator.builder.CreateICmpSLT(condValue, endValue, "forcond");
+        cond = codeGenerator.builder.CreateICmpSLE(condValue, endValue, "forcond");
     } else {
-        cond = codeGenerator.builder.CreateICmpSGT(condValue, endValue, "forcond");
+        cond = codeGenerator.builder.CreateICmpSGE(condValue, endValue, "forcond");
     }
     cond = codeGenerator.builder.CreateICmpNE(cond, ConstantInt::get(codeGenerator.context, APInt(1, 0)), "forcond");
     codeGenerator.builder.CreateCondBr(cond, bodyblock, mergeblock);

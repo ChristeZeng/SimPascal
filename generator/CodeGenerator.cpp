@@ -34,7 +34,7 @@ Value* CodeGenerator::getValue(string & name){
     }
     ret = module->getGlobalVariable(name);
     if (ret == nullptr) cout<<"Undefined variable: "<<name<<endl;
-    cout<<"Find "<<name<<" in global"<<endl;
+    else cout<<"Find "<<name<<" in global"<<endl;
     return ret;
 }
 
