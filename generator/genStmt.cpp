@@ -29,7 +29,11 @@ Value *Proc_stmt::codegen(CodeGenerator &codeGenerator) {
         iter++;
     }
     
-    return codeGenerator.builder.CreateCall(function, args, "calltmp");
+    if(function->getReturnType()!=codeGenerator.builder.getVoidTy()){
+        return codeGenerator.builder.CreateCall(function, args, "calltmp");
+    } else {
+        return codeGenerator.builder.CreateCall(function, args);
+    }
 }
 
 Value *Func_stmt::codegen(CodeGenerator &codeGenerator) {
@@ -44,7 +48,11 @@ Value *Func_stmt::codegen(CodeGenerator &codeGenerator) {
         iter++;
     }
 
-    return codeGenerator.builder.CreateCall(function, args, "calltmp");
+    if(function->getReturnType()!=codeGenerator.builder.getVoidTy()){
+        return codeGenerator.builder.CreateCall(function, args, "calltmp");
+    } else {
+        return codeGenerator.builder.CreateCall(function, args);
+    }
 }
 
 Value *Sysproc_stmt::codegen(CodeGenerator &codeGenerator) {

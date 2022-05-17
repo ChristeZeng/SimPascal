@@ -8,7 +8,9 @@ Value *Function_decl::codegen(CodeGenerator &codeGenerator) {
     Value *function = function_head->codegen(codeGenerator);
     subroutine->codegen(codeGenerator);
 
-    if (!function_head->getReturnType()){
+     if (!function_head->getReturnType()){
+        codeGenerator.builder.CreateRetVoid();
+    } else if(!function_head->getReturnType()->codegen(codeGenerator)){
         codeGenerator.builder.CreateRetVoid();
     } else {
         codeGenerator.builder.CreateRet(function_head->getId()->codegen(codeGenerator));
@@ -32,7 +34,9 @@ Value *Function_head::codegen(CodeGenerator &codeGenerator) {
 
     Type *retType;
     if(return_type) {
-        retType = return_type->codegen(codeGenerator)->getType();
+        Value *ret = return_type->codegen(codeGenerator);
+        if(ret) retType = ret->getType();
+        else retType = codeGenerator.builder.getVoidTy();
     } else {
         retType = codeGenerator.builder.getVoidTy();
     }
@@ -58,8 +62,9 @@ Value *Function_head::codegen(CodeGenerator &codeGenerator) {
             }
         }
     }
-
-    codeGenerator.CreateEntryBlockAlloca(function, id->name, retType);
+    if(retType != codeGenerator.builder.getVoidTy()){
+        codeGenerator.CreateEntryBlockAlloca(function, id->name, retType);
+    }
     return function;
 }
 
