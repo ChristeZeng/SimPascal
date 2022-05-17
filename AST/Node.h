@@ -24,6 +24,7 @@ enum Pas_type{
 enum exp_type{
     NOTHING,
     ARRAY_ACCESS,
+    DARRAY_ACCESS
 };
 
 enum SysFunc {

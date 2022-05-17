@@ -50,10 +50,12 @@ private:
     Expression *lexpression;
     Expression *rexpression;
     Identifier *fid;
+    Expression *fexpression;
 public:
     Assign_stmt(Identifier *lid, Expression *rexpression) : lid(lid), rexpression(rexpression) {}
     Assign_stmt(Identifier *lid, Expression *lexpression, Expression *rexpression) : lid(lid), lexpression(lexpression), rexpression(rexpression) {}
     Assign_stmt(Identifier *lid, Expression *rexpression, Identifier *fid) : lid(lid), rexpression(rexpression), fid(fid) {}
+    Assign_stmt(Identifier *lid, Expression *lexpression, Expression *fexpression, Expression *rexpression) : lid(lid), lexpression(lexpression), fexpression(fexpression), rexpression(rexpression) {}
     llvm::Value *codegen(CodeGenerator &codeGenerator);
     string Vis();
 };
@@ -209,8 +211,10 @@ class Array_access : public Expression {
 private:
     Identifier *id;
     Expression *index;
+    Expression *findex;
 public:
     Array_access(Identifier *id, Expression *index) : id(id), index(index){etype = ARRAY_ACCESS;}
+    Array_access(Identifier *id, Expression *index, Expression *findex) : id(id), index(index), findex(findex){ etype = DARRAY_ACCESS; }
     llvm::Value *codegen(CodeGenerator &codeGenerator);
     llvm::Value *getPtr(CodeGenerator &codeGenerator);
     string Vis();

@@ -3,7 +3,11 @@
 using namespace std;
 
 string Assign_stmt::Vis() {
-    if(!lexpression && !fid) {
+    cout << "Assign_stmt" << endl; 
+    if(fexpression) {
+        return Out("Assign_stmt", vector<string>{lid->Vis(), lexpression->Vis(), fexpression->Vis(), rexpression->Vis()});
+    }
+    else if(!lexpression && !fid) {
         return Out("Assign_stmt", vector<string>{lid->Vis(), rexpression->Vis()});
     }
     else if(!fid) {
@@ -249,7 +253,10 @@ string Binary_expression::Vis() {
 }
 
 string Array_access::Vis() {
-    return Out("array_access", vector<string>{id->Vis(), index->Vis()});
+    if (findex)
+        return Out("array_access", vector<string>{id->Vis(), index->Vis(), findex->Vis()});
+    else
+        return Out("array_access", vector<string>{id->Vis(), index->Vis()});
 }
 
 string Record_access::Vis() {

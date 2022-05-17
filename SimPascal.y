@@ -282,7 +282,8 @@ non_label_stmt  : assign_stmt                                       { $$ = $1; }
 
 assign_stmt     : name ASSIGN expression                              { $$ = new Assign_stmt($1, $3); }
                 | name LS expression RS ASSIGN expression             { $$ = new Assign_stmt($1, $3, $6); }
-                | name DOT name ASSIGN expression                       { $$ = new Assign_stmt($1, $5, $3); }
+                | name LS expression RS LS expression RS ASSIGN expression { $$ = new Assign_stmt($1, $3, $6, $9); }
+                | name DOT name ASSIGN expression                     { $$ = new Assign_stmt($1, $5, $3); }
                 ;
 
 proc_stmt       : name                                                { $$ = new Proc_stmt($1); }
@@ -406,8 +407,9 @@ factor          : name                                                  { $$ = $
                 | LP expression RP                                      { $$ = $2; }
                 | NOT factor                                            { $$ = new Binary_expression(S_NOT, new Const_value(S_BOOLEAN, true), $2); }
                 | MINUS factor                                          { $$ = new Binary_expression(S_MINUS, new Const_value(S_INT, 0), $2); }
-                | name LS expression RS                                   { $$ = new Array_access($1, $3); }
-                | name DOT name                                             { $$ = new Record_access($1, $3); }
+                | name LS expression RS                                 { $$ = new Array_access($1, $3); }
+                | name LS expression RS LS expression RS                { $$ = new Array_access($1, $3, $6); }
+                | name DOT name                                         { $$ = new Record_access($1, $3); }
                 ;
 
 args_list       : args_list COMMA expression                            { $$ = $1; $$->push_back($3); }
