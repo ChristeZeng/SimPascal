@@ -232,6 +232,7 @@ Value *For_stmt::codegen(CodeGenerator &codeGenerator) {
     Value *intValue = codeGenerator.getValue(id->name);
     Value *initValue = Out_expression->codegen(codeGenerator);
     Value *endValue = In_expression->codegen(codeGenerator);
+    codeGenerator.builder.CreateStore(initValue, intValue);
 
     codeGenerator.builder.CreateBr(condblock);
     codeGenerator.builder.SetInsertPoint(condblock);

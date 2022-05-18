@@ -2,3 +2,11 @@
     1 | %code requires {
       | ^~~~~
 /home/phoenix/CS/compiler/SimPascal/SimPascal.y: 警告: 3 项偏移/归约冲突 [-Wconflicts-sr]
+/home/phoenix/CS/compiler/SimPascal/generator/genConstType.cpp: In member function ‘llvm::Type* Type_decl::get_llvm_type(CodeGenerator&)’:
+/home/phoenix/CS/compiler/SimPascal/generator/genConstType.cpp:126:1: warning: control reaches end of non-void function [-Wreturn-type]
+  126 | }
+      | ^
+/home/phoenix/CS/compiler/SimPascal/generator/genConstType.cpp: In member function ‘llvm::Type* Array_type_decl::get_llvm_type(CodeGenerator&)’:
+/home/phoenix/CS/compiler/SimPascal/generator/genConstType.cpp:273:1: warning: control reaches end of non-void function [-Wreturn-type]
+  273 | }
+      | ^
