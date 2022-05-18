@@ -6,8 +6,8 @@ using namespace llvm;
 Value *Program::codegen(CodeGenerator &codeGenerator) {
     print("Program::codegen");
     vector<Type*> argTypes;
-    FunctionType * funcType = FunctionType::get(codeGenerator.builder.getVoidTy(), makeArrayRef(argTypes), false);
-    codeGenerator.mainFunction = Function::Create(funcType, GlobalValue::InternalLinkage, "main", codeGenerator.module);
+    FunctionType * funcType = FunctionType::get(codeGenerator.builder.getInt32Ty(), makeArrayRef(argTypes), false);
+    codeGenerator.mainFunction = Function::Create(funcType, GlobalValue::ExternalLinkage, "main", codeGenerator.module);
     BasicBlock * basicBlock = BasicBlock::Create(codeGenerator.context, "entrypoint", codeGenerator.mainFunction, 0);
     
     codeGenerator.pushFunc(codeGenerator.mainFunction);
@@ -18,7 +18,7 @@ Value *Program::codegen(CodeGenerator &codeGenerator) {
 
     routine->setGlobalValues();
     routine->codegen(codeGenerator);
-    codeGenerator.builder.CreateRetVoid();
+    codeGenerator.builder.CreateRet(codeGenerator.builder.getInt32(0));
     codeGenerator.popFunc();
     
     return nullptr;
