@@ -6,8 +6,6 @@ program QSort;
     n : integer;
 
 begin
-  n := a[0][0];
-  writeln(n);
-  n := 5;
-  writeln(n);
+  readln(a[0][0]);
+  writeln(a[0][0]);
 end.

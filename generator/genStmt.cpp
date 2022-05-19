@@ -8,6 +8,9 @@ Value *Assign_stmt::codegen(CodeGenerator &codeGenerator) {
     if((!lexpression)&&(!fid)){ //id assignment
         print("Assign_stmt::codegen: id");
         return codeGenerator.builder.CreateStore(rexpression->codegen(codeGenerator), codeGenerator.getValue(lid->name));
+    } else if(fexpression){ //2d array assignment
+        print("Assign_stmt::codegen: 2-d array");
+        return codeGenerator.builder.CreateStore(rexpression->codegen(codeGenerator), (new Array_access(lid, lexpression, fexpression))->getPtr(codeGenerator));
     } else if(lexpression) { // array assignment
         print("Assign_stmt::codegen: array");
         return codeGenerator.builder.CreateStore(rexpression->codegen(codeGenerator), (new Array_access(lid, lexpression))->getPtr(codeGenerator));
