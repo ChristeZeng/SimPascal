@@ -70,7 +70,10 @@ Value *Sysproc_stmt::codegen(CodeGenerator &codeGenerator) {
             if(arg->etype == ARRAY_ACCESS){
                 print("array access");
                 addr = dynamic_cast<Array_access*>(arg)->getPtr(codeGenerator);
-            }else{
+            } else if(arg->etype == DARRAY_ACCESS){
+                print("2d array access");
+                addr = dynamic_cast<Array_access*>(arg)->getPtr(codeGenerator);
+            } else{
                 addr = codeGenerator.getValue(dynamic_cast<Identifier*>(arg)->name);
             }
             argValue = arg->codegen(codeGenerator);
