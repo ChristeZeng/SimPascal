@@ -99,8 +99,24 @@ using namespace std;
                             }
 
 \'(\\.|[^'\\])*\'           {
-                                std::cout << "Char: " << yytext[1] << std::endl;
-                                yylval.cval = yytext[1];
-                                return CHAR;
+                                std::string tmp = yytext;
+                                if (tmp.size() == 2) {
+                                    yylval.cval = '\0';
+                                    return CHAR;
+                                }
+                                else if (tmp.size() == 3) {
+                                    std::cout << "Char: " << yytext[1] << std::endl;
+                                    yylval.cval = yytext[1];
+                                    return CHAR;
+                                }
+                                else {
+                                    std::string tmp = yytext;
+                                    tmp.erase(0, 1);
+                                    tmp.erase(tmp.size() - 1, 1);
+                                    std::cout << "String: " << tmp << std::endl;
+                                    yylval.sval = new string(tmp);
+                                    return STRING;
+                                }
+                                
                             }
 %%

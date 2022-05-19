@@ -7,6 +7,7 @@ enum Base_type {
     S_INT,
     S_REAL,
     S_CHAR,
+    S_STRING,
     S_BOOLEAN,
 };
 

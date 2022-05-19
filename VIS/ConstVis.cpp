@@ -27,6 +27,8 @@ string Const_value::Vis() {
             return Out("Const_value", Out(to_string(Value.char_value)));
         case S_BOOLEAN:
             return Out("Const_value", Out(to_string(Value.bool_value)));
+        case S_STRING:
+            return Out("Const_value", Out(Value.string_value));
         default:
             return "";
     }

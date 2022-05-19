@@ -67,7 +67,7 @@ extern int yylex(void);
 
 %token<ival> INTEGER
 %token<dval> REAL 
-%token<sval> ID SYS_CON SYS_FUNCT SYS_PROC SYS_TYPE READ
+%token<sval> ID SYS_CON SYS_FUNCT SYS_PROC SYS_TYPE READ STRING
 %token<cval> CHAR
 
 %type<id> name
@@ -139,6 +139,7 @@ const_expr_list : const_expr_list name EQ const_value SEMI { $$ = $1; $$->push_b
 const_value     : INTEGER { $$ = new Const_value(S_INT, $1); }
                 | REAL    { $$ = new Const_value(S_REAL, $1); }
                 | CHAR    { $$ = new Const_value(S_CHAR, $1); }
+                | STRING  { $$ = new Const_value(S_STRING, $1); }
                 | SYS_CON { 
                             if (*$1 == "true") {
                                 $$ = new Const_value(S_BOOLEAN, true); 
