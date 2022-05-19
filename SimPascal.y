@@ -300,8 +300,11 @@ proc_stmt       : name                                                { $$ = new
                                                                         else if (*$1 == "writeln")
                                                                             $$ = new Sysproc_stmt(S_WRITELN, $3);
                                                                     }
-                | READ LP factor RP                                 { 
-                                                                        $$ = new Sysproc_stmt(S_READ, $3); 
+                | READ LP factor RP                                 {
+                                                                        if (*$1 == "read")
+                                                                            $$ = new Sysproc_stmt(S_READ, $3);
+                                                                        else if (*$1 == "readln")
+                                                                            $$ = new Sysproc_stmt(S_READLN, $3); 
                                                                     } 
                 ;
 

@@ -29,6 +29,7 @@ enum exp_type{
 
 enum SysFunc {
     S_READ,
+    S_READLN,
     S_WRITE,
     S_WRITELN,
     S_ADS,

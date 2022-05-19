@@ -60,7 +60,7 @@ Value *Sysproc_stmt::codegen(CodeGenerator &codeGenerator) {
     string Format = "";
     vector<Value*> sysargs;
     switch (func){
-        case SysFunc::S_READ:
+        case SysFunc::S_READLN:
         {
             auto arg = args_list->at(0);
             Value *addr, *argValue;

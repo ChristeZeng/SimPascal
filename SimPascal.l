@@ -73,7 +73,7 @@ using namespace std;
                                                 yylval.sval = new string(yytext);
                                                 return SYS_PROC;
                                             }
-"read"                                      {
+"read"|"readln"                             {
                                                 yylval.sval = new string(yytext);
                                                 return READ;
                                             }                                            
