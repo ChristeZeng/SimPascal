@@ -239,7 +239,7 @@ procedure_head  : PROCEDURE name parameters                         { $$ = new F
                 ;           
 
 parameters      : LP para_decl_list RP                              { $$ = $2; }
-                |                                                   { $$ = new Para_decl_list(); }
+                | LP RP                                             { $$ = nullptr; }
                 ;
 
 para_decl_list  : para_decl_list SEMI para_type_list                { $$ = $1; $$->push_back($3); }  
@@ -300,6 +300,12 @@ proc_stmt       : name                                                { $$ = new
                                                                             $$ = new Sysproc_stmt(S_WRITE, $3); 
                                                                         else if (*$1 == "writeln")
                                                                             $$ = new Sysproc_stmt(S_WRITELN, $3);
+                                                                    }
+                | SYS_PROC LP expression_list RP const_value        { 
+                                                                        if (*$1 == "write")
+                                                                            $$ = new Sysproc_stmt(S_WRITE_10, $3); 
+                                                                        else if (*$1 == "writeln")
+                                                                            $$ = new Sysproc_stmt(S_WRITELN_10, $3);
                                                                     }
                 | READ LP factor RP                                 {
                                                                         if (*$1 == "read")

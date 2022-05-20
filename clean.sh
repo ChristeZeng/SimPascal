@@ -5,3 +5,5 @@ rm -rf cmake_install.cmake
 rm -rf *.ll
 rm -rf *.o
 rm -rf *.out
+rm -rf *.log
+rm -rf *.json

@@ -65,8 +65,10 @@ string Para_decl::Vis() {
 
 string Function_head::Vis() {
     vector<string> para_out;
-    for (auto para : *parameters) {
-        para_out.push_back(para->Vis());
+    if (parameters) {
+        for (auto para : *parameters) {
+            para_out.push_back(para->Vis());
+        }
     }
     if (!return_type) {
         return Out("Procedure_head", vector<string>{id->Vis(), Out("Para_decl_list", para_out)});

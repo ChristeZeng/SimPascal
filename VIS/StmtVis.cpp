@@ -20,10 +20,13 @@ string Assign_stmt::Vis() {
 
 string Proc_stmt::Vis() {
     vector<string> Args_out;
-    for(auto arg : *args_list) {
-        Args_out.push_back(arg->Vis());
+    if (args_list) {
+        for(auto arg : *args_list) {
+            Args_out.push_back(arg->Vis());
+        }
+        return Out("Proc_stmt", vector<string>{id->Vis(), Out("Args_list", Args_out)});
     }
-    return Out("Proc_stmt", vector<string>{id->Vis(), Out("Args_list", Args_out)});
+    return Out("Proc_stmt", id->Vis());
 }
 
 string Sysproc_stmt::Vis() {
@@ -35,6 +38,10 @@ string Sysproc_stmt::Vis() {
                 return Out("Sysproc_stmt", Out("WRITE"));
             case S_WRITELN:
                 return Out("Sysproc_stmt", Out("WRITELN"));
+            case S_WRITE_10:
+                return Out("Sysproc_stmt", Out("WRITE_10"));
+            case S_WRITELN_10:
+                return Out("Sysproc_stmt", Out("WRITELN_10"));
             case S_ADS:
                 return Out("Sysproc_stmt", Out("ADS"));
             case S_CHR:
@@ -91,8 +98,10 @@ string Sysproc_stmt::Vis() {
 
 string Func_stmt::Vis() {
     vector<string> Args_out;
-    for(auto arg : *args_list) {
-        Args_out.push_back(arg->Vis());
+    if (args_list) {
+        for(auto arg : *args_list) {
+            Args_out.push_back(arg->Vis());
+        }
     }
     return Out("Func_stmt", vector<string>{id->Vis(), Out("Args_list", Args_out)});
 }

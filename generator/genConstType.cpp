@@ -47,6 +47,8 @@ Value *Const_value::codegen(CodeGenerator &codeGenerator) {
             return codeGenerator.builder.getInt8(Value.char_value);
         case Base_type::S_BOOLEAN:
             return codeGenerator.builder.getInt1(Value.bool_value);
+        case Base_type::S_STRING:
+            return codeGenerator.builder.CreateGlobalStringPtr(Value.string_value);
         default:
             return nullptr;
     }
@@ -80,6 +82,8 @@ Constant *Const_value::get_constant(CodeGenerator &codeGenerator){
             return codeGenerator.builder.getInt8(Value.char_value);
         case Base_type::S_BOOLEAN:
             return codeGenerator.builder.getInt1(Value.bool_value);
+        case Base_type::S_STRING:
+            return codeGenerator.builder.CreateGlobalStringPtr(Value.string_value);
         default:
             return nullptr;
     }

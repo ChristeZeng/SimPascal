@@ -24,14 +24,15 @@ Value *Function_decl::codegen(CodeGenerator &codeGenerator) {
 Value *Function_head::codegen(CodeGenerator &codeGenerator) {
     print("Function_head");
     vector<Type*> types;
-    for(auto para : *parameters) {
-        if(para->getVaParaList()->getIsVarPara()){
-            types.insert(types.end(), para->getVaParaList()->getNameList()->size(), para->getSimpleTypeDecl()->codegen(codeGenerator)->getType());
-        } else {
-            types.insert(types.end(), para->getVaParaList()->getNameList()->size(), para->getSimpleTypeDecl()->codegen(codeGenerator)->getType());
+    if (parameters) {
+        for(auto para : *parameters) {
+            if(para->getVaParaList()->getIsVarPara()){
+                types.insert(types.end(), para->getVaParaList()->getNameList()->size(), para->getSimpleTypeDecl()->codegen(codeGenerator)->getType());
+            } else {
+                types.insert(types.end(), para->getVaParaList()->getNameList()->size(), para->getSimpleTypeDecl()->codegen(codeGenerator)->getType());
+            }
         }
     }
-
     Type *retType;
     if(return_type) {
         Value *ret = return_type->codegen(codeGenerator);
@@ -47,18 +48,20 @@ Value *Function_head::codegen(CodeGenerator &codeGenerator) {
     codeGenerator.builder.SetInsertPoint(newBlock);
 
     Function::arg_iterator iter = function->arg_begin();
-    for (auto para : *parameters) {
-        for (auto name : *para->getVaParaList()->getNameList()){
-            Value *alloc = nullptr;
-            if(para->getVaParaList()->getIsVarPara()){
-                //tbd
-                alloc = codeGenerator.CreateEntryBlockAlloca(function, name->name, para->getSimpleTypeDecl()->codegen(codeGenerator)->getType());
-                codeGenerator.builder.CreateStore(iter, alloc);
-                iter++;
-            } else {
-                alloc = codeGenerator.CreateEntryBlockAlloca(function, name->name, para->getSimpleTypeDecl()->codegen(codeGenerator)->getType());
-                codeGenerator.builder.CreateStore(iter, alloc);
-                iter++;
+    if (parameters) {
+        for (auto para : *parameters) {
+            for (auto name : *para->getVaParaList()->getNameList()){
+                Value *alloc = nullptr;
+                if(para->getVaParaList()->getIsVarPara()){
+                    //tbd
+                    alloc = codeGenerator.CreateEntryBlockAlloca(function, name->name, para->getSimpleTypeDecl()->codegen(codeGenerator)->getType());
+                    codeGenerator.builder.CreateStore(iter, alloc);
+                    iter++;
+                } else {
+                    alloc = codeGenerator.CreateEntryBlockAlloca(function, name->name, para->getSimpleTypeDecl()->codegen(codeGenerator)->getType());
+                    codeGenerator.builder.CreateStore(iter, alloc);
+                    iter++;
+                }
             }
         }
     }

@@ -26,12 +26,13 @@ Value *Proc_stmt::codegen(CodeGenerator &codeGenerator) {
     if (function == nullptr) cout<<"Function not find: "<<id->name<<endl;
     vector<Value*> args;
     Function::arg_iterator iter =  function->arg_begin();
-    for (auto arg : *args_list){
-        //value pointer tbd
-        args.push_back(arg->codegen(codeGenerator));
-        iter++;
+    if (args_list) {
+        for (auto arg : *args_list){
+            //value pointer tbd
+            args.push_back(arg->codegen(codeGenerator));
+            iter++;
+        }
     }
-    
     if(function->getReturnType()!=codeGenerator.builder.getVoidTy()){
         return codeGenerator.builder.CreateCall(function, args, "calltmp");
     } else {
@@ -45,12 +46,15 @@ Value *Func_stmt::codegen(CodeGenerator &codeGenerator) {
     if (function == nullptr) cout<<"Function not find: "<<id->name<<endl;
     vector<Value*> args;
     Function::arg_iterator iter =  function->arg_begin();
-    for (auto arg : *args_list){
-        //value pointer tbd
-        args.push_back(arg->codegen(codeGenerator));
-        iter++;
-    }
 
+    if (args_list) {
+        for (auto arg : *args_list){
+            //value pointer tbd
+            args.push_back(arg->codegen(codeGenerator));
+            iter++;
+        }
+    }
+    
     if(function->getReturnType()!=codeGenerator.builder.getVoidTy()){
         return codeGenerator.builder.CreateCall(function, args, "calltmp");
     } else {
@@ -111,15 +115,65 @@ Value *Sysproc_stmt::codegen(CodeGenerator &codeGenerator) {
         }
         case SysFunc::S_WRITELN:
         {
+            if (args_list) {
+                for (auto arg : *args_list){
+                    Value* argValue = arg->codegen(codeGenerator);
+                    if (argValue->getType() == codeGenerator.builder.getInt32Ty()||
+                        argValue->getType() == codeGenerator.builder.getInt1Ty()) Format = Format + "%d";
+                    else if (argValue->getType() == codeGenerator.builder.getInt8Ty()) Format = Format + "%c";
+                    else if (argValue->getType()->isDoubleTy()) Format = Format + "%lf";
+                    else throw logic_error("Write Type Error!");
+                    
+                    sysargs.push_back(argValue);
+                }
+            }
+            Format += "\n";
+            auto strConst = ConstantDataArray::getString(codeGenerator.context, Format.c_str());
+            auto StrVar = new GlobalVariable(*(codeGenerator.module), ArrayType::get(codeGenerator.builder.getInt8Ty(), Format.size() + 1), true, GlobalValue::ExternalLinkage, strConst, ".str");
+            auto nullvalue = Constant::getNullValue(codeGenerator.builder.getInt32Ty());
+            Constant* indices[] = {nullvalue, nullvalue};
+            auto reference = ConstantExpr::getGetElementPtr(StrVar->getType()->getElementType(), StrVar, indices);
+            
+            sysargs.insert(sysargs.begin(), reference);
+            Value *res = codeGenerator.builder.CreateCall(codeGenerator.write, makeArrayRef(sysargs), "write");
+            return res;
+            break;
+        }
+        case SysFunc::S_WRITE_10:
+        {
             for (auto arg : *args_list){
                 Value* argValue = arg->codegen(codeGenerator);
                 if (argValue->getType() == codeGenerator.builder.getInt32Ty()||
-                    argValue->getType() == codeGenerator.builder.getInt1Ty()) Format = Format + "%d";
+                    argValue->getType() == codeGenerator.builder.getInt1Ty()) Format = Format + "%10d";
                 else if (argValue->getType() == codeGenerator.builder.getInt8Ty()) Format = Format + "%c";
                 else if (argValue->getType()->isDoubleTy()) Format = Format + "%lf";
                 else throw logic_error("Write Type Error!");
-                
+
                 sysargs.push_back(argValue);
+            }
+            auto strConst = ConstantDataArray::getString(codeGenerator.context, Format.c_str());
+            auto StrVar = new GlobalVariable(*(codeGenerator.module), ArrayType::get(codeGenerator.builder.getInt8Ty(), Format.size() + 1), true, GlobalValue::ExternalLinkage, strConst, ".str");
+            auto nullvalue = Constant::getNullValue(codeGenerator.builder.getInt32Ty());
+            Constant* indices[] = {nullvalue, nullvalue};
+            auto reference = ConstantExpr::getGetElementPtr(StrVar->getType()->getElementType(), StrVar, indices);
+
+            sysargs.insert(sysargs.begin(), reference);
+            return codeGenerator.builder.CreateCall(codeGenerator.write, makeArrayRef(sysargs), "write");
+            break;
+        }
+        case SysFunc::S_WRITELN_10:
+        {
+            if (args_list) {
+                for (auto arg : *args_list){
+                    Value* argValue = arg->codegen(codeGenerator);
+                    if (argValue->getType() == codeGenerator.builder.getInt32Ty()||
+                        argValue->getType() == codeGenerator.builder.getInt1Ty()) Format = Format + "%10d";
+                    else if (argValue->getType() == codeGenerator.builder.getInt8Ty()) Format = Format + "%c";
+                    else if (argValue->getType()->isDoubleTy()) Format = Format + "%lf";
+                    else throw logic_error("Write Type Error!");
+                    
+                    sysargs.push_back(argValue);
+                }
             }
             Format += "\n";
             auto strConst = ConstantDataArray::getString(codeGenerator.context, Format.c_str());

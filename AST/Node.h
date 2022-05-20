@@ -33,6 +33,8 @@ enum SysFunc {
     S_READLN,
     S_WRITE,
     S_WRITELN,
+    S_WRITE_10,
+    S_WRITELN_10,
     S_ADS,
     S_CHR,
     S_ODD,
