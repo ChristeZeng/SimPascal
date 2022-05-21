@@ -1,0 +1,4 @@
+/home/qs/Compiler/SimPascal/CMakeFiles/rebuild_cache.dir
+/home/qs/Compiler/SimPascal/CMakeFiles/edit_cache.dir
+/home/qs/Compiler/SimPascal/CMakeFiles/SimPascal.dir
+/home/qs/Compiler/SimPascal/CMakeFiles/intrinsics_gen.dir
