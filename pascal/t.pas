@@ -105,16 +105,21 @@ program QSort;
 
   end.
 
-  validIdx := 0;
   if totalCrediet <> getCrediet then
   begin
     while validCourse[validIdx] <> -1 do 
     begin
       n := validCourse[validIdx];
       idx := 0;
-      while require[n][idx] <> -2 do
+      flag := 1;
+      while flag <> 0 do
       begin
-
+        if require[n][idx] = -2 then 
+        begin
+          if flag = 1 then write('c', n, '\n');
+        end;
+        flag := 0;
+        if require[n][idx] = 
       end;
       validIdx := validIdx + 1;
     end;
