@@ -8,6 +8,7 @@ program QSort;
     require : array[0..99] of array[0..99] of integer;
     n : integer;
     num : integer;
+    cNum : integer;
     idx : integer;
     validIdx : integer;
     c : char;
@@ -18,6 +19,7 @@ program QSort;
     getCrediet : integer;
     remainCredite : integer;
     gradeTmp : integer;
+    GPA : real;
 
   begin
     totalCrediet := 0;
@@ -38,32 +40,26 @@ program QSort;
       totalCrediet := totalCrediet + num;
       readln(ch);
       readln(ch);
-      write(ch);
       idx := 0;
       while ch <> '|' do
       begin
-        readln(num);
-        write(num);
-        require[n][idx] := num;
+        readln(cNum);
+        require[n][idx] := cNum;
         idx := idx + 1;
         readln(ch);
-        write(ch);
         if ch = ',' then
         begin
           readln(ch);
-          write(ch);
         end;
         if ch = ';' then
         begin
           require[n][idx] := -1;
           idx := idx + 1;
           readln(ch);
-          write(ch);
         end;
       end; 
       require[n][idx] := -2;
         readln(ch);
-        write(ch);
         if ch <> '\n' then 
         begin
           attemptCrediet := attemptCrediet + num;
@@ -89,28 +85,23 @@ program QSort;
           end;
           grade[n] := ch;
           readln(ch);
-          write(ch);
         end;
       
       readln(c);
       if c <> 'c' then writeln('e');
     end;
-  validCourse[validIdx] = -1;
+  validCourse[validIdx] := -1;
 
-  validIdx := 0;
-  if totalCrediet <> getCrediet then
-  begin
-    while validCourse[validIdx] <> -1 do 
-    begin
-      n := validCourse[validIdx];
-      idx := 0;
-      while require[n][idx] <> -2 do
-      begin
-
-      end;
-      validIdx := validIdx + 1;
-    end;
-  end;
+  GPA := gradeTmp / getCrediet;
+  write('G','P','A',':',' ');
+  writeln(GPA);
+  write('H','o','u','r','s',' ','A','t','t','e','m','p','t','e','d',':',' ');
+  writeln(attemptCrediet);
+  write('H','o','u','r','s',' ','C','o','m','p','l','e','t','e','d',':',' ');
+  writeln(getCrediet);
+  write('C','r','e','d','i','t','s',' ','R','e','m','a','i','n','i','n','g',':',' ');
+  writeln(totalCrediet - getCrediet);
+  write('\n');
   
 
   end.
