@@ -114,6 +114,16 @@ using namespace std;
                                     tmp.erase(0, 1);
                                     tmp.erase(tmp.size() - 1, 1);
                                     std::cout << "String: " << tmp << std::endl;
+                                    if (tmp == "\\n") {
+                                        std::cout << "NewLine" << std::endl;
+                                        yylval.cval = '\n';
+                                        return CHAR;
+                                    }
+                                    else if (tmp == "\\0") {
+                                        std::cout << "Null" << std::endl;
+                                        yylval.cval = '\0';
+                                        return CHAR;
+                                    }
                                     yylval.sval = new string(tmp);
                                     return STRING;
                                 }
