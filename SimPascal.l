@@ -119,6 +119,11 @@ using namespace std;
                                         yylval.cval = '\n';
                                         return CHAR;
                                     }
+                                    else if (tmp == "\\0") {
+                                        std::cout << "Null" << std::endl;
+                                        yylval.cval = '\0';
+                                        return CHAR;
+                                    }
                                     yylval.sval = new string(tmp);
                                     return STRING;
                                 }
