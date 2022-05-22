@@ -101,9 +101,16 @@ program QSort;
   validCourse[validIdx] := -1;
 
   write('G','P','A',':',' ');
-  gradeReal := gradeTmp;
-  attemptCredietReal := attemptCrediet;
-  GPA := gradeReal / attemptCredietReal;
+  if attemptCrediet = 0 then
+  begin
+    GPA := 0.0;
+  end
+  else
+  begin
+    gradeReal := gradeTmp;
+    attemptCredietReal := attemptCrediet;
+    GPA := gradeReal / attemptCredietReal;
+  end;
   writeln(GPA);
   write('H','o','u','r','s',' ','A','t','t','e','m','p','t','e','d',':',' ');
   writeln(attemptCrediet);
