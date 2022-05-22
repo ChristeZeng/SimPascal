@@ -7,7 +7,18 @@ Value *Assign_stmt::codegen(CodeGenerator &codeGenerator) {
     print("Assign_stmt::codegen");
     if((!lexpression)&&(!fid)){ //id assignment
         print("Assign_stmt::codegen: id");
-        return codeGenerator.builder.CreateStore(rexpression->codegen(codeGenerator), codeGenerator.getValue(lid->name));
+        Value *val = lid->codegen(codeGenerator);
+        Value *lval = codeGenerator.getValue(lid->name);
+        Value *rval = rexpression->codegen(codeGenerator);
+        if(val->getType()!=rval->getType()){
+            if(val->getType()->isIntegerTy()){
+                rval = codeGenerator.builder.CreateFPToUI(rval, codeGenerator.builder.getInt32Ty());
+            }
+            else if(val->getType()->isDoubleTy()){
+                rval = codeGenerator.builder.CreateUIToFP(rval, codeGenerator.builder.getDoubleTy());
+            }
+        }
+        return codeGenerator.builder.CreateStore(rval, lval);
     } else if(fexpression){ //2d array assignment
         print("Assign_stmt::codegen: 2-d array");
         return codeGenerator.builder.CreateStore(rexpression->codegen(codeGenerator), (new Array_access(lid, lexpression, fexpression))->getPtr(codeGenerator));
@@ -98,7 +109,7 @@ Value *Sysproc_stmt::codegen(CodeGenerator &codeGenerator) {
                 if (argValue->getType() == codeGenerator.builder.getInt32Ty()||
                     argValue->getType() == codeGenerator.builder.getInt1Ty()) Format = Format + "%d";
                 else if (argValue->getType() == codeGenerator.builder.getInt8Ty()) Format = Format + "%c";
-                else if (argValue->getType()->isDoubleTy()) Format = Format + "%lf";
+                else if (argValue->getType()->isDoubleTy()) Format = Format + "%.1lf";
                 else throw logic_error("Write Type Error!");
 
                 sysargs.push_back(argValue);
@@ -121,7 +132,7 @@ Value *Sysproc_stmt::codegen(CodeGenerator &codeGenerator) {
                     if (argValue->getType() == codeGenerator.builder.getInt32Ty()||
                         argValue->getType() == codeGenerator.builder.getInt1Ty()) Format = Format + "%d";
                     else if (argValue->getType() == codeGenerator.builder.getInt8Ty()) Format = Format + "%c";
-                    else if (argValue->getType()->isDoubleTy()) Format = Format + "%lf";
+                    else if (argValue->getType()->isDoubleTy()) Format = Format + "%.1lf";
                     else throw logic_error("Write Type Error!");
                     
                     sysargs.push_back(argValue);
