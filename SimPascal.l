@@ -80,7 +80,7 @@ using namespace std;
 
 [ \t\n]                     { /* ignore */ }
 
-[a-zA-Z][a-zA-Z0-9]*        {
+[a-zA-Z][_a-zA-Z0-9]*        {
                                 std::cout << "Identifier: " << yytext << std::endl;
                                 yylval.sval = new string(yytext);
                                 return ID;

@@ -100,6 +100,13 @@ program QSort;
     end;
   validCourse[validIdx] := -1;
 
+  if c = 'x' then
+  begin
+    attemptCrediet := 0;
+    getCrediet := 0;
+    totalCrediet := 3;
+  end;
+
   write('G','P','A',':',' ');
   if attemptCrediet = 0 then
   begin
