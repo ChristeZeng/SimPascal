@@ -66,7 +66,7 @@ Value *Array_access::getPtr(CodeGenerator &codeGenerator) {
         print("idx is const range");
         idxValue = arr->get_idx(index->codegen(codeGenerator), codeGenerator);
     }else{
-        print("not const range");
+        throw runtime_error("idx is not const range");
     }
     vector<Value*> idxs;
     idxs.push_back(codeGenerator.builder.getInt32(0));
@@ -76,8 +76,6 @@ Value *Array_access::getPtr(CodeGenerator &codeGenerator) {
         int size1, size2; // actually not be used
         size1 = arr->get_size();
         size2 = arr->get_sub_size();
-        std::cout << "2-d array access: " << std::endl;
-        std::cout << size1 << " " << size2 << std::endl;
         //get first-level Ptr
         arrValue = codeGenerator.builder.CreateInBoundsGEP(arrType, arrValue, idxs);
         //Update arrType to next-level arrayType

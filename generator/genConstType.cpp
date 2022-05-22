@@ -286,7 +286,6 @@ llvm::Value* Array_type_decl::get_sub_idx(llvm::Value* originIdx, CodeGenerator 
 
 llvm::Constant *Array_type_decl::get_init_value(CodeGenerator &codeGenerator){
     size_t size = simple_type_decl->get_size();
-    cout << "size: " << size << endl;
     if(type_decl->get_llvm_type(codeGenerator) == codeGenerator.builder.getInt32Ty()){
         print("type is int");
     }

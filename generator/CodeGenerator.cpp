@@ -4,16 +4,8 @@ using namespace std;
 using namespace llvm;
 
 void CodeGenerator::generateCode(Program& root) {
-    cout<<"Begin Gen"<<endl;
     root.codegen(*this);
-    cout<<"Finish Gen"<<endl;
-    
-    // string s;
-    // raw_string_ostream os(s);
-    // module->print(os, nullptr);
-    // cout<<s<<endl;
     module->print(llvm::errs(), nullptr);
-    // cout<<"Finish"<<endl;
 }
 
 AllocaInst *CodeGenerator::CreateEntryBlockAlloca(Function *TheFunction, StringRef VarName, Type* type){
@@ -25,16 +17,10 @@ Value* CodeGenerator::getValue(string & name){
     Value *ret;
     for (auto iter = functions.rbegin(); iter != functions.rend(); iter++){
         ret=(*iter)->getValueSymbolTable()->lookup(name);
-        if (ret != nullptr){
-            cout<<"Find "<<name<<" in "<<string((*iter)->getName())<<endl;
-            return ret;
-        }else{
-            cout<<"Not Find "<<name<<" in "<<string((*iter)->getName())<< endl;
-        }
+        if (ret != nullptr) return ret;
     }
     ret = module->getGlobalVariable(name);
-    if (ret == nullptr) cout<<"Undefined variable: "<<name<<endl;
-    else cout<<"Find "<<name<<" in global"<<endl;
+    if (ret == nullptr) throw runtime_error("undefined variable: " + name);
     return ret;
 }
 

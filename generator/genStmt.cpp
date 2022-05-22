@@ -11,6 +11,7 @@ Value *Assign_stmt::codegen(CodeGenerator &codeGenerator) {
         Value *lval = codeGenerator.getValue(lid->name);
         Value *rval = rexpression->codegen(codeGenerator);
         if(val->getType()!=rval->getType()){
+            cout<<"Warning: type mismatch"<<endl;
             if(val->getType()->isIntegerTy()){
                 rval = codeGenerator.builder.CreateFPToUI(rval, codeGenerator.builder.getInt32Ty());
             }
@@ -34,7 +35,7 @@ Value *Assign_stmt::codegen(CodeGenerator &codeGenerator) {
 Value *Proc_stmt::codegen(CodeGenerator &codeGenerator) {
     print("Proc_stmt::codegen");
     Function *function = codeGenerator.module->getFunction(id->name);
-    if (function == nullptr) cout<<"Function not find: "<<id->name<<endl;
+    if (function == nullptr) throw runtime_error("Function not found");
     vector<Value*> args;
     Function::arg_iterator iter =  function->arg_begin();
     if (args_list) {
@@ -54,7 +55,7 @@ Value *Proc_stmt::codegen(CodeGenerator &codeGenerator) {
 Value *Func_stmt::codegen(CodeGenerator &codeGenerator) {
     print("Func_stmt::codegen");
     Function *function = codeGenerator.module->getFunction(id->name);
-    if (function == nullptr) cout<<"Function not find: "<<id->name<<endl;
+    if (function == nullptr) throw runtime_error("Function not found");
     vector<Value*> args;
     Function::arg_iterator iter =  function->arg_begin();
 
@@ -199,6 +200,7 @@ Value *Sysproc_stmt::codegen(CodeGenerator &codeGenerator) {
             break;
         }
         default:
+            throw logic_error("Unknown System Function!");
             return nullptr;
             break;
     }
