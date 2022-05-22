@@ -18,6 +18,7 @@ Value *Binary_operation(Value* lv, Binary_op op, Value* rv, CodeGenerator &codeG
             if (flag) return codeGenerator.builder.CreateFMul(lv, rv, "multmp");
             return codeGenerator.builder.CreateMul(lv, rv, "multmp");
         case Binary_op::S_DIV:
+            if (flag) return codeGenerator.builder.CreateFDiv(lv, rv, "divtmp");
             return codeGenerator.builder.CreateSDiv(lv, rv, "divtmp");
         case Binary_op::S_MOD:
             return codeGenerator.builder.CreateSRem(lv, rv, "modtmp");
