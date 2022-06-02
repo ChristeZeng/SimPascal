@@ -27,7 +27,22 @@ Value *Function_head::codegen(CodeGenerator &codeGenerator) {
     if (parameters) {
         for(auto para : *parameters) {
             if(para->getVaParaList()->getIsVarPara()){
-                types.insert(types.end(), para->getVaParaList()->getNameList()->size(), para->getSimpleTypeDecl()->codegen(codeGenerator)->getType());
+                Type *type = para->getSimpleTypeDecl()->codegen(codeGenerator)->getType();
+                Type *ptrType;
+                if(type->isIntegerTy()){
+                    if(type->getIntegerBitWidth() == 8){
+                        ptrType = Type::getInt8PtrTy(codeGenerator.context);
+                    } else if(type->getIntegerBitWidth() == 32){
+                        ptrType = Type::getInt32PtrTy(codeGenerator.context);
+                    } else if(type->getIntegerBitWidth() == 1){
+                        ptrType = Type::getInt1PtrTy(codeGenerator.context);
+                    }
+                } else if(type->isDoubleTy()){
+                    ptrType = Type::getDoublePtrTy(codeGenerator.context);
+                } else if(type->isFloatTy()){
+                    ptrType = Type::getFloatPtrTy(codeGenerator.context);
+                }
+                types.insert(types.end(), para->getVaParaList()->getNameList()->size(), ptrType);
             } else {
                 types.insert(types.end(), para->getVaParaList()->getNameList()->size(), para->getSimpleTypeDecl()->codegen(codeGenerator)->getType());
             }
@@ -48,19 +63,19 @@ Value *Function_head::codegen(CodeGenerator &codeGenerator) {
     codeGenerator.builder.SetInsertPoint(newBlock);
 
     Function::arg_iterator iter = function->arg_begin();
+    int idx = 1;
     if (parameters) {
         for (auto para : *parameters) {
             for (auto name : *para->getVaParaList()->getNameList()){
                 Value *alloc = nullptr;
                 if(para->getVaParaList()->getIsVarPara()){
-                    //tbd
-                    alloc = codeGenerator.CreateEntryBlockAlloca(function, name->name, para->getSimpleTypeDecl()->codegen(codeGenerator)->getType());
-                    codeGenerator.builder.CreateStore(iter, alloc);
-                    iter++;
+                    function->addAttribute(idx, Attribute::NonNull);
+                    alloc = codeGenerator.builder.CreateGEP(iter, codeGenerator.builder.getInt32(0),name->name);
+                    iter++;idx++;
                 } else {
                     alloc = codeGenerator.CreateEntryBlockAlloca(function, name->name, para->getSimpleTypeDecl()->codegen(codeGenerator)->getType());
                     codeGenerator.builder.CreateStore(iter, alloc);
-                    iter++;
+                    iter++;idx++;
                 }
             }
         }

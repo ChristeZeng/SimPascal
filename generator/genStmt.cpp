@@ -40,8 +40,12 @@ Value *Proc_stmt::codegen(CodeGenerator &codeGenerator) {
     Function::arg_iterator iter =  function->arg_begin();
     if (args_list) {
         for (auto arg : *args_list){
-            //value pointer tbd
-            args.push_back(arg->codegen(codeGenerator));
+            if (iter->hasNonNullAttr()){
+                Value * addr = codeGenerator.getValue(dynamic_cast<Identifier*>(arg)->name);
+                args.push_back(addr);
+            } else {
+                args.push_back(arg->codegen(codeGenerator));
+            }
             iter++;
         }
     }
@@ -61,8 +65,12 @@ Value *Func_stmt::codegen(CodeGenerator &codeGenerator) {
 
     if (args_list) {
         for (auto arg : *args_list){
-            //value pointer tbd
-            args.push_back(arg->codegen(codeGenerator));
+            if (iter->hasNonNullAttr()){
+                Value * addr = codeGenerator.getValue(dynamic_cast<Identifier*>(arg)->name);
+                args.push_back(addr);
+            } else {
+                args.push_back(arg->codegen(codeGenerator));
+            }
             iter++;
         }
     }
