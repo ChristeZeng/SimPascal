@@ -226,6 +226,13 @@ Value *Var_decl::codegen(CodeGenerator &codeGenerator) {
             varType = type_decl->get_llvm_type(codeGenerator);
             constant = type_decl->get_init_value(codeGenerator, nullptr);
             print("get constant");
+        }else if(type_decl->get_type() == Pas_type::RECORD_Type){
+            varType = type_decl->get_llvm_type(codeGenerator);
+            std::vector<llvm::Constant*> zeroes;
+            auto *recTy = llvm::cast<llvm::StructType>(varType);
+            for (auto itr = recTy->element_begin(); itr != recTy->element_end(); itr++)
+                zeroes.push_back(llvm::Constant::getNullValue(*itr));
+            constant = llvm::ConstantStruct::get(recTy, zeroes);
         }else{
             varType = value->getType();
             constant = Constant::getNullValue(value->getType());
@@ -305,9 +312,26 @@ Value *Array_type_decl::codegen(CodeGenerator &codeGenerator) {
     return type_decl->codegen(codeGenerator);
 }
 
+Type *Field_decl::get_llvm_type(CodeGenerator &codeGenerator) {
+    print("Fieldvget_llvm_type");
+    return type_decl->get_llvm_type(codeGenerator);
+}
+
 Value *Field_decl::codegen(CodeGenerator &codeGenerator) {
     print("Field_decl");
     return nullptr;
+}
+
+Type *Record_type_decl::get_llvm_type(CodeGenerator &codeGenerator) {
+    print("Record get_llvm_type");
+    std::vector<Type *> fieldTy;
+    for(auto field : *field_decl_list){
+        int n = field->get_number();
+        for(int i=0; i<n; i++){
+            fieldTy.push_back(field->get_llvm_type());
+        }
+    }
+    return StructType::get(codeGenerator.builder.getContext(), fieldTy);
 }
 
 Value *Record_type_decl::codegen(CodeGenerator &codeGenerator) {

@@ -137,6 +137,8 @@ public:
     Field_decl(Name_list *name_list, Type_decl *type_decl) : name_list(name_list), type_decl(type_decl) {}
     llvm::Value *codegen(CodeGenerator &codeGenerator);
     string Vis();
+    int get_number() {return name_list->size(); }
+    llvm::Type *get_llvm_type(CodeGenerator &codeGenerator);
 };
 
 using Field_decl_list = vector<Field_decl *>;
@@ -147,6 +149,7 @@ private:
 public:
     Record_type_decl(Field_decl_list *field_decl_list) : field_decl_list(field_decl_list) {}
     llvm::Value *codegen(CodeGenerator &codeGenerator);
+    llvm::Type *get_llvm_type(CodeGenerator &codeGenerator);
     string Vis();
 };
 
