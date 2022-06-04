@@ -123,7 +123,7 @@ Type* Type_decl::get_llvm_type(CodeGenerator &codeGenerator){
     } else if(array_type_decl) {
         return array_type_decl->get_llvm_type(codeGenerator);
     } else if(record_type_decl) {
-        //TBD
+        return record_type_decl->get_llvm_type(codeGenerator);
     } else {
         return nullptr;
     }
@@ -227,6 +227,8 @@ Value *Var_decl::codegen(CodeGenerator &codeGenerator) {
             constant = type_decl->get_init_value(codeGenerator, nullptr);
             print("get constant");
         }else if(type_decl->get_type() == Pas_type::RECORD_Type){
+            print("get record type");
+            codeGenerator.recMap[name->name] = type_decl->get_record_decl();
             varType = type_decl->get_llvm_type(codeGenerator);
             std::vector<llvm::Constant*> zeroes;
             auto *recTy = llvm::cast<llvm::StructType>(varType);
@@ -322,20 +324,40 @@ Value *Field_decl::codegen(CodeGenerator &codeGenerator) {
     return nullptr;
 }
 
+void Field_decl::merge(vector<string> *names) {
+    print("Field_merge");
+    for(auto name : *name_list){
+        (*names).push_back(name->name);
+    }
+}
+
 Type *Record_type_decl::get_llvm_type(CodeGenerator &codeGenerator) {
     print("Record get_llvm_type");
     std::vector<Type *> fieldTy;
     for(auto field : *field_decl_list){
         int n = field->get_number();
         for(int i=0; i<n; i++){
-            fieldTy.push_back(field->get_llvm_type());
+            fieldTy.push_back(field->get_llvm_type(codeGenerator));
         }
     }
     return StructType::get(codeGenerator.builder.getContext(), fieldTy);
 }
 
+llvm::Value *Record_type_decl::get_field_idx(string name, CodeGenerator &codeGenerator){
+    for(auto field : *field_decl_list){
+        //tbd
+    }
+    return nullptr;
+}
+
 Value *Record_type_decl::codegen(CodeGenerator &codeGenerator) {
     print("Record_type_decl");
+    for(auto field : *field_decl_list){
+        field->merge(&name_list);
+    }
+    for(auto name : name_list){
+        std::cout << "name: " << name << endl;
+    }
     return nullptr;
 }
 

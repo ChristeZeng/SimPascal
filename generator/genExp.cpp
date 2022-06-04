@@ -92,4 +92,13 @@ Value *Array_access::getPtr(CodeGenerator &codeGenerator) {
 Value *Record_access::codegen(CodeGenerator &codeGenerator) {
     print("Record_access::codegen");
     return nullptr;
+    //return codeGenerator.builder.CreateLoad(getPtr(codeGenerator), "arrPtr");
+}
+
+Value *Record_access::getPtr(CodeGenerator &codeGenerator) {
+    print("Record_access::getPtr");
+    std::string name = id->name;
+    Value *arrValue = codeGenerator.getValue(name), *idxValue;
+    Record_type_decl *rec = codeGenerator.recMap[name];
+    return nullptr;
 }

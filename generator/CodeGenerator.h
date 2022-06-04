@@ -39,7 +39,7 @@ using namespace llvm;
 using namespace std;
 
 static void print(string s) {
-    // cout << s << endl;
+    cout << s << endl;
 }
 
 template <typename T> static std::string Print_value(T* value_or_type) {
@@ -60,6 +60,7 @@ public:
     vector<Function*> functions;
     Function *read, *write;
     map<string, Array_type_decl*> arrMap;
+    map<string, Record_type_decl*> recMap;
     CodeGenerator():builder(context) {
         module = new Module("main", context);
         addrSpace = module->getDataLayout().getAllocaAddrSpace();

@@ -139,6 +139,7 @@ public:
     string Vis();
     int get_number() {return name_list->size(); }
     llvm::Type *get_llvm_type(CodeGenerator &codeGenerator);
+    void merge(vector<string> *names);
 };
 
 using Field_decl_list = vector<Field_decl *>;
@@ -146,10 +147,12 @@ using Field_decl_list = vector<Field_decl *>;
 class Record_type_decl : public Node {
 private:
     Field_decl_list *field_decl_list;
+    vector<string> name_list;
 public:
     Record_type_decl(Field_decl_list *field_decl_list) : field_decl_list(field_decl_list) {}
     llvm::Value *codegen(CodeGenerator &codeGenerator);
     llvm::Type *get_llvm_type(CodeGenerator &codeGenerator);
+    llvm::Value *get_field_idx(string name, CodeGenerator &codeGenerator);
     string Vis();
 };
 
@@ -179,6 +182,8 @@ public:
     Base_type get_base_type(){ return simple_type_decl->get_base_type(); };
     Array_type_decl *get_array_decl(){ 
         return array_type_decl; };
+    Record_type_decl *get_record_decl(){ 
+        return record_type_decl; };
     size_t get_array_size(){ return array_type_decl->get_size(); };
     llvm::Value *get_idx(llvm::Value* originIdx, CodeGenerator &codeGenerator){ return array_type_decl->get_idx(originIdx, codeGenerator); };
 };

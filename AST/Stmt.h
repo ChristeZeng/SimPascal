@@ -228,4 +228,5 @@ public:
     Record_access(Identifier *id, Identifier *field_id) : id(id), field_id(field_id) {}
     llvm::Value *codegen(CodeGenerator &codeGenerator);
     string Vis();
+    llvm::Value *getPtr(CodeGenerator &codeGenerator);
 };
