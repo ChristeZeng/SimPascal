@@ -26,8 +26,9 @@ Value *Assign_stmt::codegen(CodeGenerator &codeGenerator) {
     } else if(lexpression) { // array assignment
         print("Assign_stmt::codegen: array");
         return codeGenerator.builder.CreateStore(rexpression->codegen(codeGenerator), (new Array_access(lid, lexpression))->getPtr(codeGenerator));
-    } else if(fid) { //record assignment
-        //tbd
+    } else if(fid){ //record assignment
+        print("Assign_stmt::codegen: record");
+        return codeGenerator.builder.CreateStore(rexpression->codegen(codeGenerator), (new Record_access(lid, fid))->getPtr(codeGenerator));
     }
     return nullptr;
 }
