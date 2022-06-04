@@ -8,6 +8,7 @@ program RecordTest;
     end;
 
   begin
+    rec.c := 2;
     i := 1;
     i := rec.c;
     writeln(i);

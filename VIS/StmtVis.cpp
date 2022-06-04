@@ -14,7 +14,7 @@ string Assign_stmt::Vis() {
         return Out("Assign_stmt", vector<string>{lid->Vis(), lexpression->Vis(), rexpression->Vis()});
     }
     else {
-        return Out("Assign_stmt", vector<string>{lid->Vis(), lexpression->Vis(), rexpression->Vis(), fid->Vis()});
+        return Out("Assign_stmt", vector<string>{lid->Vis(), rexpression->Vis(), fid->Vis()});
     }
 }
 
