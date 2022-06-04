@@ -39,7 +39,7 @@ using namespace llvm;
 using namespace std;
 
 static void print(string s) {
-    cout << s << endl;
+    //cout << s << endl;
 }
 
 template <typename T> static std::string Print_value(T* value_or_type) {

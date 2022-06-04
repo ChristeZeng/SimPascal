@@ -355,9 +355,9 @@ Value *Record_type_decl::codegen(CodeGenerator &codeGenerator) {
     for(auto field : *field_decl_list){
         field->merge(&name_list);
     }
-    for(auto name : name_list){
-        std::cout << "name: " << name << endl;
-    }
+    // for(auto name : name_list){
+    //     std::cout << "name: " << name << endl;
+    // }
     return nullptr;
 }
 

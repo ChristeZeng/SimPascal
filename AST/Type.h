@@ -147,8 +147,8 @@ using Field_decl_list = vector<Field_decl *>;
 class Record_type_decl : public Node {
 private:
     Field_decl_list *field_decl_list;
-    vector<string> name_list;
 public:
+    vector<string> name_list;
     Record_type_decl(Field_decl_list *field_decl_list) : field_decl_list(field_decl_list) {}
     llvm::Value *codegen(CodeGenerator &codeGenerator);
     llvm::Type *get_llvm_type(CodeGenerator &codeGenerator);

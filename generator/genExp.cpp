@@ -91,14 +91,24 @@ Value *Array_access::getPtr(CodeGenerator &codeGenerator) {
 
 Value *Record_access::codegen(CodeGenerator &codeGenerator) {
     print("Record_access::codegen");
-    return nullptr;
-    //return codeGenerator.builder.CreateLoad(getPtr(codeGenerator), "arrPtr");
+    //return nullptr;
+    return codeGenerator.builder.CreateLoad(getPtr(codeGenerator), "arrPtr");
 }
 
 Value *Record_access::getPtr(CodeGenerator &codeGenerator) {
     print("Record_access::getPtr");
     std::string name = id->name;
-    Value *arrValue = codeGenerator.getValue(name), *idxValue;
+    Value *recValue = codeGenerator.getValue(name), *idxValue;
     Record_type_decl *rec = codeGenerator.recMap[name];
-    return nullptr;
+    std::string target_name = field_id->name;
+    int idx = 0;
+    for(auto in_name : rec->name_list){
+        if(in_name == target_name)break;
+        idx++;
+    }
+    idxValue = codeGenerator.builder.getInt32(idx);
+    vector<Value*> idxs;
+    idxs.push_back(codeGenerator.builder.getInt32(0));
+    idxs.push_back(idxValue);
+    return codeGenerator.builder.CreateInBoundsGEP(recValue, idxs);
 }
